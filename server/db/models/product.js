@@ -21,7 +21,7 @@ const Product = db.define('product', {
     type: Sequelize.TEXT,
     allowNull: false,
   },
-  qtyOnHand: {
+  qtyAvailable: {
     type: Sequelize.INTEGER,
     allowNull: false,
     defaultValue: 0,
@@ -34,3 +34,5 @@ const Product = db.define('product', {
     defaultValue: 'https://upload.wikimedia.org/wikipedia/commons/3/33/Tags_font_awesome.svg',
   },
 })
+
+module.exports = Product;
