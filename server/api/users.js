@@ -22,7 +22,7 @@ router.get('/:id', (req, res, next) => {
       .catch(next);
 })
 
-router.post('/create-user', (req, res, next) => {
+router.post('/create', (req, res, next) => {
   User.create(req.body)
     .then(newUser => {
       res.send(200).json(newUser)
@@ -30,7 +30,7 @@ router.post('/create-user', (req, res, next) => {
     .catch(next);
 })
 
-router.put('/:id/edit-user', (req, res, next) => {
+router.put('/:id/edit', (req, res, next) => {
   const userId = req.params.id;
   User.findById(userId)
     .then(user => user.toggleAdmin())
