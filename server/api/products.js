@@ -19,7 +19,7 @@ router.get('/', (req, res, next) => {
       .catch(next)
   })
 
-  router.get('?name', (req, res, next) => {
+  router.get('/?name', (req, res, next) => {
     const searchName = req.query.name
     Product.findAll({
         name: searchName
@@ -28,7 +28,7 @@ router.get('/', (req, res, next) => {
       .catch(next)
   })
 
-  router.get('?category', (req, res, next) => {
+  router.get('/?category', (req, res, next) => {
     const searchCat = req.query.category
     Category.findOne({
         name: searchCat,
