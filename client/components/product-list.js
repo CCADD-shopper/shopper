@@ -1,27 +1,15 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
-import store, { 
-  getProductsFromServerThunkerator,
-}
-from '../store';
 
-class ProductList extends Component {
-  constructor() {
-    super();
-  }
-  componentDidMount () {
-    store.dispatch(getProductsFromServerThunkerator());
-  }
-  render() {
-    console.log(this.props);
-    const { productList } = this.props;
-    return (
-      <div>
+const ProductList = (props) => {
+  const { productList } = props;
+  return (
+    <div>
       {productList.map(product => <p key={product.id} >{product.name}</p>)}
-      </div>
-    );
-  }
+    </div>
+  );
 }
+
 
 
 const mapStateToProps = ({ productList }) => ({ productList });
