@@ -1,26 +1,25 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import store, { getUsersFromServerThunkerator } from '../../store'
+import UserItem from './user-item'
+
+///this should only be available to admin users
 
 export class UserList extends Component {
-    // constructor(props) {
-    //     super(props)
-    // }
+    constructor(props) {
+        super(props)
+    }
 
     componentDidMount() {
         store.dispatch(getUsersFromServerThunkerator());
     }
 
     render() {
-        console.log('heh', this.state)
+        const users = this.props.allUsers;
+        // console.log(users);
         return (
             <div>
-                <div> And Follow Me </div>
-                <ul>
-                    {/* {this.props.user.users.map(user => {
-                            return <li key={user.id}> user.email </li>
-                        })} */}
-                </ul>
+                {users.map(user => <UserItem key={user.id} user={user} />)}
             </div>
         )
     }
