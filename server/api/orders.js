@@ -33,7 +33,12 @@ router.post('/new-order', (req, res, next) => {
   })
 
   router.put('/:oderId/', (req, res, next) => {
-    Order.create(req.body)
-      .then(newOrder => res.send(200).json(newOrder))
-      .catch(next)
+    const orderId = req.params.orderId;
+    Order.update(req.body, {
+        where: {
+            id: orderId
+        }})
+        .then(order => Order.findById(order.id))
+        .then(updatedOrder => res.send(200).json(updatedOrder))
+        .catch(next)
   })
