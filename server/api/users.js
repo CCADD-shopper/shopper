@@ -2,44 +2,71 @@ const router = require('express').Router()
 const { User } = require('../db/models')
 module.exports = router
 
-router.get('/', (req, res, next) => {
-  User.findAll({
-      // explicitly select only the id and email fields - even though
-      // users' passwords are encrypted, it won't help if we just
-      // send everything to anyone who asks!
-      attributes: ['id', 'email']
-    })
-    .then(users => res.json(users))
-    .catch(next)
+router.get('/',  async (req, res, next) => {
+  try {
+    const users = await User.findAll()
+    res.json(users)
+  }
+  catch(err) {
+    console.log(err)
+  }
 })
 
-router.get('/:id', (req, res, next) => {
-  const userId = req.params.id;
-  User.findById(userId)
-      .then(user => res.json(user))
-      .catch(next);
+router.get('/:id', async (req, res, next) => {
+
+  try {
+    const userId = req.params.id;
+    const user = await User.findById(userId)
+    res.json(user)
+  }
+  catch (err) {
+    next(err)
+  }
 })
 
-router.post('/create', (req, res, next) => {
-  User.create(req.body)
-    .then(newUser => {
-      res.send(200).json(newUser)
-    })
-    .catch(next);
+router.post('/create', async (req, res, next) => {
+  try {
+    const user = await User.create(req.body)
+    res.send(200).json(user)
+  }
+  catch (err){
+    next(err);
+  }
 })
 
-router.put('/:id/edit', (req, res, next) => {
-  const userId = req.params.id;
-  User.findById(userId)
-    .then(user => user.toggleAdmin())
-    .catch(next);
+router.put('/:id/toggle-admin', async (req, res, next) => {
+  try {
+    const userId = req.params.id;
+    const user = await User.findById(userId)
+    ///////////////////////returning user?
+    user.toggleAdmin()
+    res.sendStatus(201)
+  }
+  catch (err){
+    next(err)
+  }
 })
 
-router.delete('/:id', (req, res, next) => {
-  const userId = req.params.id;
-  User.findById(userId)
-      .then(user => {
-        return user.destroy()
-      })
-      .catch(next);
+router.put('/:id/update-password', async (req, res, next) => {
+  try {
+    const userId = req.params.id;
+    const user = await User.findById(userId)
+    await user.update({ password: req.body.password })
+    res.sendStatus(201)
+  }
+  catch (err){
+    next(err)
+  }
+})
+
+router.delete('/:id', async (req, res, next) => {
+  try {
+    const userId = req.params.id;
+    const user = await User.findById(userId)
+    user.destroy()
+    res.sendStatus(202)
+  }
+  catch (err){
+    next(err)
+  }
 })
