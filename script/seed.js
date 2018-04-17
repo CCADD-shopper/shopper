@@ -19,11 +19,14 @@ async function seed() {
   let categories = [];
 
   for (let i = 0; i < numOfUsers; i++) {
+    let isAdmin = false;
+    if (!(i % 7)) isAdmin = true;
     users.push(
       User.create({
         firstName: `FakeName`,
         lastName: i.toString(),
         email: `fakeEmail${i}@email.com`,
+        isAdmin,
       })
     )
   }
