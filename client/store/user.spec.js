@@ -39,6 +39,7 @@ describe('thunk creators', () => {
         })
     })
   })
+
   describe('get all students', () => {
     it('adds all users to state when logged in user is admin', () => {
       mockAxios.onGet('/api/users').replyOnce(200)

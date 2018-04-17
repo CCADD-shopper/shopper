@@ -52,7 +52,7 @@ export const logout = () =>
 
 export const getAllUsersThunkCreator = () =>
 dispatch =>
-  axios.post('/users/')
+  axios.get('api/users')
     .then(res => {
       dispatch(getAllUsers(res.data))
       // history.push('/login')
@@ -65,11 +65,11 @@ dispatch =>
 export default function (state = defaultUser, action) {
   switch (action.type) {
     case GET_USER:
-      return action.user
+      return Object.assign({}, state, {user: action.user})
     case REMOVE_USER:
       return defaultUser
     case GET_ALL_USERS:
-      return Object.assign({}, state, action.users)
+      return Object.assign({}, state, { users: action.users})
     default:
       return state
   }
