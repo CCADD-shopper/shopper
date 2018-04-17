@@ -2,32 +2,31 @@
 
 const {expect} = require('chai')
 const db = require('../index')
-const Review = db.model('review')
+const Order = db.model('order')
 
-describe('Review model', () => {
+describe('Order model', () => {
   beforeEach(() => {
     return db.sync({force: true})
   })
 
   describe('validations', () => {
     describe('rating', () => {
-      let review, error
+      let order, error
 
       beforeEach(() => {
-        return Review.create({
-          description: 'this product is awesome',
-          rating: 6
+        return Order.create({
+          status: 'not completed'
         })
-          .then(user => {
-            review = user
+          .then(result => {
+            order = result
           })
           .catch(err => {
             error = err
           })
       })
 
-      it('Will not accept rating greater than 5', () => {
-        expect(error.name).to.be.equal('SequelizeValidationError')
+      it('Will only accept ENUM values', () => {
+        expect(error.name).to.be.equal('SequelizeDatabaseError')
       })
     })
   })
