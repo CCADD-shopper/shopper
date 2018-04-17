@@ -19,3 +19,12 @@ form div {
   margin: 1em;
   display: inline-block;
 }
+
+.productItem {
+  margin: 10px 0;
+  border: 1px solid black; 
+}
+
+.productItem img {
+  width: 100px;
+}
