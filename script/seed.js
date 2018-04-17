@@ -1,31 +1,71 @@
-/**
- * Welcome to the seed file! This seed file uses a newer language feature called...
- *
- *                  -=-= ASYNC...AWAIT -=-=
- *
- * Async-await is a joy to use! Read more about it in the MDN docs:
- *
- * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function
- *
- * Now that you've got the main idea, check it out in practice below!
- */
+
 const db = require('../server/db')
-const {User} = require('../server/db/models')
+const {
+  User,
+  Product,
+  Category,
+} = require('../server/db/models')
 
-async function seed () {
-  await db.sync({force: true})
+async function seed() {
+  await db.sync({ force: true })
   console.log('db synced!')
-  // Whoa! Because we `await` the promise that db.sync returns, the next line will not be
-  // executed until that promise resolves!
 
-  const users = await Promise.all([
-    User.create({email: 'cody@email.com', password: '123'}),
-    User.create({email: 'murphy@email.com', password: '123'})
-  ])
-  // Wowzers! We can even `await` on the right-hand side of the assignment operator
-  // and store the result that the promise resolves to in a variable! This is nice!
-  console.log(`seeded ${users.length} users`)
-  console.log(`seeded successfully`)
+  const numOfUsers = 30;
+  const numOfProducts = 100;
+  const numOfCategories = 10;
+
+  let users = [];
+  let products = [];
+  let categories = [];
+
+  for (let i = 0; i < numOfUsers; i++) {
+    users.push(
+      User.create({
+        firstName: `FakeName`,
+        lastName: i.toString(),
+        email: `fakeEmail${i}@email.com`,
+      })
+    )
+  }
+
+  function round(number, precision) {
+    var shift = function (number, precision, reverseShift) {
+      if (reverseShift) {
+        precision = -precision;
+      }  
+      var numArray = ("" + number).split("e");
+      return +(numArray[0] + "e" + (numArray[1] ? (+numArray[1] + precision) : precision));
+    };
+    return shift(Math.round(shift(number, precision, false)), precision, true);
+  }
+
+  for (let i = 0; i < numOfProducts; i++) {
+    products.push(
+      Product.create({
+        name: `Product #${i}`,
+        price: round(Math.random() * 10, 2),
+        description: 'I am a description for this great product!  BUY IT NOW!',
+        qtyAvailable: Math.floor(Math.random() * 100),
+      })
+    )
+  }
+
+  for (let i = 0; i < numOfCategories; i++) {
+    categories.push(
+      Category.create({
+        name: `Category ${i}`,
+      })
+    )
+  }
+
+  const usersPromise = await Promise.all(users);
+  const productsPromise = await Promise.all(products);
+  const categoriesPromise = await Promise.all(categories);
+
+  console.log(`seeded ${usersPromise.length} users`)
+  console.log(`seeded ${productsPromise.length} users`)
+  console.log(`seeded ${categoriesPromise.length} users`)
+  console.log(`all data seeded successfully`)
 }
 
 // Execute the `seed` function
