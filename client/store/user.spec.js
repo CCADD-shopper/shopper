@@ -1,7 +1,7 @@
 /* global describe beforeEach afterEach it */
 
 import {expect} from 'chai'
-import {me, logout} from './user'
+import {me, logout, getAllUsersThunkCreator} from './user'
 import axios from 'axios'
 import MockAdapter from 'axios-mock-adapter'
 import configureMockStore from 'redux-mock-store'
@@ -39,6 +39,18 @@ describe('thunk creators', () => {
         })
     })
   })
+  describe('get all students', () => {
+    it('adds all users to state when logged in user is admin', () => {
+      mockAxios.onGet('/api/users').replyOnce(200)
+      return store.dispatch(getAllUsersThunkCreator())
+        .then(() => {
+          const actions = store.getActions()
+          console.log('here', actions)
+          expect(actions[0].type).to.be.equal('GET_ALL_USERS')
+          // expect(history.location.pathname).to.be.equal('/login')
+        })
+    })
+  })
 
   describe('logout', () => {
     it('logout: eventually dispatches the REMOVE_USER action', () => {
@@ -51,4 +63,5 @@ describe('thunk creators', () => {
         })
     })
   })
+
 })
