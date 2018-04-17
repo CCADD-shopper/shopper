@@ -3,6 +3,20 @@ const Sequelize = require('sequelize')
 const db = require('../db')
 
 const User = db.define('user', {
+  firstName: {
+    type: Sequelize.STRING,
+    allowNull: false,
+    validate: {
+      notEmpty: true,
+    }
+  },
+  lastName: {
+    type: Sequelize.STRING,
+    allowNull: false,
+    validate: {
+      notEmpty: true,
+    }
+  },
   email: {
     type: Sequelize.STRING,
     unique: true,
@@ -47,11 +61,7 @@ User.prototype.correctPassword = function (candidatePwd) {
 }
 
 User.prototype.toggleAdmin = function () {
-  return this.setDataValue('isAdmin', !this.getDataValue('isAdmin'))
-}
-
-User.prototype.resetPassword = function(candidatePwd) {
-  this.correctPassword(candidatePwd);
+  this.setDataValue('isAdmin', !this.getDataValue('isAdmin'))
 }
 
 /**
