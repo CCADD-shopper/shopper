@@ -65,6 +65,14 @@ async function seed() {
   const productsPromise = await Promise.all(products);
   const categoriesPromise = await Promise.all(categories);
 
+  await User.create({
+    firstName: 'a',
+    lastName: 'a',
+    email: 'a@a.com',
+    password: '123',
+    isAdmin: true,
+  })
+
   console.log(`seeded ${usersPromise.length} users`)
   console.log(`seeded ${productsPromise.length} products`)
   console.log(`seeded ${categoriesPromise.length} categories`)

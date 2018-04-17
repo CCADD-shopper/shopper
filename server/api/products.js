@@ -1,6 +1,5 @@
 const router = require('express').Router()
-const {Product} = require('../db/models/product')
-const {Category} = require('../db/models/category')
+const { Product, Category } = require('../db/models')
 module.exports = router
 
 router.param('productId', (req, res, next, productId) => {
@@ -14,8 +13,8 @@ router.param('productId', (req, res, next, productId) => {
 })
 
 router.get('/', (req, res, next) => {
-    Product.findAll({})
-      .then(users => res.json(users))
+    Product.findAll()
+      .then(products => {res.json(products)})
       .catch(next)
   })
 
