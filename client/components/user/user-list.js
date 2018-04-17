@@ -12,7 +12,7 @@ export class UserList extends Component {
     }
 
     render() {
-        console.log('heh', this.props)
+        console.log('heh', this.state)
         return (
             <div>
                 <div> And Follow Me </div>
@@ -30,9 +30,11 @@ export class UserList extends Component {
 
 /*-----------CONTAINER-----------*/
 
-const mapStateToProps = (state, ownProps) => ({
+const mapStateToProps = (state) => ({
+    allUsers: state.userList
     ///need to be able to get all of the users using a fetch
-})
+}
+)
 
 const mapDispatchToProps = null;
 

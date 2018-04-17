@@ -24,7 +24,7 @@ export default (prevState = [], action) => {
   switch (action.type) {
 
     case GET_USERS_FROM_SERVER:
-      return action.products;
+      return action.users;
 
     default: return prevState;
   }
