@@ -47,11 +47,7 @@ User.prototype.correctPassword = function (candidatePwd) {
 }
 
 User.prototype.toggleAdmin = function () {
-  return this.setDataValue('isAdmin', !this.getDataValue('isAdmin'))
-}
-
-User.prototype.resetPassword = function(candidatePwd) {
-  this.correctPassword(candidatePwd);
+  this.setDataValue('isAdmin', !this.getDataValue('isAdmin'))
 }
 
 /**
