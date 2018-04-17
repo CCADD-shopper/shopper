@@ -2,8 +2,8 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {withRouter, Route, Switch} from 'react-router-dom'
 import PropTypes from 'prop-types'
-import {Login, Signup, UserHome} from './components'
-import {me} from './store'
+import { Login, Signup, UserHome, ProductList } from './components'
+import store, { me, getProductsFromServerThunkerator } from './store'
 
 /**
  * COMPONENT
@@ -11,6 +11,7 @@ import {me} from './store'
 class Routes extends Component {
   componentDidMount () {
     this.props.loadInitialData()
+    store.dispatch(getProductsFromServerThunkerator());
   }
 
   render () {
@@ -26,6 +27,7 @@ class Routes extends Component {
             <Switch>
               {/* Routes placed here are only available after logging in */}
               <Route path="/home" component={UserHome} />
+              <Route exact path="/products" component={ProductList} />
             </Switch>
         }
         {/* Displays our Login component as a fallback */}

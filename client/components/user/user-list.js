@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import store, { getAllUsersThunkCreator } from '../../store'
+import store, { getUsersFromServerThunkerator } from '../../store'
 
 export class UserList extends Component {
     // constructor(props) {
@@ -8,7 +8,7 @@ export class UserList extends Component {
     // }
 
     componentDidMount() {
-        store.dispatch(getAllUsersThunkCreator());
+        store.dispatch(getUsersFromServerThunkerator());
     }
 
     render() {
