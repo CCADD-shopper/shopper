@@ -66,8 +66,8 @@ async function seed() {
   const categoriesPromise = await Promise.all(categories);
 
   console.log(`seeded ${usersPromise.length} users`)
-  console.log(`seeded ${productsPromise.length} users`)
-  console.log(`seeded ${categoriesPromise.length} users`)
+  console.log(`seeded ${productsPromise.length} products`)
+  console.log(`seeded ${categoriesPromise.length} categories`)
   console.log(`all data seeded successfully`)
 }
 
