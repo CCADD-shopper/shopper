@@ -12,7 +12,7 @@ const ProductList = (props) => {
         <p>${price} - {qtyAvailable} on hand</p>
         <p>{description}</p>
       </Link>
-      <StarsReadOnly />
+      <StarsReadOnly product={props.product} />
     </div>
   );
 }
