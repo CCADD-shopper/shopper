@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const { User, Review } = require('../db/models')
+const { User } = require('../db/models')
 module.exports = router
 
 router.param('/:userId', async (req, res, next, userId) => {
@@ -52,10 +52,16 @@ router.put('/:id/update-password', async (req, res, next) => {
   }
 })
 
-router.delete('/:id', async (req, res, next) => {
+router.delete('/:userId', async (req, res, next) => {
+  const id = req.params.userId
   try {
-    await req.user.destroy()
-    res.sendStatus(202)
+    const deletedUser = await User.destroy({where: {id}})
+    if (!deletedUser) {
+      const err = new Error('Not Found')
+      err.status = 404
+      throw err
+    }
+    res.json(deletedUser)
   }
   catch (err) {
     next(err)
