@@ -12,6 +12,10 @@ router.param('productId', (req, res, next, productId) => {
     .catch(next);
 })
 
+router.get('/:productId', (req, res, next) => {
+  res.json(req.product)
+})
+
 router.get('/', (req, res, next) => {
   console.log('i hit');
   Product.findAll()
