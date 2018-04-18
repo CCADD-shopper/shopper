@@ -37,37 +37,16 @@ router.get('/', (req, res, next) => {
     .catch(next)
 })
 
-router.get('/?name', (req, res, next) => {
-  const searchName = req.query.name
-  Product.findAll({
-    name: searchName
-  })
-    .then(users => res.json(users))
-    .catch(next)
-})
-
-router.get('/?category', (req, res, next) => {
-  const searchCat = req.query.category
-  Category.findOne({
-    name: searchCat,
-  })
-    .then(foundCat => Product.findAll({
-      category: foundCat.id,
-    }))
-    .then(prodsByCat => res.send(200).json(prodsByCat))
-    .catch(next)
-})
-
 router.post('/', (req, res, next) => {
   Product.create(req.body)
-    .then(newProduct => res.send(200).json(newProduct))
+    .then(newProduct => res.json(newProduct))
     .catch(next)
 })
 
-router.put('/', (req, res, next) => {
-  req.product.update(req.body)
-    .then(product => product.reload(Product))
-    .then(updatedProduct => res.json(updatedProduct))
+router.put('/:productId', (req, res, next) => {
+  const productId = req.params.productId
+  Product.update(req.body, {where: {id: productId}, returning: true})
+    .then(updatedProduct => res.json(updatedProduct[1][0]))
     .catch(next);
 })
 
