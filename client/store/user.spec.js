@@ -40,19 +40,6 @@ describe('thunk creators', () => {
     })
   })
 
-  describe('get all students', () => {
-    it('adds all users to state when logged in user is admin', () => {
-      mockAxios.onGet('/api/users').replyOnce(200)
-      return store.dispatch(getAllUsersThunkCreator())
-        .then(() => {
-          const actions = store.getActions()
-          console.log('here', actions)
-          expect(actions[0].type).to.be.equal('GET_ALL_USERS')
-          // expect(history.location.pathname).to.be.equal('/login')
-        })
-    })
-  })
-
   describe('logout', () => {
     it('logout: eventually dispatches the REMOVE_USER action', () => {
       mockAxios.onPost('/auth/logout').replyOnce(204)

@@ -45,6 +45,7 @@ form div {
 
 .userList{
   display: flex;
+  flex-wrap: wrap;
 }
 
 .orderList{
