@@ -59,5 +59,25 @@ describe('Reviews routes', () => {
           expect(res.body.rating).to.be.equal(5)
         })
     })
+    it('GET /api/reviews by Product', () => {
+      return request(app)
+        .get('/api/reviews/byProduct/1')
+        .expect(200)
+        .then(res => {
+          expect(res.body).to.be.an('array')
+          expect(res.body[0].description).to.be.equal('wow')
+          expect(res.body[0].productId).to.be.equal(1)
+        })
+    })
+    it('GET /api/reviews by User', () => {
+      return request(app)
+        .get('/api/reviews/byUser/1')
+        .expect(200)
+        .then(res => {
+          expect(res.body).to.be.an('array')
+          expect(res.body[0].description).to.be.equal('wow')
+          expect(res.body[0].userId).to.be.equal(1)
+        })
+    })
   }) // end describe('/api/reviews')
 }) // end describe('Review routes')

@@ -27,20 +27,6 @@ router.get('/:id', (req, res, next) => {
   res.json(req.user)
 })
 
-router.get('/:id/reviews', async (req, res, next) => {
-  try {
-    const userReviews = await Review.findAll({
-      where: {
-        userId: req.user.id,
-      }
-    })
-    res.json(userReviews.data)
-  }
-  catch (err) {
-    console.log(err)
-  }
-})
-
 router.post('/create', async (req, res, next) => {
   try {
     const user = await User.create(req.body)
