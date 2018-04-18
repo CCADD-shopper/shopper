@@ -14,7 +14,7 @@ describe('Order routes', () => {
     return db.sync({force: true})
   })
 
-  describe('/api/orders/', () => {
+  describe.only('/api/orders/', () => {
 
     beforeEach(async() => {
       await User.create({

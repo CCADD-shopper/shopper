@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const {Order} = require('../db/models')
+const {Order, OrderProducts} = require('../db/models')
 // const {User} = require('../db/models/user')
 module.exports = router
 
@@ -32,14 +32,74 @@ router.post('/new-order', (req, res, next) => {
       .catch(next)
   })
 
-  router.put('/:orderId/', (req, res, next) => {
-    const orderId = req.params.orderId;
-    Order.update(req.body, {
-        where: {
-            id: orderId
-        }, returning: true})
-        .then(order => {
-          res.json(order[1][0])
-        })
-        .catch(next)
-  })
+//edit order
+router.put('/:orderId/', (req, res, next) => {
+  const orderId = req.params.orderId;
+  Order.update(req.body, {
+      where: {
+          id: orderId
+      }, returning: true})
+      .then(order => {
+        res.json(order[1][0])
+      })
+      .catch(next)
+})
+
+//add one line item
+router.post('/add-item', (req, res, next) => {
+  OrderProducts.create(req.body)
+  .then(newItem => res.json(newItem))
+  .catch(next)
+})
+
+//edit one item
+router.put('/:orderId/edit-item', async (req, res, next) => {
+  const orderId = req.params.orderId
+  const productId = req.body.productId
+  try {
+    const updateLineItem = await OrderProducts.update({quantity: req.body.quantity},
+      {where: {
+        orderId,
+        productId,
+      }, returning: true})
+    res.json(updateLineItem[1])
+  }
+  catch (err) {
+    next(err)
+  }
+})
+
+//delete 1 line item
+router.delete('/:orderId/remove-item', async (req, res, next) => {
+  const orderId = req.params.orderId
+  const productId = req.body.productId
+  try {
+    const deletedRow = await OrderProducts.destroy({where: {
+      orderId,
+      productId
+    }})
+    res.json(deletedRow)
+  }
+  catch (err) {
+    next(err)
+  }
+})
+
+//Delete entire order
+router.delete('/:orderId', async (req, res, next) => {
+  const orderId = req.params.orderId
+  try {
+    const deletedRow = await OrderProducts.destroy({where: {
+      orderId
+    }})
+    await Order.destroy({
+      where: {
+        id: orderId
+      }
+    })
+    res.json(deletedRow)
+  }
+  catch (err) {
+    next(err)
+  }
+})
