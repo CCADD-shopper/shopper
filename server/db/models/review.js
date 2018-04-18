@@ -23,11 +23,4 @@ Review.afterCreate(async(review, options) => {
   product.increment('numOfReviews')
 })
 
-Review.afterDestroy(async(review, options) => {
-  const product = await Product.findById(review.productId)
-  const stars = review.rating
-  product.decrement('reviewTotal', {by: stars})
-  product.decrement('numOfReviews')
-})
-
 module.exports = Review;
