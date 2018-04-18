@@ -4,6 +4,7 @@ const {
   User,
   Product,
   Category,
+  Review,
 } = require('../server/db/models')
 
 async function seed() {
@@ -35,7 +36,7 @@ async function seed() {
     var shift = function (number, precision, reverseShift) {
       if (reverseShift) {
         precision = -precision;
-      }  
+      }
       var numArray = ("" + number).split("e");
       return +(numArray[0] + "e" + (numArray[1] ? (+numArray[1] + precision) : precision));
     };
@@ -72,6 +73,26 @@ async function seed() {
     password: '123',
     isAdmin: true,
   })
+
+  const allProducts = await Product.findAll();
+
+  const reviewPromises = [];
+
+  allProducts.forEach(product => {
+    for (let i = 0; i < 10; i++) {
+      reviewPromises.push(
+        Review.create({
+          productId: product.id,
+          userId: 1,
+          description: 'Hello',
+          rating: (Math.random() * 4) + 1,
+        })
+      )
+    }
+  })
+
+  const reviews = await Promise.all(reviewPromises);
+
 
   console.log(`seeded ${usersPromise.length} users`)
   console.log(`seeded ${productsPromise.length} products`)
