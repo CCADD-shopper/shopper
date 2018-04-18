@@ -15,7 +15,6 @@ const UserView = (props) => {
     externalInternal = 'Local User'
   }
 
-console.log(props)
   return (
     //need to update this once necessary
     <div className="userView">
