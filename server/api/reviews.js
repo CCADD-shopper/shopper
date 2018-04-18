@@ -56,3 +56,19 @@ router.get('/byUser/:userId/', async (req, res, next) => {
     console.log(err)
   }
 })
+
+router.delete('/:reviewId', async (req, res, next) => {
+  const id = req.params.reviewId
+  try {
+    const deletedReview = await Review.destroy({where: {id}})
+    if (!deletedReview) {
+      const err = new Error('Not Found')
+      err.status = 404
+      throw err
+    }
+    res.json(deletedReview)
+  }
+  catch (err) {
+    next(err)
+  }
+})
