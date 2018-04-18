@@ -35,3 +35,14 @@ router.put('/:productId', (req, res, next) => {
     .catch(next);
 })
 
+router.delete('/:productId', async (req, res, next) => {
+  const id = req.params.productId
+  try {
+    const deletedProduct = await Product.destroy({where: {id}})
+    res.json(deletedProduct)
+  }
+  catch (err) {
+    next(err)
+  }
+})
+
