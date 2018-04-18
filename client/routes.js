@@ -7,7 +7,7 @@ import store, {
   getProductsFromServerThunkerator,
   getOrdersFromServerThunkerator,
 } from './store'
-import { Login, Signup, UserHome, ProductList, ViewProduct, OrderList } from './components'
+import { Login, Signup, UserHome, ProductList, ViewProduct, OrderList, UserView } from './components'
 
 /**
  * COMPONENT
@@ -20,8 +20,15 @@ class Routes extends Component {
   }
 
   render () {
-    const {isLoggedIn} = this.props
+    const {isLoggedIn, user} = this.props
 
+    const MyUserPage = (props) => {
+      return (
+        <UserView
+        user={user}
+        {...props} />
+      )
+    }
     return (
       <Switch>
         {/* Routes placed here are available to all visitors */}
@@ -33,6 +40,7 @@ class Routes extends Component {
               {/* Routes placed here are only available after logging in */}
               <Route path="/home" component={UserHome} />
               <Route exact path="/products" component={ProductList} />
+              <Route path="/users/my-profile" render={MyUserPage} />
               <Route exact path="/orders" component={OrderList} />
               <Route exact path="/products/:productId" component={ViewProduct} />
             </Switch>
@@ -51,7 +59,8 @@ const mapState = (state) => {
   return {
     // Being 'logged in' for our purposes will be defined has having a state.user that has a truthy id.
     // Otherwise, state.user will be an empty object, and state.user.id will be falsey
-    isLoggedIn: !!state.user.id
+    isLoggedIn: !!state.user.id,
+    user: state.user
   }
 }
 
