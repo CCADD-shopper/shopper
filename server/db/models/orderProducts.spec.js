@@ -8,7 +8,7 @@ const Product = db.model('product')
 
 describe('OrderProducts model', () => {
   beforeEach(() => {
-    return db.sync()
+    return db.sync({force: true})
   })
 
   describe('validations', () => {
