@@ -1,7 +1,6 @@
 import React from 'react';
 
-const OrderList = (props) => {
-  console.log(props);
+const OrderItem = (props) => {
   const { id, status, userId } = props.order;
   return (
     <div className="orderItem">
@@ -12,4 +11,4 @@ const OrderList = (props) => {
   );
 }
 
-export default OrderList;
+export default OrderItem;
