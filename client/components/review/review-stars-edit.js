@@ -1,5 +1,7 @@
 import React from 'react'
-import StarRatingComponent from 'react-star-rating-component'
+// import StarRatingComponent from 'react-star-rating-component'
+import ReactStars from 'react-stars'
+
 
 class EditReviewStars extends React.Component {
     constructor(props) {
@@ -11,21 +13,22 @@ class EditReviewStars extends React.Component {
     }
 
     onStarClick(next, prev, name) {
+        console.log(next, prev, name)
         this.setState({rating: next})
     }
 
     render() {
-    const {review} = this.state.rating
+    const review = this.state.rating
     console.log(this.state);
     return (
         <div className="starRating">
             <p>Please Submit Your Rating</p>
-            <StarRatingComponent
-            name="rateEdit"
-            starCount={5}
-            editing={true}
+            <ReactStars
+            count={5}
+            edit={true}
+            size={24}
             value={review}
-            onStarClick={this.onStarClick}
+            onChange={this.onStarClick}
             />
         </div>
     )}

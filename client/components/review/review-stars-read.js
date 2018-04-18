@@ -1,5 +1,5 @@
 import React from 'react'
-import StarRatingComponent from 'react-star-rating-component'
+import ReactStars from 'react-stars'
 
 const StarsReadOnly = (props) => {
     const {averageRating, numOfReviews} = props.product
@@ -7,10 +7,11 @@ const StarsReadOnly = (props) => {
     return (
         <div className="starRating">
             <p>Average User Rating of ({numOfReviews}) Reviews</p>
-            <StarRatingComponent
-            name="rateDisplayOnly"
-            starCount={5}
-            editing={false}
+            <ReactStars
+            count={5}
+            // onChange={}
+            size={24}
+            edit={false}
             value={averageRating}
             />
         </div>
