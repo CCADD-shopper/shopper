@@ -21,7 +21,7 @@ const OrderProducts = require('./orderProducts')
  Review.belongsTo(Product)
 
  Product.belongsToMany(Category, { through: 'productCategories'})
- Category.hasMany(Product)
+ Category.belongsToMany(Product, { through: 'productCategories'})
 
 /**
  * We'll export all of our models here, so that any time a module needs a model,

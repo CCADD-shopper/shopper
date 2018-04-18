@@ -39,6 +39,20 @@ const Product = db.define('product', {
     },
     defaultValue: 'https://upload.wikimedia.org/wikipedia/commons/3/33/Tags_font_awesome.svg',
   },
+  numOfReviews: {
+    type: Sequelize.INTEGER,
+    defaultValue: 0,
+  },
+  reviewTotal: {
+    type: Sequelize.INTEGER,
+    defaultValue: 0,
+  },
+  averageRating: {
+    type: Sequelize.VIRTUAL,
+    get: function () {
+      return this.getDataValue('reviewTotal') / this.getDataValue('numOfReviews');
+    }
+  }
 })
 
 module.exports = Product;
