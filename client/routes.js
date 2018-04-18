@@ -2,9 +2,12 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {withRouter, Route, Switch} from 'react-router-dom'
 import PropTypes from 'prop-types'
-import { Login, Signup, UserHome, ProductList } from './components'
-import store, { me, getProductsFromServerThunkerator } from './store'
-import { UserView } from './components/user';
+import store, {
+  me,
+  getProductsFromServerThunkerator,
+  getOrdersFromServerThunkerator,
+} from './store'
+import { Login, Signup, UserHome, ProductList, ViewProduct, OrderList, UserView } from './components'
 
 /**
  * COMPONENT
@@ -13,6 +16,7 @@ class Routes extends Component {
   componentDidMount () {
     this.props.loadInitialData()
     store.dispatch(getProductsFromServerThunkerator());
+    store.dispatch(getOrdersFromServerThunkerator());
   }
 
   render () {
@@ -37,6 +41,8 @@ class Routes extends Component {
               <Route path="/home" component={UserHome} />
               <Route exact path="/products" component={ProductList} />
               <Route path="/users/my-profile" render={MyUserPage} />
+              <Route exact path="/orders" component={OrderList} />
+              <Route exact path="/products/:productId" component={ViewProduct} />
             </Switch>
         }
         {/* Displays our Login component as a fallback */}

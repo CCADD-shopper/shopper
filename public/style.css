@@ -25,6 +25,11 @@ form div {
   border: 1px solid black; 
 }
 
+.orderItem {
+  margin: 10px 0;
+  border: 1px solid black; 
+}
+
 .productItem img {
   width: 100px;
 }
@@ -49,3 +54,9 @@ form div {
   border: 1px solid black; 
   width: auto;
 }
+
+.orderList{
+  display: flex;
+  flex-direction: column;
+}
+/* //need to make generic list and item styles with uesr and product compliments!!! */
