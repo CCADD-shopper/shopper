@@ -2,28 +2,29 @@ import React from 'react';
 
 const UserList = (props) => {
   let { email, firstName, googleId, isAdmin, lastName } = props.user;
-
+  let externalInternal, adminType
   if (isAdmin) {
-    isAdmin = 'Admin User'
+    adminType = 'Admin User'
   } else {
-    isAdmin = 'Normal User'
+    adminType = 'Normal User'
   }
 
   if (googleId) {
-    googleId = 'Google User'
+    externalInternal = 'Google User'
   } else {
-    googleId = 'Local User'
+    externalInternal = 'Local User'
   }
 
 console.log(props)
   return (
-    <div className="productItem">
+    //need to update this once necessary
+    <div className="userItem">
       <img src="https://www.fillmurray.com/250/250" />
         <p>{email}</p>
         <p>{firstName}</p>
         <p>{lastName}</p>
-        <p>{googleId}</p>
-        <p>{isAdmin}</p>
+        <p>{externalInternal}</p>
+        <p>{adminType}</p>
         <button>TOGGLE ADMIN</button>
         <button> EDIT USER </button>
         <button> DELETE USER </button>

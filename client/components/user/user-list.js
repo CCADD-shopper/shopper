@@ -18,7 +18,7 @@ export class UserList extends Component {
         const users = this.props.allUsers;
         // console.log(users);
         return (
-            <div>
+            <div className="userList">
                 {users.map(user => <UserItem key={user.id} user={user} />)}
             </div>
         )
