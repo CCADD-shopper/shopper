@@ -8,13 +8,12 @@ export const getProductFromServer = (product) => ({
 })
 
 //thunk
-export const getProductFromServerThunkerator = () => {
+export const getProductFromServerThunkerator = (productId) => {
   return async (dispatch) => {
     try {
-      const selectedProduct = await axios.get('/api/product');
+      const selectedProduct = await axios.get(`/api/${productId}`);
       dispatch(getProductFromServer(selectedProduct.data));
-    }
-    catch (err) {
+    } catch (err) {
       console.log(err);
     }
   }
@@ -26,6 +25,7 @@ export default (prevState = [], action) => {
     case GET_PRODUCT:
       return action.product;
 
-    default: return prevState;
+    default:
+      return prevState;
   }
 }
