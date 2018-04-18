@@ -1,5 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
+import { StarsReadOnly } from '../review'
 
 const ProductList = (props) => {
   const { name, price, description, qtyAvailable, imgUrl } = props.product;
@@ -11,6 +12,7 @@ const ProductList = (props) => {
         <p>${price} - {qtyAvailable} on hand</p>
         <p>{description}</p>
       </Link>
+      <StarsReadOnly product={props.product} />
     </div>
   );
 }
