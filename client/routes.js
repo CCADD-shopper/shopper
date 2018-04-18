@@ -2,12 +2,12 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {withRouter, Route, Switch} from 'react-router-dom'
 import PropTypes from 'prop-types'
-import { Login, Signup, UserHome, ProductList, OrderList } from './components'
 import store, {
   me,
   getProductsFromServerThunkerator,
   getOrdersFromServerThunkerator,
 } from './store'
+import { Login, Signup, UserHome, ProductList, ViewProduct, OrderList } from './components'
 
 /**
  * COMPONENT
@@ -34,6 +34,7 @@ class Routes extends Component {
               <Route path="/home" component={UserHome} />
               <Route exact path="/products" component={ProductList} />
               <Route exact path="/orders" component={OrderList} />
+              <Route exact path="/products/:productId" component={ViewProduct} />
             </Switch>
         }
         {/* Displays our Login component as a fallback */}

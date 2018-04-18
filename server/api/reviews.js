@@ -2,32 +2,28 @@ const router = require('express').Router()
 const { Review } = require('../db/models')
 module.exports = router
 
-router.get('/:productId/reviews',  async (req, res, next) => {
+router.post('/', async (req, res, next) => {
   try {
-    const prodId = req.params.productId
-    const reviews = await Review.findAll({
-      where: {
-        id: prodId
-      }
-    })
-    res.json(reviews)
+    const review = await Review.create(req.body);
+    res.json(review)
   }
   catch (err) {
-    console.log(err)
+    next(err);
   }
 })
 
-router.get('/:userId/reviews',  async (req, res, next) => {
+router.put('/:reviewId', async (req, res, next) => {
   try {
-    const userId = req.params.userId
-    const reviews = await Review.findAll({
+    const reviewId = req.params.reviewId;
+    const review = await Review.update(req.body, {
       where: {
-        id: userId
-      }
-    })
-    res.json(reviews)
+        id: reviewId
+      },
+      returning: true,
+    });
+    res.json(review[1][0])
   }
   catch (err) {
-    console.log(err)
+    next(err);
   }
 })
