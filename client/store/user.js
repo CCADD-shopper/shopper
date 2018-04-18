@@ -48,6 +48,15 @@ export const logout = () =>
       })
       .catch(err => console.log(err))
 
+// export const getAllUsersThunkCreator = () =>
+// dispatch =>
+//   axios.get('api/users')
+//     .then(res => {
+//       dispatch(getAllUsers(res.data))
+//       // history.push('/login')
+//     })
+//     .catch(err => console.log(err))
+
 /**
  * REDUCER
  */
@@ -57,6 +66,8 @@ export default function (state = defaultUser, action) {
       return action.user
     case REMOVE_USER:
       return defaultUser
+    // case GET_ALL_USERS:
+    //   return Object.assign({}, state, { users: action.users})
     default:
       return state
   }
