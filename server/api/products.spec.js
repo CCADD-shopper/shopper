@@ -64,7 +64,7 @@ describe('Products routes', () => {
           expect(res.body).to.be.an('object')
           expect(res.body.description).to.be.equal('this hat is not warm')
           expect(res.body.id).to.be.equal(2)
-          expect(res.body.price).to.be.equal('55.55')
+          expect(res.body.price).to.be.equal(55.55)
         })
     })
     it('PUT /api/products/', () => {
@@ -76,7 +76,7 @@ describe('Products routes', () => {
         .then(res => {
           expect(res.body).to.be.an('object')
           expect(res.body.description).to.be.equal('this hat is not warm')
-          expect(res.body.price).to.be.equal('55.55')
+          expect(res.body.price).to.be.equal(55.55)
         })
     })
   }) // end describe('/api/products')
