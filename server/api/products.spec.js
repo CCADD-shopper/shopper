@@ -44,16 +44,6 @@ describe('Products routes', () => {
           expect(res.body.description).to.be.equal('asdlfjasdfkjhdsf')
         })
     })
-    it('GET /api/products', () => {
-      return request(app)
-        .get('/api/products/1/reviews')
-        .expect(200)
-        .then(res => {
-          expect(res.body).to.be.an('array')
-          expect(res.body[0].description).to.be.equal('wow')
-          expect(res.body[0].productId).to.be.equal(1)
-        })
-    })
     it('POST /api/products/', () => {
       var newProduct = {name: 'hat2', price: 55.55, description: 'this hat is not warm', qtyAvailable: 5}
       return request(app)
@@ -64,7 +54,7 @@ describe('Products routes', () => {
           expect(res.body).to.be.an('object')
           expect(res.body.description).to.be.equal('this hat is not warm')
           expect(res.body.id).to.be.equal(2)
-          expect(res.body.price).to.be.equal('55.55')
+          expect(res.body.price).to.be.equal(55.55)
         })
     })
     it('PUT /api/products/', () => {
@@ -76,7 +66,7 @@ describe('Products routes', () => {
         .then(res => {
           expect(res.body).to.be.an('object')
           expect(res.body.description).to.be.equal('this hat is not warm')
-          expect(res.body.price).to.be.equal('55.55')
+          expect(res.body.price).to.be.equal(55.55)
         })
     })
   }) // end describe('/api/products')

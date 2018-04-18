@@ -11,6 +11,7 @@ export const UserHome = (props) => {
   return (
     <div>
       <h3>Welcome, {email}</h3>
+      <a href="/users/my-profile"><p>View my profile</p></a>
     </div>
   )
 }

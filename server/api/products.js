@@ -16,21 +16,6 @@ router.get('/:productId', (req, res, next) => {
   res.json(req.product)
 })
 
-router.get('/:productId/reviews', async (req, res, next) => {
-  try {
-    const productReviews = await Review.findAll({
-      where: {
-        productId: req.product.id,
-      },
-      include: [{ model: User }],
-    })
-    res.json(productReviews)
-  }
-  catch (err) {
-    console.log(err)
-  }
-})
-
 router.get('/', (req, res, next) => {
   Product.findAll()
     .then(products => { res.json(products) })
@@ -48,5 +33,16 @@ router.put('/:productId', (req, res, next) => {
   Product.update(req.body, {where: {id: productId}, returning: true})
     .then(updatedProduct => res.json(updatedProduct[1][0]))
     .catch(next);
+})
+
+router.delete('/:productId', async (req, res, next) => {
+  const id = req.params.productId
+  try {
+    const deletedProduct = await Product.destroy({where: {id}})
+    res.json(deletedProduct)
+  }
+  catch (err) {
+    next(err)
+  }
 })
 

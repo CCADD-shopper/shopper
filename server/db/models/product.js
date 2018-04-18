@@ -11,10 +11,16 @@ const Product = db.define('product', {
     },
   },
   price: {
-    type: Sequelize.DECIMAL,
+    type: Sequelize.INTEGER,
     allowNull: false,
     validate: {
       notEmpty: true,
+    },
+    get: function () {
+      return this.getDataValue('price') / 100;
+    },
+    set: function (price) {
+      this.setDataValue('price', price * 100);
     }
   },
   description: {
