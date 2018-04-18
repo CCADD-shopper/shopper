@@ -1,6 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-import StarsReadOnly from '../review'
+import { StarsReadOnly } from '../review'
 
 const ProductList = (props) => {
   const { name, price, description, qtyAvailable, imgUrl } = props.product;

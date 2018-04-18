@@ -1,11 +1,11 @@
 import React from 'react'
 import StarRatingComponent from 'react-star-rating-component'
 
-const ReviewStars = (props) => {
-    const {review} = props
+const StarsReadOnly = (props) => {
+    const {review, numberOfReviews} = props
     return (
         <div className="starRating">
-            <p>Star Rating</p>
+            <p>Average User Rating of ({numberOfReviews}) Reviews</p>
             <StarRatingComponent
             name="rateDisplayOnly"
             starCount={5}
@@ -16,4 +16,4 @@ const ReviewStars = (props) => {
     )
 }
 
-export default ReviewStars;
+export default StarsReadOnly;

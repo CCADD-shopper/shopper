@@ -7,6 +7,7 @@ class EditReviewStars extends React.Component {
         this.state = {
             rating: 1,
         }
+        this.onStarClick = this.onStarClick.bind(this);
     }
 
     onStarClick(next, prev, name) {
@@ -15,15 +16,16 @@ class EditReviewStars extends React.Component {
 
     render() {
     const {review} = this.state.rating
+    console.log(this.state);
     return (
         <div className="starRating">
-            <p>Star Rating</p>
+            <p>Please Submit Your Rating</p>
             <StarRatingComponent
             name="rateEdit"
             starCount={5}
             editing={true}
             value={review}
-            onStarClick={this.onStarClick.bind(this)}
+            onStarClick={this.onStarClick}
             />
         </div>
     )}
