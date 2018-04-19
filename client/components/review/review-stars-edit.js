@@ -29,6 +29,7 @@ class EditReviewStars extends React.Component {
             size={24}
             value={review}
             onChange={this.onStarClick}
+            half={false}
             />
         </div>
     )}
