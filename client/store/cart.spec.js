@@ -12,7 +12,7 @@ import thunkMiddleware from 'redux-thunk'
 const middlewares = [thunkMiddleware]
 const mockStore = configureMockStore(middlewares)
 
-describe.only('Cart store', () => {
+describe('Cart store', () => {
   let store
 //   let mockAxios
 
