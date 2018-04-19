@@ -14,13 +14,23 @@ const Review = db.define('review', {
       max: 5,
     }
   }
+}, {
+  hooks: {
+    afterCreate: async(review, options) => {
+      const product = await Product.findById(review.productId)
+      const stars = review.rating
+      product.increment('starTotal', {by: stars})
+      product.increment('numOfReviews')
+    },
+    afterDestroy: async (review) => {
+      console.log(review);
+      const product = await Product.findById(review.productId)
+      const stars = review.rating
+      product.decrement('starTotal', {by: stars})
+      product.decrement('numOfReviews')
+    }
+  }
 })
 
-Review.afterCreate(async(review, options) => {
-  const product = await Product.findById(review.productId)
-  const stars = review.rating
-  product.increment('starTotal', {by: stars})
-  product.increment('numOfReviews')
-})
 
 module.exports = Review;
