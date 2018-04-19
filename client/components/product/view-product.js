@@ -27,6 +27,7 @@ class ViewProduct extends React.Component {
         <h5>{name}</h5>
         <p>${price} - {qtyAvailable} on hand</p>
         <p>{description}</p>
+        <button className="positive small right floated ui button">Add to cart</button>
         <StarsReadOnly product={this.props.selectedProduct} />
         <EditReviewStars product={this.props.selectedProduct} />
       </div>
