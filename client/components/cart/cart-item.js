@@ -17,9 +17,9 @@ class CartItem extends Component{
       <div className="cartItem">
             <img src={imgUrl} />
             <h5>{name}</h5>
-            <p>${price}</p>
+            <p className="price">${price}</p>
             <button onClick={this.handleDelete}>Remove Item</button>
-            <p>Quantity: {this.props.quantity}</p>
+            <p className="quantity">Quantity: {this.props.quantity}</p>
       </div>
     )
   }

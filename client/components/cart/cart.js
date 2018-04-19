@@ -25,7 +25,7 @@ class Cart extends Component{
           const product = this.findProductById(cartItem.productId)
           return (
           <div key={cartItem.productId}>
-            <CartItem product={product} quantity={cartItem.quantity} />
+            {/* <CartItem product={product} quantity={cartItem.quantity} /> */}
           </div>)
         })}
       </div>
