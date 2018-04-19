@@ -11,7 +11,7 @@ const ProductItem = (props) => {
     </Link>
     <p> ${price} - {qtyAvailable} on hand</p>
     <p>{description}</p>
-    <button>Add to cart</button>
+    <button className="positive small right floated ui button">Add to cart</button>
     <StarsReadOnly product={props.product}/>
   </div>);
 }
