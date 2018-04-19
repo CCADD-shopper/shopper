@@ -22,21 +22,30 @@ form div {
 
 .productItem {
   margin: 10px 0;
-  border: 1px solid black; 
+  border: 1px solid black;
+}
+
+.cartItem {
+  margin: 10px 0;
+  border: 1px solid black;
 }
 
 .orderItem {
   margin: 10px 0;
-  border: 1px solid black; 
+  border: 1px solid black;
 }
 
 .productItem img {
   width: 100px;
 }
 
+.cartItem img {
+  width: 100px;
+}
+
 .userItem {
   margin: 10px 0;
-  border: 1px solid black; 
+  border: 1px solid black;
 }
 
 .userItem img {
@@ -51,7 +60,7 @@ form div {
 
 .userView {
   margin: 10px 0;
-  border: 1px solid black; 
+  border: 1px solid black;
   width: auto;
 }
 
