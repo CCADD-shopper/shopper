@@ -4,3 +4,4 @@
  * having to figure out which file they belong to!
  */
 export {default as CartItem} from './cart-item'
+export {default as Cart} from './cart'
