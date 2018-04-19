@@ -36,7 +36,7 @@ export const persistCart = (cart) => ({
 })
 
 export const clearCart = () => ({
-    type: SAVE_CART_CHANGES,
+    type: CLEAR_CART,
 })
 
 //THUNK CREATOR these need revision

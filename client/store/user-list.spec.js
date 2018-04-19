@@ -45,7 +45,6 @@ describe('thunk creators user-list', () => {
       return store.dispatch(getUsersFromServerThunkerator())
         .then(() => {
           const actions = store.getActions()
-          console.log('here', actions)
           expect(actions[0].type).to.be.equal('GET_USERS_FROM_SERVER')
           // expect(history.location.pathname).to.be.equal('/login')
         })
