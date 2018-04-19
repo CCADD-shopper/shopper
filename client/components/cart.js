@@ -5,8 +5,6 @@ import ProductItem from './product/product-item';
 class Cart extends Component{
   constructor(props){
     super(props)
-    this.handleSubmit = this.handleSubmit.bind(this)
-    this.findProductById = this.findProductById.bind(this)
   }
 
   handleSubmit = () => {
