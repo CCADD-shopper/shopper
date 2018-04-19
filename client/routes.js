@@ -7,7 +7,7 @@ import store, {
   getProductsFromServerThunkerator,
   getOrdersFromServerThunkerator,
 } from './store'
-import { Login, Signup, UserHome, ProductList, ViewProduct, OrderList, UserView } from './components'
+import { Login, Signup, UserHome, ProductList, ViewProduct, OrderList, UserView, Cart } from './components'
 
 /**
  * COMPONENT
@@ -32,11 +32,12 @@ class Routes extends Component {
     return (
       <div className="mainContent">
       <Switch>
-          {/* Routes placed here are available to all visitors */}
-          <Route path="/login" component={Login} />
-          <Route path="/signup" component={Signup} />
-          {
-            isLoggedIn &&
+        {/* Routes placed here are available to all visitors */}
+        <Route path="/login" component={Login} />
+        <Route path="/signup" component={Signup} />
+        <Route path="/cart" component={Cart} />
+        {
+          isLoggedIn &&
             <Switch>
               {/* Routes placed here are only available after logging in */}
               <Route path="/home" component={UserHome} />

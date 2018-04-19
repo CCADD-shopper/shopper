@@ -10,3 +10,5 @@ export {ProductList, ProductItem, ViewProduct} from './product'
 export {default as UserHome} from './user-home'
 export {Login, Signup} from './auth-form'
 export {default as LeftBar} from './left-bar'
+export {default as Cart} from './cart'
+
