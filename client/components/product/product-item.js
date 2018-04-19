@@ -2,7 +2,7 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import { StarsReadOnly } from '../review'
 
-const ProductList = (props) => {
+const ProductItem = (props) => {
   const { name, price, description, qtyAvailable, imgUrl } = props.product;
   return (
       <Link className="thumbnail" to={`/products/${props.product.id}`}>
@@ -12,9 +12,10 @@ const ProductList = (props) => {
             <p>${price} - {qtyAvailable} on hand</p>
             <p>{description}</p>
         </div>
-      </Link>\
-      <StarsReadOnly product={props.product} />
+        <StarsReadOnly product={props.product} />
+      </Link>
+
   );
 }
 
-export default ProductList;
+export default ProductItem;
