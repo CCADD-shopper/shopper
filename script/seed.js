@@ -47,7 +47,7 @@ async function seed() {
     products.push(
       Product.create({
         name: `Product #${i}`,
-        price: round(Math.random() * 10, 2),
+        price: round(Math.random() * 10, 2) + 10,
         description: 'I am a description for this great product!  BUY IT NOW!',
         qtyAvailable: Math.floor(Math.random() * 100),
       })
@@ -79,11 +79,12 @@ async function seed() {
   const reviewPromises = [];
 
   allProducts.forEach(product => {
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < 50; i++) {
+      if ((Math.random() * 100) < 3) break;
       reviewPromises.push(
         Review.create({
           productId: product.id,
-          userId: 1,
+          userId: Math.floor(Math.random() * numOfUsers) + 1,
           description: 'Hello',
           rating: (Math.random() * 4) + 1,
         })
@@ -91,12 +92,13 @@ async function seed() {
     }
   })
 
-  const reviews = await Promise.all(reviewPromises);
+  await Promise.all(reviewPromises);
 
 
   console.log(`seeded ${usersPromise.length} users`)
   console.log(`seeded ${productsPromise.length} products`)
   console.log(`seeded ${categoriesPromise.length} categories`)
+  console.log(`seeded ${reviewPromises.length} reviews`)
   console.log(`all data seeded successfully`)
 }
 

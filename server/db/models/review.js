@@ -19,7 +19,7 @@ const Review = db.define('review', {
 Review.afterCreate(async(review, options) => {
   const product = await Product.findById(review.productId)
   const stars = review.rating
-  product.increment('reviewTotal', {by: stars})
+  product.increment('starTotal', {by: stars})
   product.increment('numOfReviews')
 })
 
