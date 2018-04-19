@@ -15,9 +15,9 @@ export const initCart = (cartFromDb) => ({
     cartFromDb
 })
 
-export const addProductToCart = (product) => ({
+export const addProductToCart = (cartItem) => ({
     type: ADD_PRODUCT_TO_CART,
-    product,
+    cartItem,
 })
 
 export const removeProductfromCart = (id) => ({
@@ -67,7 +67,7 @@ export const persistCartThunkerator = () => {
 
 //REDUCER
 
-const initialState = []
+const initialState = [];
 
 export default (state = initialState, action) => {
     switch (action.type) {
@@ -76,7 +76,7 @@ export default (state = initialState, action) => {
         return action.cartFromDb;
 
     case ADD_PRODUCT_TO_CART:
-      return [...state, action.product];
+      return [...state, action.cartItem];
 
     case REMOVE_PRODUCT_FROM_CART:
         return state.filter(cartItem => cartItem.id !== action.id)
@@ -85,7 +85,8 @@ export default (state = initialState, action) => {
     //     return state.map(cartItem => action.)
 
     case CLEAR_CART:
+        console.log('CLEARING CART')
         return initialState;
-    default: return initialState;
+    default: return state;
   }
 }

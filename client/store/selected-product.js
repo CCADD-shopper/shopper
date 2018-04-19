@@ -16,6 +16,7 @@ export const getProductFromServerThunkerator = (productId) => {
   return async (dispatch) => {
     try {
       const selectedProduct = await axios.get(`/api/products/${productId}`);
+      console.log(selectedProduct.data);
       dispatch(getProductFromServer(selectedProduct.data));
 
     } catch (err) {

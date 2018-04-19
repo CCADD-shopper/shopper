@@ -8,13 +8,14 @@ class ViewProduct extends React.Component {
     super()
 
   }
+
   componentDidMount(){
     const productId = this.props.match.params.productId;
-    store.dispatch(getProductFromServerThunkerator(productId))
+    this.props.getProductFromServerThunkerator(productId)
   }
 
   componentWillUnmount(){
-    store.dispatch(clearProduct())
+    this.props.clearProduct()
   }
 
 
@@ -34,8 +35,8 @@ class ViewProduct extends React.Component {
   }
 }
 
-const mapStateToProps = ({ selectedProduct }) => ({ selectedProduct })
+const mapStateToProps = ({ selectedProduct, cart }) => ({ selectedProduct, cart })
 
-const mapDispatchToProps = null;
+const mapDispatchToProps = { getProductFromServerThunkerator, clearProduct };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ViewProduct);
