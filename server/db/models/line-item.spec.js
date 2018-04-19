@@ -2,11 +2,11 @@
 
 const {expect} = require('chai')
 const db = require('../index')
-const OrderProducts = db.model('orderProducts')
+const LineItem = db.model('lineItem')
 const Order = db.model('order')
 const Product = db.model('product')
 
-describe('OrderProducts model', () => {
+describe('LineItem model', () => {
   beforeEach(() => {
     return db.sync({force: true})
   })
@@ -24,11 +24,12 @@ describe('OrderProducts model', () => {
       })
 
       it('Default value is 1', async () => {
-        const orderProducts = await OrderProducts.create({
+        const lineItem = await LineItem.create({
           orderId: 1,
           productId: 1,
+          purchasePrice: 3.33
         })
-        expect(orderProducts.quantity).to.be.equal(1)
+        expect(lineItem.quantity).to.be.equal(1)
       })
     })
   })

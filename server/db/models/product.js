@@ -43,14 +43,25 @@ const Product = db.define('product', {
     type: Sequelize.INTEGER,
     defaultValue: 0,
   },
-  reviewTotal: {
+  starTotal: {
     type: Sequelize.INTEGER,
     defaultValue: 0,
   },
   averageRating: {
     type: Sequelize.VIRTUAL,
     get: function () {
-      return this.getDataValue('reviewTotal') / this.getDataValue('numOfReviews');
+      function round(number, precision) {
+        var shift = function (number, precision, reverseShift) {
+          if (reverseShift) {
+            precision = -precision;
+          }
+          var numArray = ("" + number).split("e");
+          return +(numArray[0] + "e" + (numArray[1] ? (+numArray[1] + precision) : precision));
+        };
+        return shift(Math.round(shift(number, precision, false)), precision, true);
+      }
+      if (!this.getDataValue('numOfReviews')) return 0;
+      return round(this.getDataValue('starTotal') / this.getDataValue('numOfReviews'), 1);
     }
   }
 })

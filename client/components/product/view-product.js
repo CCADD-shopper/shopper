@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import store, { getProductFromServerThunkerator, clearProduct } from '../../store'
+import { StarsReadOnly, EditReviewStars } from '../review'
 
 class ViewProduct extends React.Component {
   constructor (){
@@ -26,6 +27,8 @@ class ViewProduct extends React.Component {
         <h5>{name}</h5>
         <p>${price} - {qtyAvailable} on hand</p>
         <p>{description}</p>
+        <StarsReadOnly product={this.props.selectedProduct} />
+        <EditReviewStars product={this.props.selectedProduct} />
       </div>
     );
   }
