@@ -10,13 +10,12 @@ class Cart extends Component{
   }
 
   handleSubmit = () => {
+    //place holder
     console.log('submit')
   }
 
   findProductById = (productId) => {
-    console.log('in func', productId)
     const targetProduct = this.props.productList.find(product => product.id === productId)
-    console.log('plz', targetProduct)
     return targetProduct;
   }
 
