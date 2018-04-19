@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import ProductItem from './product/product-item';
+import CartItem from './cart-item';
 
 class Cart extends Component{
   constructor(props){
@@ -25,7 +25,7 @@ class Cart extends Component{
           const product = this.findProductById(cartItem.productId)
           return (
           <div key={cartItem.productId}>
-            <ProductItem product={product} />
+            <CartItem product={product} quantity={cartItem.quantity} />
           </div>)
         })}
       </div>
