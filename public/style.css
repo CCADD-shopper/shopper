@@ -19,15 +19,22 @@ form div {
   margin: 1em;
   display: inline-block;
 }
+.productList {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
 
 .productItem {
-  margin: 10px 0;
-  border: 1px solid black; 
+  flex: 1;
+  margin: 10px 5px;
+  padding: 7px;
+  border: 1px solid teal;
 }
 
 .orderItem {
   margin: 10px 0;
-  border: 1px solid black; 
+  border: 1px solid black;
 }
 
 .productItem img {
@@ -36,7 +43,7 @@ form div {
 
 .userItem {
   margin: 10px 0;
-  border: 1px solid black; 
+  border: 1px solid black;
 }
 
 .userItem img {
@@ -51,7 +58,7 @@ form div {
 
 .userView {
   margin: 10px 0;
-  border: 1px solid black; 
+  border: 1px solid black;
   width: auto;
 }
 

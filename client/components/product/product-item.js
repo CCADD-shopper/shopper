@@ -11,6 +11,7 @@ const ProductItem = (props) => {
             <h5>{name}</h5>
             <p>${price} - {qtyAvailable} on hand</p>
             <p>{description}</p>
+             <button className=" positive medium ui right floated button">Add to cart</button>
             <StarsReadOnly product={props.product} />
         </div>
       </Link>
