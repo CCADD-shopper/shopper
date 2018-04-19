@@ -5,9 +5,9 @@ import ProductItem from './product-item';
 const ProductList = (props) => {
   const { productList } = props;
   return (
-    <div className="productList">
-      {productList.map(product => <ProductItem key={product.id} product={product} />)}
-    </div>
+      <div className="productList">
+        {productList.map(product => <ProductItem key={product.id} product={product} />)}
+      </div>
   );
 }
 
