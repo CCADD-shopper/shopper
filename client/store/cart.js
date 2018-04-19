@@ -76,7 +76,7 @@ export default (state = initialState, action) => {
         return action.cartFromDb;
 
     case ADD_PRODUCT_TO_CART:
-      return state.push(action.product);
+      return [...state, action.product];
 
     case REMOVE_PRODUCT_FROM_CART:
         return state.filter(cartItem => cartItem.id !== action.id)
