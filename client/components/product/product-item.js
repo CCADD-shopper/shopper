@@ -15,7 +15,7 @@ const ProductItem = (props) => {
       </Link>
       <p> ${price} - {qtyAvailable} on hand</p>
       <p>{description}</p>
-      <button onClick={ () => props.addProductToCart({productId: id, qty: 1})}>Add to cart</button>
+      <button className="positive small right floated ui button" onClick={ () => props.addProductToCart({productId: id, quantity: 1})}>Add to cart</button>
       <StarsReadOnly product={props.product} />
   </div>);
 }

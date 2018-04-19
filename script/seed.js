@@ -1,4 +1,4 @@
-
+/* eslint max-statements:0 */
 const db = require('../server/db')
 const {
   User,
@@ -75,6 +75,11 @@ async function seed() {
   })
 
   const allProducts = await Product.findAll();
+
+  const addCategories = await allProducts.map(product => product.addCategory(Math.floor(Math.random() * numOfCategories)+1))
+
+  await Promise.all(addCategories)
+
 
   const reviewPromises = [];
 
