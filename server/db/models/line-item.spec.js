@@ -27,6 +27,7 @@ describe('LineItem model', () => {
         const lineItem = await LineItem.create({
           orderId: 1,
           productId: 1,
+          purchasePrice: 3.33
         })
         expect(lineItem.quantity).to.be.equal(1)
       })
