@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const {Order, OrderProducts} = require('../db/models')
+const {Order, LineItem} = require('../db/models')
 // const {User} = require('../db/models/user')
 module.exports = router
 
@@ -47,7 +47,7 @@ router.put('/:orderId/', (req, res, next) => {
 
 //add one line item
 router.post('/add-item', (req, res, next) => {
-  OrderProducts.create(req.body)
+  LineItem.create(req.body)
   .then(newItem => res.json(newItem))
   .catch(next)
 })
@@ -57,7 +57,7 @@ router.put('/:orderId/edit-item', async (req, res, next) => {
   const orderId = req.params.orderId
   const productId = req.body.productId
   try {
-    const updateLineItem = await OrderProducts.update({quantity: req.body.quantity},
+    const updateLineItem = await LineItem.update({quantity: req.body.quantity},
       {where: {
         orderId,
         productId,
@@ -74,7 +74,7 @@ router.delete('/:orderId/remove-item', async (req, res, next) => {
   const orderId = req.params.orderId
   const productId = req.body.productId
   try {
-    const deletedRow = await OrderProducts.destroy({where: {
+    const deletedRow = await LineItem.destroy({where: {
       orderId,
       productId
     }})
@@ -89,7 +89,7 @@ router.delete('/:orderId/remove-item', async (req, res, next) => {
 router.delete('/:orderId', async (req, res, next) => {
   const orderId = req.params.orderId
   try {
-    const deletedRow = await OrderProducts.destroy({where: {
+    const deletedRow = await LineItem.destroy({where: {
       orderId
     }})
     await Order.destroy({

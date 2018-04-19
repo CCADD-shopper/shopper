@@ -6,7 +6,7 @@ const LineItem = db.model('lineItem')
 const Order = db.model('order')
 const Product = db.model('product')
 
-describe.only('LineItem model', () => {
+describe('LineItem model', () => {
   beforeEach(() => {
     return db.sync({force: true})
   })
