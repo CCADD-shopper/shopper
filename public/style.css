@@ -54,12 +54,21 @@ form div {
   border: 3px solid teal;
 }
 
+.cartItem {
+  margin: 10px 0;
+  border: 1px solid black;
+}
+
 .orderItem {
   margin: 10px 0;
   border: 1px solid black;
 }
 
 .productItem img {
+  width: 100px;
+}
+
+.cartItem img {
   width: 100px;
 }
 
