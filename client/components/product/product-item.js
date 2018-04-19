@@ -11,8 +11,8 @@ const ProductItem = (props) => {
             <h5>{name}</h5>
             <p>${price} - {qtyAvailable} on hand</p>
             <p>{description}</p>
+            <StarsReadOnly product={props.product} />
         </div>
-        <StarsReadOnly product={props.product} />
       </Link>
 
   );

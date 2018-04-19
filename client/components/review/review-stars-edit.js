@@ -7,7 +7,7 @@ class EditReviewStars extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            rating: 1,
+            rating: 0,
         }
         this.onStarClick = this.onStarClick.bind(this);
     }
