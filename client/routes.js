@@ -1,6 +1,6 @@
-import React, {Component} from 'react'
-import {connect} from 'react-redux'
-import {withRouter, Route, Switch} from 'react-router-dom'
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { withRouter, Route, Switch } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import store, {
   me,
@@ -13,23 +13,24 @@ import { Login, Signup, UserHome, ProductList, ViewProduct, OrderList, UserView,
  * COMPONENT
  */
 class Routes extends Component {
-  componentDidMount () {
+  componentDidMount() {
     this.props.loadInitialData()
     store.dispatch(getProductsFromServerThunkerator());
     store.dispatch(getOrdersFromServerThunkerator());
   }
 
-  render () {
-    const {isLoggedIn, user} = this.props
+  render() {
+    const { isLoggedIn, user } = this.props
 
     const MyUserPage = (props) => {
       return (
         <UserView
-        user={user}
-        {...props} />
+          user={user}
+          {...props} />
       )
     }
     return (
+      <div className="mainContent">
       <Switch>
         {/* Routes placed here are available to all visitors */}
         <Route path="/login" component={Login} />
@@ -45,10 +46,11 @@ class Routes extends Component {
               <Route exact path="/orders" component={OrderList} />
               <Route exact path="/products/:productId" component={ViewProduct} />
             </Switch>
-        }
-        {/* Displays our Login component as a fallback */}
-        <Route component={Login} />
+          }
+          {/* Displays our Login component as a fallback */}
+          <Route component={Login} />
       </Switch>
+        </div>
     )
   }
 }
@@ -67,7 +69,7 @@ const mapState = (state) => {
 
 const mapDispatch = (dispatch) => {
   return {
-    loadInitialData () {
+    loadInitialData() {
       dispatch(me())
     }
   }
