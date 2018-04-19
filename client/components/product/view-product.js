@@ -15,9 +15,6 @@ class ViewProduct extends React.Component {
   componentWillUnmount(){
     store.dispatch(clearProduct())
   }
-  // const products = props.productList;
-  // const urlId = props.match.params.productId;
-  // const singleProduct = products.length && products.find(product => +urlId === product.id);
 
 
   render() {
