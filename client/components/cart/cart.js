@@ -18,10 +18,10 @@ class Cart extends Component{
   }
 
   render(){
-    const {cartItems2} = this.props
+    const {cartItems} = this.props
     return (
       <div>
-        {cartItems2.map(cartItem => {
+        {cartItems.map(cartItem => {
           const product = this.findProductById(cartItem.productId)
           return (
           <div key={cartItem.productId}>
@@ -35,9 +35,8 @@ class Cart extends Component{
 
 const mapState = (state) => {
   return {
-    cartItems: [{productId: 1, quantity: 2}, {productId: 2, quantity: 1}],
     productList: state.productList,
-    cartItems2: state.cart,
+    cartItems: state.cart,
   }
 }
 
