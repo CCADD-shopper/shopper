@@ -23,7 +23,6 @@ const Review = db.define('review', {
       product.increment('numOfReviews')
     },
     afterDestroy: async (review) => {
-      console.log(review);
       const product = await Product.findById(review.productId)
       const stars = review.rating
       product.decrement('starTotal', {by: stars})

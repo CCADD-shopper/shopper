@@ -15,7 +15,7 @@ router.param('reviewId', async (req, res, next, reviewId) => {
     next()
   }
   catch (err) {
-    console.log(err)
+    next(err)
   }
 })
 
@@ -71,8 +71,6 @@ router.get('/byUser/:userId/', async (req, res, next) => {
 router.delete('/:reviewId', async (req, res, next) => {
   try {
     const destroyedRev = await req.review.destroy();
-    console.log(destroyedRev)
-
     res.json(destroyedRev)
   }
   catch (err) {
