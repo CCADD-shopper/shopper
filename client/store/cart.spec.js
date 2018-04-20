@@ -32,7 +32,7 @@ describe('Cart store', () => {
        store.dispatch(addProductToCart({productID: 24, qty: 4}))
           const actions = store.getActions()
           expect(actions[0].type).to.be.equal('ADD_PRODUCT_TO_CART')
-          expect(actions[0].product).to.be.an('object')
+          expect(actions[0].cartItem).to.be.an('object')
     })
   })
 
