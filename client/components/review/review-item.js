@@ -1,24 +1,24 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import StarsReadOnly from './review-stars-read'
+import {Link} from 'react-router-dom';
+import { StarsReadOnly } from '../review'
+
 
 const ReviewItem = (props) => {
+  const { name, imgUrl } = props.product;
+
   return (
-    <div className="productItem">
-      <img src={imgUrl} />
-      <h5>{name}</h5>
+    <div className="reviewItem">
+      <Link className="thumbnail" to={`/products/${props.product.id}`}>
+        <img src={imgUrl} />
+        <h5>{name}</h5>
+      </Link>
       <StarsReadOnly product={this.props.selectedProduct} />
-        <div>
-        <button className="ui blue button" onClick={this.toggleHidden.bind(this)} >
-          Edit the review for this hat!
-        </button>
-        {!this.state.isHidden && <ReviewEntry product={this.props.selectedProduct} />}
-      </div>
     </div>
   );
 }
 
-const mapStateToProps = ({ reviews }) => ({ reviews })
+const mapStateToProps = ({ selectedProduct, reviews }) => ({ selectedProduct, reviews })
 
 const mapDispatchToProps = null;
 

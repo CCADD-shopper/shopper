@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 
 const ReviewEntry = (props) => {
   return (
-    <div className="reviewentry">
+    <div className="reviewEntry">
       <textarea
         description="description"
         type="text"
@@ -12,7 +12,7 @@ const ReviewEntry = (props) => {
         placeholder="add your review"
         className="form-like" style={{height: 69, width: 200}} />
         <EditReviewStars product={props.selectedProduct} />
-        <button className="positive small ui olive button">gone on, be opinionated, ya jerk</button>
+        <button className="positive small ui olive button">go on, be opinionated, ya jerk</button>
     </div>
   );
 }
