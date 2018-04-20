@@ -1,10 +1,13 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import CartItem from './cart-item';
+import { clearCart } from '../../store/cart'
 
 class Cart extends Component{
   constructor(props){
     super(props)
+
+    this.findProductById = this.findProductById.bind(this);
   }
 
   handleSubmit = () => {
@@ -18,6 +21,8 @@ class Cart extends Component{
   }
 
   render(){
+    // this.props.cartItems.forEach(item => console.log(item.productId))
+    // this.findProductById(this.props.cartItems[0].productId))
     const {cartItems} = this.props
     return (
       <div>
@@ -29,6 +34,7 @@ class Cart extends Component{
             <CartItem product={product} quantity={cartItem.quantity} />
           </div>)
         })) : <h3>No items</h3>}
+      <button className="ui red button" onClick={() => this.props.clearCart()}>Clear Cart</button>
       </div>
     )
   }
@@ -41,7 +47,7 @@ const mapState = (state) => {
   }
 }
 
-const mapDispatch = null;
+const mapDispatch = { clearCart };
 
 export default connect(mapState, mapDispatch)(Cart)
 

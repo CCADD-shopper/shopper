@@ -76,10 +76,20 @@ export default (state = initialState, action) => {
         return action.cartFromDb;
 
     case ADD_PRODUCT_TO_CART:
-      return [...state, action.cartItem];
-
+      if (state.filter(cartThing => cartThing.productId === action.cartItem.productId).length){
+          let found = state.filter(cartThing => cartThing.productId === action.cartItem.productId)
+          found[0].quantity = found[0].quantity + action.cartItem.quantity;
+          let existing = state.filter(cartThing => cartThing.productId !== action.cartItem.productId)
+          if (existing.length){
+            return [...existing, found[0]]}
+                else {
+                    return found
+                }
+        } else {
+            return [...state, action.cartItem]
+        }
     case REMOVE_PRODUCT_FROM_CART:
-        return state.filter(cartItem => cartItem.id !== action.id)
+        return state.filter(cartItem => cartItem.productId !== action.id)
 
     // case ALTER_CART_ITEM_QUANTITY:
     //     return state.map(cartItem => action.)
