@@ -5,7 +5,7 @@ import {Link} from 'react-router-dom'
 import {logout} from '../store'
 import {SearchBar} from '../components'
 
-const Navbar = ({ handleClick, isLoggedIn }) => (
+const Navbar = ({ handleClick, isLoggedIn, cartCount }) => (
   <div className="navBar">
       <Link to="/home">
         <div className="logo">
@@ -21,7 +21,7 @@ const Navbar = ({ handleClick, isLoggedIn }) => (
           <Link to="/products">All Products</Link>
           <Link to="users/my-profile">Account</Link>
           <a href="#" onClick={handleClick}>Logout</a>
-          <Link to="/cart">Cart</Link>
+          <Link to="/cart">Cart ({cartCount})</Link>
         </div>
       ) : (
         <div>
@@ -29,8 +29,7 @@ const Navbar = ({ handleClick, isLoggedIn }) => (
           <Link to="/login">Login</Link>
           <Link to="/signup">Sign Up</Link>
           <Link to="/products">All Products</Link>
-          <Link to="/cart">Cart</Link>
-          <SearchBar />
+          <Link to="/cart">Cart ({cartCount})</Link>
         </div>
       )}
     </nav>
@@ -43,7 +42,8 @@ const Navbar = ({ handleClick, isLoggedIn }) => (
  */
 const mapState = state => {
   return {
-    isLoggedIn: !!state.user.id
+    isLoggedIn: !!state.user.id,
+    cartCount: state.cart.length,
   }
 }
 
