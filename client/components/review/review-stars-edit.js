@@ -3,36 +3,22 @@ import React from 'react'
 import ReactStars from 'react-stars'
 
 
-class EditReviewStars extends React.Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            rating: 0,
-        }
-        this.onStarClick = this.onStarClick.bind(this);
-    }
+const EditReviewStars = (props) => {
 
-    onStarClick(next, prev, name) {
-        console.log(next, prev, name)
-        this.setState({rating: next})
-    }
-
-    render() {
-    const review = this.state.rating
-    console.log(this.state);
-    return (
-        <div className="starRating">
-            <p>Please Submit Your Rating</p>
-            <ReactStars
-            count={5}
-            edit={true}
-            size={24}
-            value={review}
-            onChange={this.onStarClick}
-            half={false}
-            />
-        </div>
-    )}
+  console.log(props);
+  return (
+    <div className="starRating">
+      <p>Please Submit Your Rating</p>
+      <ReactStars
+        count={5}
+        edit={true}
+        size={24}
+        value={props.rating}
+        onChange={props.handleStarChange}
+        half={false}
+      />
+    </div>
+  )
 }
 
 export default EditReviewStars;
