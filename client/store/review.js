@@ -2,14 +2,14 @@ import axios from 'axios';
 
 /* -----------------    ACTION TYPES    ------------------ */
 
-const INITIALIZE_REVIEWS   = 'INITIALIZE_REVIEWS';
+const GET_REVIEWS_FROM_SERVER   = 'GET_REVIEWS_FROM_SERVER';
 const ADD_REVIEW           = 'ADD_REVIEW';
 const REMOVE_REVIEW        = 'REMOVE_REVIEW';
 const UPDATE_REVIEW        = 'UPDATE_REVIEW';
 
 /* ------------     ACTION CREATORS      ------------------ */
 
-const initReviews   = reviews => ({ type: INITIALIZE_REVIEWS, reviews });
+const getReviewsFromServer   = reviews => ({ type: GET_REVIEWS_FROM_SERVER, reviews });
 const removeReview  = id => ({ type: REMOVE_REVIEW, id });
 const addReview     = review => ({ type: ADD_REVIEW, review });
 const updateReview  = review => ({ type: UPDATE_REVIEW, review });
@@ -19,7 +19,7 @@ const updateReview  = review => ({ type: UPDATE_REVIEW, review });
 export default function reducer (reviews = [], action) {
   switch (action.type) {
 
-    case INITIALIZE_REVIEWS:
+    case GET_REVIEWS_FROM_SERVER:
       return action.reviews;
 
     case REMOVE_REVIEW:
@@ -44,7 +44,7 @@ export const getReviewsFromServerThunkerator = () => {
   return async (dispatch) => {
     try {
       const reviews = await axios.get('/api/reviews');
-      dispatch(initReviews(reviews.data));
+      dispatch(getReviewsFromServer(reviews.data));
     }
     catch (err) {
       console.log('Fetching Reviews unsuccessful', err);

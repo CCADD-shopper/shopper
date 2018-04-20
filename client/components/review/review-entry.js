@@ -1,6 +1,7 @@
 import React from 'react';
 import EditReviewStars from './review-stars-edit'
 import { connect } from 'react-redux'
+import store, { addReviewToServerThunkerator } from '../../store'
 
 class ReviewEntry extends React.Component {
   constructor() {
@@ -17,9 +18,17 @@ class ReviewEntry extends React.Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
-    const reviewContent = event.target.review.value
-    
-    console.log(this.state.stars);
+    const userId = this.props.user.id
+    const description = event.target.review.value
+    const productId = this.props.selectedProduct.id
+    const rating = this.state.stars
+    const review = {
+      description,
+      userId,
+      productId,
+      rating
+    }
+    store.dispatch(addReviewToServerThunkerator(review));
   }
 
   render () {
@@ -41,7 +50,7 @@ class ReviewEntry extends React.Component {
   }
 }
 
-const mapStateToProps = ({ selectedProduct }) => ({ selectedProduct })
+const mapStateToProps = ({ selectedProduct, user }) => ({ selectedProduct, user })
 
 const mapDispatchToProps = null;
 
