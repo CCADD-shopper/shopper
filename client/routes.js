@@ -7,6 +7,7 @@ import store, {
   getProductsFromServerThunkerator,
   getOrdersFromServerThunkerator,
   getReviewsFromServerThunkerator,
+  getCartOrderIdThunkerator
 } from './store'
 import { Login, Signup, UserHome, ProductList, ViewProduct, OrderList, UserView, Cart } from './components'
 
@@ -19,11 +20,11 @@ class Routes extends Component {
     store.dispatch(getProductsFromServerThunkerator())
     store.dispatch(getOrdersFromServerThunkerator())
     store.dispatch(getReviewsFromServerThunkerator())
+    // store.dispatch(getCartOrderIdThunkerator(user.id))
   }
 
   render() {
     const { isLoggedIn, user } = this.props
-
     const MyUserPage = (props) => {
       return (
         <UserView
