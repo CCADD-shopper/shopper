@@ -85,7 +85,6 @@ export default (state = initialState, action) => {
     //     return state.map(cartItem => action.)
 
     case CLEAR_CART:
-        console.log('CLEARING CART')
         return initialState;
     default: return state;
   }
