@@ -19,6 +19,18 @@ router.param('reviewId', async (req, res, next, reviewId) => {
   }
 })
 
+router.get('/', async (req, res, next) => {
+  try {
+    const allReviews = await Review.findAll({
+      include: [{model: User}]
+    });
+    res.json(allReviews);
+  }
+  catch (err) {
+    next(err);
+  }
+})
+
 router.post('/', async (req, res, next) => {
   try {
     const review = await Review.create(req.body);
