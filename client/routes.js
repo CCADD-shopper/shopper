@@ -7,7 +7,8 @@ import store, {
   getProductsFromServerThunkerator,
   getOrdersFromServerThunkerator,
   getReviewsFromServerThunkerator,
-  getCartOrderIdThunkerator
+  getCartOrderIdThunkerator,
+  getAllItemsThunkerator,
 } from './store'
 import { Login, Signup, UserHome, ProductList, ViewProduct, OrderList, UserView, Cart } from './components'
 
@@ -20,7 +21,8 @@ class Routes extends Component {
     store.dispatch(getProductsFromServerThunkerator())
     store.dispatch(getOrdersFromServerThunkerator())
     store.dispatch(getReviewsFromServerThunkerator())
-    store.dispatch(getCartOrderIdThunkerator(31))
+    store.dispatch(getCartOrderIdThunkerator(1))
+    store.dispatch(getAllItemsThunkerator(1))
   }
 
   render() {
