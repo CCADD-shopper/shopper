@@ -1,9 +1,5 @@
 import axios from 'axios';
 
-
-
-
-
 /* -----------------    ACTION TYPES    ------------------ */
 
 const INITIALIZE_REVIEWS   = 'INITIALIZE_REVIEWS';
