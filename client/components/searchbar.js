@@ -1,9 +1,10 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { changeSearchParam, clearSearchParam } from '../store'
 
 const SearchBar = (props) => (
   <div className="searchBar">
-    <input onChange={props.handleChange} placeholder={props.placeholder} />
+    <input onChange={props.handleChange} placeholder={`Search for ${props.placeholder}`} value={props.searchParam} />
   </div>
 )
 
@@ -17,7 +18,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     handleChange: (event) => {
-      console.log('change');
+      dispatch(changeSearchParam(event.target.value));
     }
   }
 }

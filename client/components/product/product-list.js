@@ -11,7 +11,10 @@ const ProductList = (props) => {
       if (selectedCategories.indexOf(product.categories[i].id) > -1) return true;
       return false;
     }
+  }).filter(product => {
+    return (product.name.indexOf(props.searchParam) > -1)
   })
+
 
   return (
     <div>
@@ -23,7 +26,7 @@ const ProductList = (props) => {
   );
 }
 
-const mapStateToProps = ({ productList, selectedCategories }) => ({ productList, selectedCategories });
+const mapStateToProps = ({ productList, selectedCategories, searchParam }) => ({ productList, selectedCategories, searchParam });
 
 const mapDispatchToProps = null;
 

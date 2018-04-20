@@ -13,7 +13,49 @@ async function seed() {
 
   const numOfUsers = 30;
   const numOfProducts = 100;
-  const numOfCategories = 10;
+  const typesOfHats = [
+    {
+      name: 'Fedora',
+      url: 'https://www.petersonhouse.com.au/wp-content/uploads/2016/09/Fedora.jpg'
+    },
+    {
+      name: 'Baseball',
+      url: 'https://images-na.ssl-images-amazon.com/images/I/81vqBRNIuKL._UX522_.jpg'
+    },
+    {
+      name: 'Cowboy',
+      url: 'https://cdn.shopify.com/s/files/1/1689/4579/products/rocha-hats-3.5-brim-cowboy-hat-straw-new-western-style-black-band-USA_1800x.jpg?v=1523557415'
+    },
+    {
+      name: 'Beanie',
+      url: 'http://www.patagonia.com/dis/dw/image/v2/ABBM_PRD/on/demandware.static/-/Sites-patagonia-master/default/dw5b65387e/images/hi-res/29206_FEA.jpg?sw=750&sh=750&sm=fit&sfrm=png'
+    },
+    {
+      name: 'Tophat',
+      url: 'https://nebula.wsimg.com/obj/RUJDNkE4NTkyRkYyNUU2MTg4NzU6OTc5NmIxYzVhZGQwMDIzODQzOWIwNmUzZjdjNTg3ZTM6Ojo6OjA='
+    },
+    {
+      name: 'Beret',
+      url: 'https://www.kangolstore.com/media/catalog/product/cache/image/700x560/e9c3970ab036de70892d86c6d221abfe/0/2/0248HT_RD608_MAIN.jpg'
+    },
+    {
+      name: 'Fez',
+      url: 'https://www.lockhatters.co.uk/media/catalog/product/cache/1/main-carousel-image/495x495/0dc2d03fe217f8c83829496872af24a0/f/e/fez_red_2.jpg'
+    },
+    {
+      name: 'Coonskin',
+      url: 'https://cdn.shopify.com/s/files/1/0537/4361/products/RACCOON_1024x1024.jpg?v=1481736395'
+    },
+    {
+      name: 'Bowler',
+      url: 'https://www.hatsandcaps.co.uk/images/products/large/135060.jpg'
+    },
+    {
+      name: 'Ushanka',
+      url: 'https://image.sportsmansguide.com/adimgs/l/6/698938_ts.jpg'
+    },
+  ]
+  const numOfCategories = typesOfHats.length;
 
   let users = [];
   let products = [];
@@ -44,12 +86,15 @@ async function seed() {
   }
 
   for (let i = 0; i < numOfProducts; i++) {
+    const productName = typesOfHats[i % numOfCategories].name
+    const img = typesOfHats[i % numOfCategories].url
     products.push(
       Product.create({
-        name: `Product #${i}`,
+        name: `${productName} #${i}`,
         price: round(Math.random() * 10, 2) + 10,
         description: 'I am a description for this great product!  BUY IT NOW!',
         qtyAvailable: Math.floor(Math.random() * 100),
+        imgUrl: img,
       })
     )
   }
@@ -57,7 +102,8 @@ async function seed() {
   for (let i = 0; i < numOfCategories; i++) {
     categories.push(
       Category.create({
-        name: `Category ${i}`,
+        id: i + 1,
+        name: `${typesOfHats[i % numOfCategories].name}`,
       })
     )
   }
@@ -76,7 +122,7 @@ async function seed() {
 
   const allProducts = await Product.findAll();
 
-  const addCategories = await allProducts.map(product => product.addCategory(Math.floor(Math.random() * numOfCategories)+1))
+  const addCategories = await allProducts.map(product => product.addCategory((+product.name.split('#')[1] % numOfCategories) + 1))
 
   await Promise.all(addCategories)
 
