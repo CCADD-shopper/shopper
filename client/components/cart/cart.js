@@ -33,10 +33,10 @@ class Cart extends Component{
   }
 }
 
-const mapState = ({productList}) => {
+const mapState = (state) => {
   return {
-    cartItems: [{productId: 1, quantity: 2}, {productId: 2, quantity: 1}],
-    productList,
+    productList: state.productList,
+    cartItems: state.cart,
   }
 }
 

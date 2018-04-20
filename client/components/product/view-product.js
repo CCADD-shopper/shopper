@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import store, { getProductFromServerThunkerator, clearProduct } from '../../store'
+import store, { getProductFromServerThunkerator, clearProduct, addProductToCart } from '../../store'
 import { StarsReadOnly, ReviewEntry } from '../review'
 
 class ViewProduct extends React.Component {
@@ -15,18 +15,19 @@ class ViewProduct extends React.Component {
       isHidden: !this.state.isHidden
     })
   }
+
   componentDidMount(){
     const productId = this.props.match.params.productId;
-    store.dispatch(getProductFromServerThunkerator(productId))
+    this.props.getProductFromServerThunkerator(productId)
   }
 
   componentWillUnmount(){
-    store.dispatch(clearProduct())
+    this.props.clearProduct()
   }
 
 
   render() {
-    const { name, price, description, qtyAvailable, imgUrl } = this.props.selectedProduct;
+    const { id, name, price, description, qtyAvailable, imgUrl } = this.props.selectedProduct;
 
     return (
       <div className="productItem">
@@ -34,7 +35,7 @@ class ViewProduct extends React.Component {
         <h5>{name}</h5>
         <p>${price} - {qtyAvailable} on hand</p>
         <p>{description}</p>
-        <button className="positive small right floated ui button">Add to cart</button>
+        <button className="positive small right floated ui button" onClick={ () => this.props.addProductToCart({productId: id, quantity: 1})}>Add to cart</button>
         <StarsReadOnly product={this.props.selectedProduct} />
           <div>
           <button className="ui blue button" onClick={this.toggleHidden.bind(this)} >
@@ -47,8 +48,8 @@ class ViewProduct extends React.Component {
   }
 }
 
-const mapStateToProps = ({ selectedProduct }) => ({ selectedProduct })
+const mapStateToProps = ({ selectedProduct, cart }) => ({ selectedProduct, cart })
 
-const mapDispatchToProps = null;
+const mapDispatchToProps = { getProductFromServerThunkerator, clearProduct, addProductToCart };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ViewProduct);
