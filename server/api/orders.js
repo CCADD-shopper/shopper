@@ -29,8 +29,8 @@ router.get('/user/:userId', (req, res, next) => {
 router.get('/find/:userId', async (req, res, next) => {
   try {
     const foundCart = await Order.findOrCreate({
-      where: {status: 'processing', userId: req.params.userId},
-      defaults: {status: 'processing', userId: req.params.userId}
+      where: {status: 'pending', userId: req.params.userId},
+      defaults: {status: 'pending', userId: req.params.userId}
     })
     res.json(foundCart[0])
   }
