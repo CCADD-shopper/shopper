@@ -18,7 +18,6 @@ class Routes extends Component {
     this.props.loadInitialData()
     store.dispatch(getProductsFromServerThunkerator());
     store.dispatch(getOrdersFromServerThunkerator());
-    store.dispatch(getAllItemsThunkerator(4));
   }
 
   render() {
