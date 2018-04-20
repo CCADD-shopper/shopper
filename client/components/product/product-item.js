@@ -2,7 +2,7 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import {StarsReadOnly} from '../review'
 import { connect } from 'react-redux';
-import { addProductToCart } from '../../store/cart'
+
 
 const ProductItem = (props) => {
   const {id, name, price, description, qtyAvailable, imgUrl} = props.product;
