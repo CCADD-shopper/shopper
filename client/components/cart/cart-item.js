@@ -14,7 +14,6 @@ class CartItem extends Component{
 
   render(){
     const { id, name, price, imgUrl } = this.props.product;
-    console.log(this.props.product)
     return (
       <div className="cartItem">
             <img src={imgUrl} />

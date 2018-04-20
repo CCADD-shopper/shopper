@@ -4,30 +4,31 @@ import store, { getProductFromServerThunkerator, clearProduct, addProductToCart 
 import { StarsReadOnly, ReviewEntry } from '../review'
 
 class ViewProduct extends React.Component {
-  constructor (){
+  constructor() {
     super()
     this.state = {
       isHidden: true
     }
   }
-  toggleHidden () {
+  toggleHidden() {
     this.setState({
       isHidden: !this.state.isHidden
     })
   }
 
-  componentDidMount(){
+  componentDidMount() {
     const productId = this.props.match.params.productId;
     this.props.getProductFromServerThunkerator(productId)
   }
 
-  componentWillUnmount(){
+  componentWillUnmount() {
     this.props.clearProduct()
   }
 
 
   render() {
     const { id, name, price, description, qtyAvailable, imgUrl } = this.props.selectedProduct;
+    const isLoggedIn = !!this.props.user.id
 
     return (
       <div className="productItem">
@@ -35,12 +36,19 @@ class ViewProduct extends React.Component {
         <h5>{name}</h5>
         <p>${price} - {qtyAvailable} on hand</p>
         <p>{description}</p>
-        <button className="positive small right floated ui button" onClick={ () => this.props.addProductToCart({productId: id, quantity: 1})}>Add to cart</button>
+        <button className="positive small right floated ui button" onClick={() => this.props.addProductToCart({ productId: id, quantity: 1 })}>Add to cart</button>
         <StarsReadOnly product={this.props.selectedProduct} />
-          <div>
-          <button className="ui blue button" onClick={this.toggleHidden.bind(this)} >
-            Submit a review for this hat!
-          </button>
+        <div>
+          {
+            isLoggedIn
+              ?
+              <button className="ui blue button" onClick={this.toggleHidden.bind(this)} >
+                Submit a review for this hat!
+              </button>
+              : <button className="ui blue button" >
+                Please log in to submit a review!
+              </button>
+          }
           {!this.state.isHidden && <ReviewEntry product={this.props.selectedProduct} />}
         </div>
       </div>
@@ -48,7 +56,7 @@ class ViewProduct extends React.Component {
   }
 }
 
-const mapStateToProps = ({ selectedProduct, cart }) => ({ selectedProduct, cart })
+const mapStateToProps = ({ selectedProduct, cart, user }) => ({ selectedProduct, cart, user })
 
 const mapDispatchToProps = { getProductFromServerThunkerator, clearProduct, addProductToCart };
 
