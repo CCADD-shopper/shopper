@@ -6,6 +6,7 @@ import store, {
   me,
   getProductsFromServerThunkerator,
   getOrdersFromServerThunkerator,
+  getAllItemsThunkerator,
 } from './store'
 import { Login, Signup, UserHome, ProductList, ViewProduct, OrderList, UserView, Cart } from './components'
 
@@ -17,6 +18,7 @@ class Routes extends Component {
     this.props.loadInitialData()
     store.dispatch(getProductsFromServerThunkerator());
     store.dispatch(getOrdersFromServerThunkerator());
+    store.dispatch(getAllItemsThunkerator(4));
   }
 
   render() {

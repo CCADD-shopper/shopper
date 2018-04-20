@@ -2,7 +2,7 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import {StarsReadOnly} from '../review'
 import { connect } from 'react-redux';
-import { addProductToCart, addLineItemThunkerator } from '../../store'
+import { addProductToCart, addLineItemThunkerator, editLineItemThunkerator } from '../../store'
 
 
 const ProductItem = (props) => {
@@ -23,12 +23,19 @@ const ProductItem = (props) => {
   </div>);
 }
 
-const handleClick = (props, item) => {
+const handleClick = (props, newItem) => {
   if (props.isLoggedIn){
-    props.addLineItemThunkerator(item)
+    const foundItem = props.cart.filter(item => item.productId === newItem.productId)
+    if (foundItem.length){
+      newItem.quantity = newItem.quantity + foundItem[0].quantity
+      props.editLineItemThunkerator(newItem)
+    }
+    else {
+      props.addLineItemThunkerator(newItem)
+    }
   }
   else {
-    props.addProductToCart(item)
+    props.addProductToCart(newItem)
   }
 
 }
@@ -38,10 +45,11 @@ const handleClick = (props, item) => {
 const mapStateToProps = (state) => {
   return {
     isLoggedIn: !!state.user.id,
+    cart: state.cart
   }
 }
 
-const mapDispatchToProps = { addProductToCart, addLineItemThunkerator }
+const mapDispatchToProps = { addProductToCart, addLineItemThunkerator, editLineItemThunkerator }
 
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProductItem);

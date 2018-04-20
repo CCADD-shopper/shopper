@@ -12,6 +12,7 @@ const SAVE_CART_CHANGES = 'SAVE_CART_CHANGES';
   //logged in
   const GET_ALL_ITEMS = 'GET_ALL_ITEMS'
   const ADD_LINE_ITEM = 'ADD_LINE_ITEM'
+  const EDIT_LINE_ITEM = 'EDIT_LINE_ITEM'
 
 //ACTION CREATORS
 export const initCart = (cartFromDb) => ({
@@ -48,8 +49,13 @@ export const getAllItems = (allItems) => ({
   allItems,
 })
 
-export const addLineItem = (cartItem) => ({
+export const addLineItem = (lineItem) => ({
   type: ADD_LINE_ITEM,
+  lineItem,
+})
+
+export const editLineItem = (cartItem) => ({
+  type: EDIT_LINE_ITEM,
   cartItem,
 })
 
@@ -95,9 +101,21 @@ export const addLineItemThunkerator = (item) => {
   return async (dispatch) => {
     try {
       const newItem = await axios.post(`/api/orders/add-item`, item)
-      dispatch(addLineItem(newItem))
+      dispatch(addLineItem(newItem.data))
     }
     catch (err){
+      console.log(err)
+    }
+  }
+}
+
+export const editLineItemThunkerator = (item) => {
+  return async (dispatch) => {
+    try {
+      const updatedItem = await axios.put(`/api/orders/item/edit`, item)
+      dispatch(editLineItem(updatedItem.data))
+    }
+    catch (err) {
       console.log(err)
     }
   }
@@ -137,7 +155,11 @@ export default (state = initialState, action) => {
         return action.allItems
 
     case ADD_LINE_ITEM:
-        return addProduct(state, action)
+        return [...state, action.lineItem]
+    case EDIT_LINE_ITEM:
+      return state.map(item => (
+        action.cartItem.productId === item.productId ? action.cartItem : item
+      ))
     // case ALTER_CART_ITEM_QUANTITY:
     //     return state.map(cartItem => action.)
 
