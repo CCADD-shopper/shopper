@@ -13,7 +13,6 @@ enzyme.configure({adapter})
 
 describe('CartItem', () => {
   let cart
-  const product = {name: 'hat', price: 3.33}
   beforeEach(() => {
     cart = render(
       <Provider store={store}><Cart /></Provider>
