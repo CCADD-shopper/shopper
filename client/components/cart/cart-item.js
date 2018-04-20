@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import { connect } from 'react-redux'
+import { removeProductfromCart } from '../../store/cart'
 
 class CartItem extends Component{
   constructor(props){
@@ -7,18 +8,18 @@ class CartItem extends Component{
     this.state = null
   }
 
-  handleDelete = () => {
-    console.log('delete')
-  }
+  // handleDelete = () => {
+  //   removeProductfromCart()
+  // }
 
   render(){
-    const { name, price, imgUrl } = this.props.product;
+    const { id, name, price, imgUrl } = this.props.product;
     return (
       <div className="cartItem">
             <img src={imgUrl} />
             <h5>{name}</h5>
             <p className="price">${price}</p>
-            <button onClick={this.handleDelete}>Remove Item</button>
+            <button className="ui red button" onClick={() => this.props.removeProductfromCart(id)}>Remove Item</button>
             <p className="quantity">Quantity: {this.props.quantity}</p>
       </div>
     )
@@ -27,6 +28,6 @@ class CartItem extends Component{
 
 const mapState = null
 
-const mapDispatch = null
+const mapDispatch = { removeProductfromCart }
 
 export default connect(mapState, mapDispatch)(CartItem)
