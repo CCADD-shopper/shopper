@@ -52,6 +52,21 @@ router.post('/add-item', (req, res, next) => {
   .catch(next)
 })
 
+//Get all line items from orderId
+router.get('/:orderId/all-items', async (req, res, next) => {
+  const orderId = req.params.orderId
+  try {
+    const allItems = await LineItem.findAll({
+      where: {orderId},
+    })
+    res.json(allItems)
+  }
+  catch (err) {
+    next(err)
+  }
+
+})
+
 //edit one item
 router.put('/:orderId/edit-item', async (req, res, next) => {
   const orderId = req.params.orderId
