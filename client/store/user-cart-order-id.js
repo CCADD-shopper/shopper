@@ -16,7 +16,7 @@ export const getCartOrderIdThunkerator = (userId) => {
   return async (dispatch) => {
     try {
       const CartOrderId = await axios.get(`/api/orders/find/${userId}`)
-      dispatch(getCartOrderId(CartOrderId.data))
+      dispatch(getCartOrderId(CartOrderId.data.id))
     }
     catch (err) {
       console.log(err)
