@@ -6,33 +6,33 @@ import axios from 'axios';
 
 /* -----------------    ACTION TYPES    ------------------ */
 
-const INITIALIZE    = 'INITIALIZE_REVIEWS';
-const CREATE        = 'CREATE_REVIEW';
-const REMOVE        = 'REMOVE_REVIEW';
-const UPDATE        = 'UPDATE_REVIEW';
+const INITIALIZE_REVIEWS   = 'INITIALIZE_REVIEWS';
+const ADD_REVIEW           = 'ADD_REVIEW';
+const REMOVE_REVIEW        = 'REMOVE_REVIEW';
+const UPDATE_REVIEW        = 'UPDATE_REVIEW';
 
 /* ------------     ACTION CREATORS      ------------------ */
 
-const init   = reviews => ({ type: INITIALIZE, reviews });
-const create = review => ({ type: CREATE, review });
-const remove = id => ({ type: REMOVE, id });
-const update = review => ({ type: UPDATE, review });
+const initReviews   = reviews => ({ type: INITIALIZE_REVIEWS, reviews });
+const removeReview  = id => ({ type: REMOVE_REVIEW, id });
+const addReview     = review => ({ type: ADD_REVIEW, review });
+const updateReview  = review => ({ type: UPDATE_REVIEW, review });
 
-/* ------------          REDUCER         ------------------ */
+/* ------------          REDUCER        ------------------ */
 
 export default function reducer (reviews = [], action) {
   switch (action.type) {
 
-    case INITIALIZE:
+    case INITIALIZE_REVIEWS:
       return action.reviews;
 
-    case CREATE:
-      return [action.review, ...reviews];
-
-    case REMOVE:
+    case REMOVE_REVIEW:
       return reviews.filter(review => review.id !== action.id);
 
-    case UPDATE:
+    case ADD_REVIEW:
+      return [...reviews, action.review];
+
+    case UPDATE_REVIEW:
       return reviews.map(review => (
         action.review.id === review.id ? action.review : review
       ));
@@ -48,7 +48,7 @@ export const getReviewsFromServerThunkerator = () => {
   return async (dispatch) => {
     try {
       const reviews = await axios.get('/api/reviews');
-      dispatch(init(reviews.data));
+      dispatch(initReviews(reviews.data));
     }
     catch (err) {
       console.log('Fetching Reviews unsuccessful', err);
@@ -60,21 +60,34 @@ export const removeReviewToServerThunkerator = id => {
   return async (dispatch) => {
     try {
       const review = await axios.delete(`/api/reviews/${id}`)
-      dispatch(remove(review.id))
+      dispatch(removeReview(review.id))
     }
     catch (err) {
-      console.log(`Removing review: ${id} unsuccesful`, err);
+      console.log(`Removing review: ${id} was unsuccesful`, err);
     }
   }
 }
-export const addReview = review => dispatch => {
-  axios.post('/api/reviews/', review)
-       .then(res => dispatch(create(res.data)))
-       .catch(err => console.error(`Creating review: ${review} unsuccesful`, err));
-};
 
-export const updateReview = (review) => dispatch => {
-  axios.put(`/api/reviews/edit/${review.id}`)
-       .then(res => dispatch(update(res.data)))
-       .catch(err => console.error(`Updating review: ${review.id} unsuccesful`, err));
-};
+export const addReviewToServerThunkerator = review => {
+  return async (dispatch) => {
+    try {
+      const newReview = await axios.post('/api/reviews', review)
+      dispatch(addReview(newReview.data))
+    }
+    catch (err){
+      console.log('adding review was unsuccesful', err);
+    }
+  }
+}
+
+export const updateReviewThunkerator = review => {
+  return async (dispatch) => {
+    try {
+      const updatedReview = await axios.put(`/api/reviews/${review.id}`)
+      dispatch(updateReview(updatedReview.data))
+    }
+    catch (err) {
+      console.log(`updating review: ${review.id} was unsuccesful`);
+    }
+  }
+}
