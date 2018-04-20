@@ -21,13 +21,14 @@ class Cart extends Component{
     const {cartItems} = this.props
     return (
       <div>
-        {cartItems.map(cartItem => {
+        <h2>Shopping Cart</h2>
+        {cartItems.length ? (cartItems.map(cartItem => {
           const product = this.findProductById(cartItem.productId)
           return (
           <div key={cartItem.productId}>
             <CartItem product={product} quantity={cartItem.quantity} />
           </div>)
-        })}
+        })) : <h3>No items</h3>}
       </div>
     )
   }

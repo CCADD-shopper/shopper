@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import ProductItem from './product-item';
+import SearchBar from '../searchbar';
 
 const ProductList = (props) => {
   const { productList, selectedCategories } = props;
@@ -10,16 +11,22 @@ const ProductList = (props) => {
       if (selectedCategories.indexOf(product.categories[i].id) > -1) return true;
       return false;
     }
+  }).filter(product => {
+    return (product.name.indexOf(props.searchParam) > -1)
   })
 
+
   return (
-    <div className="productList">
-      {filteredProducts.map(product => <ProductItem key={product.id} product={product} />)}
+    <div>
+      <SearchBar />
+      <div className="productList">
+        {filteredProducts.map(product => <ProductItem key={product.id} product={product} />)}
+      </div>
     </div>
   );
 }
 
-const mapStateToProps = ({ productList, selectedCategories }) => ({ productList, selectedCategories });
+const mapStateToProps = ({ productList, selectedCategories, searchParam }) => ({ productList, selectedCategories, searchParam });
 
 const mapDispatchToProps = null;
 
