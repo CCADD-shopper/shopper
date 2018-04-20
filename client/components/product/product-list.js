@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import ProductItem from './product-item';
+import SearchBar from '../searchbar';
 
 const ProductList = (props) => {
   const { productList, selectedCategories } = props;
@@ -13,8 +14,11 @@ const ProductList = (props) => {
   })
 
   return (
-    <div className="productList">
-      {filteredProducts.map(product => <ProductItem key={product.id} product={product} />)}
+    <div>
+      <SearchBar />
+      <div className="productList">
+        {filteredProducts.map(product => <ProductItem key={product.id} product={product} />)}
+      </div>
     </div>
   );
 }
