@@ -2,6 +2,23 @@ const router = require('express').Router()
 const { Review, User } = require('../db/models')
 module.exports = router
 
+router.param('reviewId', async (req, res, next, reviewId) => {
+  try {
+    const review = await Review.findById(reviewId)
+    if (!review) {
+      const err = new Error('Review Not Found')
+      err.status = 404
+      res.sendStatus(404);
+      throw err
+    }
+    req.review = review
+    next()
+  }
+  catch (err) {
+    console.log(err)
+  }
+})
+
 router.post('/', async (req, res, next) => {
   try {
     const review = await Review.create(req.body);
@@ -14,14 +31,8 @@ router.post('/', async (req, res, next) => {
 
 router.put('/:reviewId', async (req, res, next) => {
   try {
-    const reviewId = req.params.reviewId;
-    const review = await Review.update(req.body, {
-      where: {
-        id: reviewId
-      },
-      returning: true,
-    });
-    res.json(review[1][0])
+    const updatedReview = await req.review.update(req.body)
+    res.json(updatedReview)
   }
   catch (err) {
     next(err);
@@ -58,15 +69,11 @@ router.get('/byUser/:userId/', async (req, res, next) => {
 })
 
 router.delete('/:reviewId', async (req, res, next) => {
-  const id = req.params.reviewId
   try {
-    const deletedReview = await Review.destroy({where: {id}})
-    if (!deletedReview) {
-      const err = new Error('Not Found')
-      err.status = 404
-      throw err
-    }
-    res.json(deletedReview)
+    const destroyedRev = await req.review.destroy();
+    console.log(destroyedRev)
+
+    res.json(destroyedRev)
   }
   catch (err) {
     next(err)
