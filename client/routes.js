@@ -6,6 +6,7 @@ import store, {
   me,
   getProductsFromServerThunkerator,
   getOrdersFromServerThunkerator,
+  getAllItemsThunkerator,
 } from './store'
 import { Login, Signup, UserHome, ProductList, ViewProduct, OrderList, UserView, Cart } from './components'
 
