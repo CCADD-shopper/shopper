@@ -68,8 +68,8 @@ router.get('/:orderId/all-items', async (req, res, next) => {
 })
 
 //edit one item
-router.put('/:orderId/edit-item', async (req, res, next) => {
-  const orderId = req.params.orderId
+router.put('/item/edit', async (req, res, next) => {
+  const orderId = req.body.orderId
   const productId = req.body.productId
   try {
     const updateLineItem = await LineItem.update({quantity: req.body.quantity},
@@ -77,7 +77,7 @@ router.put('/:orderId/edit-item', async (req, res, next) => {
         orderId,
         productId,
       }, returning: true})
-    res.json(updateLineItem[1])
+    res.json(updateLineItem[1][0])
   }
   catch (err) {
     next(err)
