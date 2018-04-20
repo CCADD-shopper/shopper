@@ -12,7 +12,6 @@ class ReviewEntry extends React.Component {
   }
 
   handleStarChange = (stars) => {
-    console.log(stars)
     this.setState({stars})
   }
 

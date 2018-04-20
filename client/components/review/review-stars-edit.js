@@ -4,8 +4,6 @@ import ReactStars from 'react-stars'
 
 
 const EditReviewStars = (props) => {
-
-  console.log(props);
   return (
     <div className="starRating">
       <p>Please Submit Your Rating</p>

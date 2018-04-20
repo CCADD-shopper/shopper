@@ -27,7 +27,7 @@ router.get('/', async (req, res, next) => {
     res.json(allReviews);
   }
   catch (err) {
-    console.log(err);
+    next(err);
   }
 })
 
