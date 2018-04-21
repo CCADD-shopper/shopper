@@ -1,9 +1,8 @@
 body {
-  font-family: sans-serif;
+  font-family: 'Lato', 'Helvetica Neue', sans-serif;
 }
 
 a {
-  text-decoration: underline;
   font-size: 1.68712364em;
 }
 
@@ -11,20 +10,28 @@ label {
   display: block;
 }
 
-.logo {
-  color: white;
+.navLinks {
+  display: flex;
+  text-decoration-style: double;
+  justify-content: flex-end;
 }
 
 .googlelink {
   color: white;
 }
-
-.link:hover {
-  text-decoration: none;
+.title {
+  color: white;
+  text-decoration: underline #4083c4;
 }
 
-.uigoogleplusbutton {
-  margin-left: auto;
+.link {
+  text-decoration: underline;
+}
+
+.ui.google.plus.button {
+    background-color: #dd4b39;
+    color: #fff;
+    margin-left: 15px;
 }
 
 .reviewentry {
@@ -50,7 +57,7 @@ p {
 }
 
 .navBar {
-  background-color: #1d1c1cc4;
+  background-color: #696969;
 }
 
 nav a {

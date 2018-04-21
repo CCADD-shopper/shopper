@@ -5,16 +5,22 @@ import { StarsReadOnly } from '../review'
 
 
 const ReviewItem = (props) => {
-  const { name, imgUrl } = props.product;
+  const matchingReviews = props.reviews.filter(review => props.selectedProduct.id !== review.id)
 
   return (
     <div className="reviewItem">
-      <Link className="thumbnail" to={`/products/${props.product.id}`}>
-        <img src={imgUrl} />
-        <h5>{name}</h5>
-      </Link>
-      <StarsReadOnly product={this.props.selectedProduct} />
+        <div>
+          { matchingReviews &&
+            matchingReviews.map(review => (
+              <h5>
+                  <span>{review.description}</span>
+              </h5>
+            ))
+          }
+        </div>
+      <StarsReadOnly product={props.selectedProduct} />
     </div>
+
   );
 }
 

@@ -7,12 +7,12 @@ import {logout} from '../store'
 const Navbar = ({ handleClick, isLoggedIn, cartCount }) => (
   <div className="navBar">
       <Link to="/home">
-        <div className="logo">
-          <h1>TopShop</h1>
+        <div>
+          <h1 className="title">TopShop</h1>
         </div>
       </Link>
 
-    <nav>
+    <nav className="navLinks">
       {isLoggedIn ? (
         <div>
           {/* The navbar will show these links after you log in */}
