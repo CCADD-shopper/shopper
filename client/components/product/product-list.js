@@ -12,7 +12,7 @@ const ProductList = (props) => {
       return false;
     }
   }).filter(product => {
-    return (product.name.indexOf(props.searchParam) > -1)
+    return (product.name.toLowerCase().indexOf(props.searchParam.toLowerCase()) > -1)
   })
 
 
