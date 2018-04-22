@@ -29,6 +29,7 @@ class CheckoutConfirm extends Component{
 
         this.findProductById = this.findProductById.bind(this);
         this.handleChange = this.handleChange.bind(this);
+        this.checkoutHandler = this.checkoutHandler.bind(this);
     }
     //   this.handleSubmit = this.handleSubmit.bind(this);
 
@@ -46,6 +47,14 @@ class CheckoutConfirm extends Component{
         return targetProduct;
       }
 
+      checkoutHandler = (event) => {
+        event.preventDefault();
+        //need to do the following
+            //create a user?
+            //create an order
+            //add line items one by one to the order
+        console.log('hello there')
+    }
     render() {
         console.log(this.state)
         const {cartItems} = this.props
@@ -95,7 +104,7 @@ class CheckoutConfirm extends Component{
 
                     <h4>Payment Method</h4>
                         <label>Credit Card Type</label>
-                        <select name="payCreditCard" value={this.state.payCreditCard}>
+                        <select name="payCreditCard" value={this.state.payCreditCard} onChange={this.handleChange} >
                             <option>VISA</option>
                             <option>Mastercard</option>
                             <option>American Express</option>
@@ -127,7 +136,7 @@ class CheckoutConfirm extends Component{
                 </div>
                     <p>* required field</p>
                     <Link to="/confirm-order">
-                        <button className="ui green button" onClick={() => this.checkoutHandler}>Complete Checkout</button>
+                        <button className="ui green button" onClick={this.checkoutHandler}>Complete Checkout</button>
                     </Link>
                   </form>
         </div>

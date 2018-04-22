@@ -22,7 +22,9 @@ class Cart extends Component{
     return targetProduct;
   }
 
-  checkoutHandler = () => {
+  checkoutHandler = (event) => {
+    event.preventDefault();
+
 
   }
 
@@ -41,7 +43,7 @@ class Cart extends Component{
           </div>)
         })) : <h3>No items</h3>}
       <Link to="/checkout">
-      <button className="ui green button" onClick={() => this.checkoutHandler}>Checkout</button>
+      <button className="ui green button" onClick={this.checkoutHandler}>Checkout</button>
       </Link>
       <button className="ui red button" onClick={() => this.props.clearCart()}>Clear Cart</button>
       </div>
@@ -53,6 +55,7 @@ const mapState = (state) => {
   return {
     productList: state.productList,
     cartItems: state.cart,
+    user: state.user,
   }
 }
 
