@@ -29,6 +29,11 @@ label {
   justify-content: flex-end;
 }
 
+.logo img {
+  width: 100px;
+  margin: 15px;
+}
+
 .googlelink {
   color: white;
 }
@@ -71,6 +76,8 @@ p {
 
 .navBar {
   background-color: #696969;
+  display: flex;
+  flex-direction: row;
 }
 
 nav a {
@@ -158,4 +165,28 @@ form div {
 
 .mainContent {
   flex: 7;
+}
+
+.checkout-form { 
+  display: flex;
+  flex-direction: row;
+  border: 2px solid teal;
+  background-color: azure;
+  justify-content: center;
+}
+
+.checkout-info { 
+  width: 95%;
+  padding-left: 16px;
+  padding-right: 16px;
+}
+
+.checkout-item {
+  width: 30%;
+  padding-left: 16px;
+  padding-right: 16px;
+}
+
+.checkout-summary {
+  padding: 16px;
 }

@@ -7,8 +7,8 @@ import {logout} from '../store'
 const Navbar = ({ handleClick, isLoggedIn, cartCount }) => (
   <div className="navBar">
       <Link to="/home">
-        <div>
-          <h1 className="title">TopShop</h1>
+        <div className="logo">
+          <img src="/images/TopShop-logo-white.png" />
         </div>
       </Link>
 
