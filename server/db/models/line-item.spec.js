@@ -15,17 +15,18 @@ describe('LineItem model', () => {
     describe('rating', () => {
 
       beforeEach(() => {
-        Order.create();
-        Product.create({
-          name: 'faa',
-          price: 30.33,
-          description: 'asdlfjasdfkjhdsf',
-        });
+
       })
 
       it('Default value is 1', async () => {
+        const newOrder = await Order.create()
+        await Product.create({
+          name: 'faa',
+          price: 30.33,
+          description: 'asdlfjasdfkjhdsf',
+        })
         const lineItem = await LineItem.create({
-          orderId: 1,
+          orderId: newOrder.id,
           productId: 1,
           purchasePrice: 3.33
         })

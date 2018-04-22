@@ -11,7 +11,7 @@ import store from '../../store'
 const adapter = new Adapter()
 enzyme.configure({adapter})
 
-describe.skip('CartItem', () => {
+describe.skip('Cart', () => {
   let cart
   beforeEach(() => {
     cart = render(
@@ -20,6 +20,6 @@ describe.skip('CartItem', () => {
   })
 
   it('renders the name in an h5', () => {
-    expect(cart.find('h2').text()).to.be.equal('Shopping Cart')
+    expect(cart.find('h2')).to.be.equal('Shopping Cart')
   })
 })
