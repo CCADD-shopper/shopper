@@ -109,11 +109,35 @@ export const addLineItemThunkerator = (item) => {
   }
 }
 
+export const removeLineItemThunkerator = (targetItem) => {
+  return async (dispatch) => {
+    try {
+      await axios.delete('/api/orders/item/remove', {data: targetItem})
+      dispatch(removeProductfromCart(targetItem.productId))
+    }
+    catch (err) {
+      console.log(err)
+    }
+  }
+}
+
 export const editLineItemThunkerator = (item) => {
   return async (dispatch) => {
     try {
       const updatedItem = await axios.put(`/api/orders/item/edit`, item)
       dispatch(editLineItem(updatedItem.data))
+    }
+    catch (err) {
+      console.log(err)
+    }
+  }
+}
+
+export const clearCartItemsThunkerator = (id) => {
+  return async (dispatch) => {
+    try {
+      await axios.delete(`/api/orders/${id}`)
+      dispatch(clearCart())
     }
     catch (err) {
       console.log(err)
