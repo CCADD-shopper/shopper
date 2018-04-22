@@ -41,7 +41,7 @@ class Cart extends Component{
           </div>)
         })) : <h3>No items</h3>}
       <Link to="/checkout">
-      <button className="ui green button" onClick={() => this.checkoutHandler}>Rich Boy Selling Crack</button>
+      <button className="ui green button" onClick={() => this.checkoutHandler}>Checkout</button>
       </Link>
       <button className="ui red button" onClick={() => this.props.clearCart()}>Clear Cart</button>
       </div>

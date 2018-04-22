@@ -127,7 +127,7 @@ class CheckoutConfirm extends Component{
                 </div>
                     <p>* required field</p>
                     <Link to="/confirm-order">
-                        <button className="ui green button" onClick={() => this.checkoutHandler}>Rich Boy Selling Crack</button>
+                        <button className="ui green button" onClick={() => this.checkoutHandler}>Complete Checkout</button>
                     </Link>
                   </form>
         </div>
