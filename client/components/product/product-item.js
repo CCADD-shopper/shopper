@@ -8,8 +8,8 @@ import { addProductToCart, addLineItemThunkerator, editLineItemThunkerator } fro
 const ProductItem = (props) => {
   const {id, name, price, description, qtyAvailable, imgUrl} = props.product;
   //place holders
-  const quantity = 1;
-  const orderId = 4
+  const quantity = 1
+  const orderId = props.orderId
   return (
     <div className="productItem">
       <Link className="thumbnail" to={`/products/${props.product.id}`}>
@@ -45,7 +45,8 @@ const handleClick = (props, newItem) => {
 const mapStateToProps = (state) => {
   return {
     isLoggedIn: !!state.user.id,
-    cart: state.cart
+    cart: state.cart,
+    orderId: state.userCartOrderId
   }
 }
 

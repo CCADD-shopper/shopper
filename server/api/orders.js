@@ -26,6 +26,19 @@ router.get('/user/:userId', (req, res, next) => {
     .catch(next)
 })
 
+router.get('/find/:userId', async (req, res, next) => {
+  try {
+    const foundCart = await Order.findOrCreate({
+      where: {status: 'pending', userId: req.params.userId},
+      defaults: {status: 'pending', userId: req.params.userId}
+    })
+    res.json(foundCart[0])
+  }
+  catch (err) {
+    next(err)
+  }
+})
+
 router.post('/new-order', (req, res, next) => {
     Order.create(req.body)
       .then(newOrder => res.json(newOrder))
@@ -85,8 +98,8 @@ router.put('/item/edit', async (req, res, next) => {
 })
 
 //delete 1 line item
-router.delete('/:orderId/remove-item', async (req, res, next) => {
-  const orderId = req.params.orderId
+router.delete('/item/remove', async (req, res, next) => {
+  const orderId = req.body.orderId
   const productId = req.body.productId
   try {
     const deletedRow = await LineItem.destroy({where: {
@@ -100,18 +113,13 @@ router.delete('/:orderId/remove-item', async (req, res, next) => {
   }
 })
 
-//Delete entire order
+//Clear entire order
 router.delete('/:orderId', async (req, res, next) => {
   const orderId = req.params.orderId
   try {
     const deletedRow = await LineItem.destroy({where: {
       orderId
     }})
-    await Order.destroy({
-      where: {
-        id: orderId
-      }
-    })
     res.json(deletedRow)
   }
   catch (err) {
