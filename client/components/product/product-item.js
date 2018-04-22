@@ -8,8 +8,8 @@ import { addProductToCart, addLineItemThunkerator, editLineItemThunkerator } fro
 const ProductItem = (props) => {
   const {id, name, price, description, qtyAvailable, imgUrl} = props.product;
   //place holders
-  const quantity = 1;
-  const orderId = 4
+  const quantity = 1
+  const orderId = props.orderId
   return (
     <div className="productItem">
       <Link className="thumbnail" to={`/products/${props.product.id}`}>
@@ -27,10 +27,12 @@ const handleClick = (props, newItem) => {
   if (props.isLoggedIn){
     const foundItem = props.cart.filter(item => item.productId === newItem.productId)
     if (foundItem.length){
+      console.log('if')
       newItem.quantity = newItem.quantity + foundItem[0].quantity
       props.editLineItemThunkerator(newItem)
     }
     else {
+      console.log('else')
       props.addLineItemThunkerator(newItem)
     }
   }
@@ -45,7 +47,8 @@ const handleClick = (props, newItem) => {
 const mapStateToProps = (state) => {
   return {
     isLoggedIn: !!state.user.id,
-    cart: state.cart
+    cart: state.cart,
+    orderId: state.userCartOrderId
   }
 }
 

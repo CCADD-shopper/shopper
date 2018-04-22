@@ -7,8 +7,6 @@ import store, {
   getProductsFromServerThunkerator,
   getOrdersFromServerThunkerator,
   getReviewsFromServerThunkerator,
-  getCartOrderIdThunkerator,
-  getAllItemsThunkerator,
 } from './store'
 import { Login, Signup, UserHome, ProductList, ViewProduct, OrderList, UserView, Cart } from './components'
 
@@ -21,10 +19,7 @@ class Routes extends Component {
     store.dispatch(getProductsFromServerThunkerator())
     store.dispatch(getOrdersFromServerThunkerator())
     store.dispatch(getReviewsFromServerThunkerator())
-    store.dispatch(getCartOrderIdThunkerator(1))
-    store.dispatch(getAllItemsThunkerator(1))
   }
-
   render() {
     const { isLoggedIn, user } = this.props
     const MyUserPage = (props) => {
@@ -68,7 +63,7 @@ const mapState = (state) => {
     // Being 'logged in' for our purposes will be defined has having a state.user that has a truthy id.
     // Otherwise, state.user will be an empty object, and state.user.id will be falsey
     isLoggedIn: !!state.user.id,
-    user: state.user
+    user: state.user,
   }
 }
 

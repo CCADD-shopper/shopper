@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { getAllItemsThunkerator } from './';
 
 //Action types
 const GET_CART_ORDER_ID = 'GET_CART_ORDER_ID'
@@ -17,6 +18,7 @@ export const getCartOrderIdThunkerator = (userId) => {
     try {
       const CartOrderId = await axios.get(`/api/orders/find/${userId}`)
       dispatch(getCartOrderId(CartOrderId.data.id))
+      dispatch(getAllItemsThunkerator(CartOrderId.data.id))
     }
     catch (err) {
       console.log(err)
