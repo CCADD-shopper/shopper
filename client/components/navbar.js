@@ -9,6 +9,7 @@ const Navbar = ({ handleClick, isLoggedIn, cartCount }) => (
       <Link to="/home">
         <div className="logo">
           <img src="/images/TopShop-logo-white.png" />
+          Does this work?
         </div>
       </Link>
 
