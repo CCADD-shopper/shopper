@@ -20,10 +20,8 @@ class Routes extends Component {
     store.dispatch(getOrdersFromServerThunkerator())
     store.dispatch(getReviewsFromServerThunkerator())
   }
-
   render() {
     const { isLoggedIn, user } = this.props
-
     const MyUserPage = (props) => {
       return (
         <UserView
@@ -67,7 +65,7 @@ const mapState = (state) => {
     // Being 'logged in' for our purposes will be defined has having a state.user that has a truthy id.
     // Otherwise, state.user will be an empty object, and state.user.id will be falsey
     isLoggedIn: !!state.user.id,
-    user: state.user
+    user: state.user,
   }
 }
 
