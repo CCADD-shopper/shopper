@@ -10,7 +10,7 @@ const AuthForm = (props) => {
   const {name, displayName, handleSubmit, error} = props
 
   return (
-    <div>
+    <div className="ui center aligned basic segment">
       <form onSubmit={handleSubmit} name={name}>
         <div>
           <label htmlFor="email"><medium>Email</medium></label>
@@ -21,10 +21,13 @@ const AuthForm = (props) => {
           <input name="password" type="password" />
         </div>
         <div>
-          <button type="submit">{displayName}</button>
+          <button className="ui button" type="submit">{displayName}</button>
         </div>
         {error && error.response && <div> {error.response.data} </div>}
       </form>
+
+        <div className="ui horizontal divider">Or</div>
+
       <button className="ui google plus button">
         <i className= "google icon" />
       <a href="/auth/google">  <div className="googlelink">

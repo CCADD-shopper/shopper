@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import store, { getProductFromServerThunkerator, clearProduct, addProductToCart } from '../../store'
-import { StarsReadOnly, ReviewEntry } from '../review'
+import store, { getProductFromServerThunkerator, clearProduct, addProductToCart, getReviewsFromServerThunkerator } from '../../store'
+import { StarsReadOnly, ReviewEntry, ReviewItem } from '../review'
 
 class ViewProduct extends React.Component {
   constructor() {
@@ -18,7 +18,7 @@ class ViewProduct extends React.Component {
 
   componentDidMount() {
     const productId = this.props.match.params.productId;
-    this.props.getProductFromServerThunkerator(productId)
+    this.props.getProductFromServerThunkerator(productId);
   }
 
   componentWillUnmount() {
@@ -51,13 +51,14 @@ class ViewProduct extends React.Component {
           }
           {!this.state.isHidden && <ReviewEntry product={this.props.selectedProduct} />}
         </div>
+        <ReviewItem review={this.props.selectedProduct}/>
       </div>
     );
   }
 }
 
-const mapStateToProps = ({ selectedProduct, cart, user }) => ({ selectedProduct, cart, user })
+const mapStateToProps = ({ selectedProduct, cart, user, reviews }) => ({ selectedProduct, cart, user, reviews })
 
-const mapDispatchToProps = { getProductFromServerThunkerator, clearProduct, addProductToCart };
+const mapDispatchToProps = { getProductFromServerThunkerator, clearProduct, addProductToCart, getReviewsFromServerThunkerator };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ViewProduct);
