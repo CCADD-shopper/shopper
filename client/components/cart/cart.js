@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import {Link} from 'react-router-dom';
 import { connect } from 'react-redux'
 import CartItem from './cart-item';
 import { clearCart } from '../../store/cart'
@@ -8,6 +9,7 @@ class Cart extends Component{
     super(props)
 
     this.findProductById = this.findProductById.bind(this);
+    this.checkoutHandler = this.checkoutHandler.bind(this);
   }
 
   handleSubmit = () => {
@@ -18,6 +20,10 @@ class Cart extends Component{
   findProductById = (productId) => {
     const targetProduct = this.props.productList.find(product => product.id === productId)
     return targetProduct;
+  }
+
+  checkoutHandler = () => {
+
   }
 
   render(){
@@ -34,6 +40,9 @@ class Cart extends Component{
             <CartItem product={product} quantity={cartItem.quantity} />
           </div>)
         })) : <h3>No items</h3>}
+      <Link to="/checkout">
+      <button className="ui green button" onClick={() => this.checkoutHandler}>Checkout</button>
+      </Link>
       <button className="ui red button" onClick={() => this.props.clearCart()}>Clear Cart</button>
       </div>
     )

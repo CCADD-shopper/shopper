@@ -145,3 +145,27 @@ form div {
 .mainContent {
   flex: 7;
 }
+
+.checkout-form { 
+  display: flex;
+  flex-direction: row;
+  border: 2px solid teal;
+  background-color: azure;
+  justify-content: center;
+}
+
+.checkout-info { 
+  width: 95%;
+  padding-left: 16px;
+  padding-right: 16px;
+}
+
+.checkout-item {
+  width: 30%;
+  padding-left: 16px;
+  padding-right: 16px;
+}
+
+.checkout-summary {
+  padding: 16px;
+}
