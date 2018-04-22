@@ -15,12 +15,16 @@ label {
   color: white;
 }
 
+.logo img {
+  width: 100px;
+  margin: 15px;
+}
+
 .googlelink {
   color: white;
 }
 
 .link:hover {
-  text-decoration: none;
 }
 
 .uigoogleplusbutton {
@@ -51,6 +55,8 @@ p {
 
 .navBar {
   background-color: #1d1c1cc4;
+  display: flex;
+  flex-direction: row;
 }
 
 nav a {
