@@ -6,7 +6,9 @@ import CartItem from '../cart';
 const CartSummary = (props) => {
 
     return (
-        <div className="checkout summary" />
+        <div className="checkout summary">
+            <p>what's up</p>
+        </div>
     )
 }
 

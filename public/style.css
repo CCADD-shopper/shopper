@@ -148,6 +148,12 @@ form div {
   justify-content: center;
 }
 
+.checkout-info { 
+  width: 95%;
+  padding-left: 16px;
+  padding-right: 16px;
+}
+
 .checkout-item {
   width: 30%;
   padding-left: 16px;

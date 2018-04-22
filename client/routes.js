@@ -8,7 +8,7 @@ import store, {
   getOrdersFromServerThunkerator,
   getReviewsFromServerThunkerator,
 } from './store'
-import { Login, Signup, UserHome, ProductList, ViewProduct, OrderList, UserView, Cart, CheckoutConfirm } from './components'
+import { Login, Signup, UserHome, ProductList, ViewProduct, OrderList, UserView, Cart, CheckoutSummary, CheckoutConfirm } from './components'
 
 /**
  * COMPONENT
@@ -41,6 +41,7 @@ class Routes extends Component {
         <Route exact path="/products" component={ProductList} />
         <Route exact path="/products/:productId" component={ViewProduct} />
         <Route exact path="/checkout" component={CheckoutConfirm} />
+        <Route exact path="/confirm-order" component={CheckoutSummary} />
         {
           isLoggedIn &&
             <Switch>
