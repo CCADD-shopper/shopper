@@ -27,12 +27,10 @@ const handleClick = (props, newItem) => {
   if (props.isLoggedIn){
     const foundItem = props.cart.filter(item => item.productId === newItem.productId)
     if (foundItem.length){
-      console.log('if')
       newItem.quantity = newItem.quantity + foundItem[0].quantity
       props.editLineItemThunkerator(newItem)
     }
     else {
-      console.log('else')
       props.addLineItemThunkerator(newItem)
     }
   }
