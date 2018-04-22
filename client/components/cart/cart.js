@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import {Link} from 'react-router-dom';
 import { connect } from 'react-redux'
 import CartItem from './cart-item';
-import { clearCart } from '../../store/cart'
+import { clearCart, clearCartItemsThunkerator } from '../../store/cart'
 
 class Cart extends Component{
   constructor(props){
@@ -26,9 +26,12 @@ class Cart extends Component{
 
   }
 
+  clearCartHandler = (id) => {
+    if (this.props.isLoggedIn) this.props.clearCartItemsThunkerator(id)
+    else this.props.clearCart()
+  }
+
   render(){
-    // this.props.cartItems.forEach(item => console.log(item.productId))
-    // this.findProductById(this.props.cartItems[0].productId))
     const {cartItems} = this.props
     return (
       <div>
@@ -43,7 +46,7 @@ class Cart extends Component{
       <Link to="/checkout">
       <button className="ui green button" onClick={() => this.checkoutHandler}>Checkout</button>
       </Link>
-      <button className="ui red button" onClick={() => this.props.clearCart()}>Clear Cart</button>
+      <button className="ui red button" onClick={() => this.clearCartHandler(this.props.orderId)}>Clear Cart</button>
       </div>
     )
   }
@@ -52,11 +55,13 @@ class Cart extends Component{
 const mapState = (state) => {
   return {
     productList: state.productList,
+    isLoggedIn: !!state.user.id,
     cartItems: state.cart,
+    orderId: state.userCartOrderId
   }
 }
 
-const mapDispatch = { clearCart };
+const mapDispatch = { clearCart, clearCartItemsThunkerator };
 
 export default connect(mapState, mapDispatch)(Cart)
 
