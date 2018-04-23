@@ -7,6 +7,7 @@ import store, {
   getProductsFromServerThunkerator,
   getOrdersFromServerThunkerator,
   getReviewsFromServerThunkerator,
+  addProductToCart,
 } from './store'
 import {
   Login,
@@ -31,7 +32,9 @@ class Routes extends Component {
     store.dispatch(getProductsFromServerThunkerator())
     store.dispatch(getOrdersFromServerThunkerator())
     store.dispatch(getReviewsFromServerThunkerator())
+    this.handleLocalStorage()
   }
+
   render() {
     const { isLoggedIn, user } = this.props
     const MyUserPage = (props) => {
@@ -67,6 +70,15 @@ class Routes extends Component {
       </Switch>
         </div>
     )
+  }
+
+  handleLocalStorage = () => {
+    if (localStorage.getItem('cart')) {
+      const cart = JSON.parse(localStorage.getItem('cart'))
+      cart.map(item => {
+        store.dispatch(addProductToCart(item))
+      })
+    }
   }
 }
 
