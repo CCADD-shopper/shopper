@@ -3,6 +3,7 @@ import axios from 'axios';
 /* -----------------    ACTION TYPES    ------------------ */
 
 const GET_REVIEWS_FROM_SERVER   = 'GET_REVIEWS_FROM_SERVER';
+const GET_REVIEWS_FOR_PRODUCT   = 'GET_REVIEWS_FOR_PRODUCT';
 const ADD_REVIEW           = 'ADD_REVIEW';
 const REMOVE_REVIEW        = 'REMOVE_REVIEW';
 const UPDATE_REVIEW        = 'UPDATE_REVIEW';
@@ -10,6 +11,7 @@ const UPDATE_REVIEW        = 'UPDATE_REVIEW';
 /* ------------     ACTION CREATORS      ------------------ */
 
 const getReviewsFromServer   = reviews => ({ type: GET_REVIEWS_FROM_SERVER, reviews });
+const getReviewsForProduct   = reviews => ({ type: GET_REVIEWS_FOR_PRODUCT, reviews  });
 const removeReview  = id => ({ type: REMOVE_REVIEW, id });
 const addReview     = review => ({ type: ADD_REVIEW, review });
 const updateReview  = review => ({ type: UPDATE_REVIEW, review });
@@ -20,6 +22,9 @@ export default function reducer (reviews = [], action) {
   switch (action.type) {
 
     case GET_REVIEWS_FROM_SERVER:
+      return action.reviews;
+
+    case GET_REVIEWS_FOR_PRODUCT:
       return action.reviews;
 
     case REMOVE_REVIEW:
@@ -48,6 +53,18 @@ export const getReviewsFromServerThunkerator = () => {
     }
     catch (err) {
       console.log('Fetching Reviews unsuccessful', err);
+    }
+  }
+}
+export const getReviewsForProductThunkerator = id => {
+  return async (dispatch) => {
+    try {
+      const selectedReviews = await axios.get(`/api/reviews/byProduct/${id}/`);
+        console.log(selectedReviews);
+      dispatch(getReviewsForProduct(selectedReviews.data));
+    }
+    catch (err) {
+      console.log('Fetching Reviews for product unsuccessful', err);
     }
   }
 }

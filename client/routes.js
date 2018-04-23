@@ -31,7 +31,7 @@ class Routes extends Component {
     this.props.loadInitialData()
     store.dispatch(getProductsFromServerThunkerator())
     store.dispatch(getOrdersFromServerThunkerator())
-    store.dispatch(getReviewsFromServerThunkerator())
+    // store.dispatch(getReviewsFromServerThunkerator())
     this.handleLocalStorage()
   }
 
