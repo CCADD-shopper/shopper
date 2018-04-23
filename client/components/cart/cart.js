@@ -22,13 +22,18 @@ class Cart extends Component{
     return targetProduct;
   }
 
-  checkoutHandler = () => {
+  checkoutHandler = (event) => {
+    // event.preventDefault();
+
 
   }
 
   clearCartHandler = (id) => {
-    if (this.props.isLoggedIn) this.props.clearCartItemsThunkerator(id)
-    else this.props.clearCart()
+    if (this.props.isLoggedIn) {this.props.clearCartItemsThunkerator(id)}
+    else {
+      this.props.clearCart()
+      localStorage.removeItem('cart')
+    }
   }
 
   render(){
@@ -44,7 +49,7 @@ class Cart extends Component{
           </div>)
         })) : <h3>No items</h3>}
       <Link to="/checkout">
-      <button className="ui green button" onClick={() => this.checkoutHandler}>Checkout</button>
+      <button className="ui green button" onClick={this.checkoutHandler}>Checkout</button>
       </Link>
       <button className="ui red button" onClick={() => this.clearCartHandler(this.props.orderId)}>Clear Cart</button>
       </div>
@@ -57,6 +62,7 @@ const mapState = (state) => {
     productList: state.productList,
     isLoggedIn: !!state.user.id,
     cartItems: state.cart,
+    user: state.user,
     orderId: state.userCartOrderId
   }
 }

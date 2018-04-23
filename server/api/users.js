@@ -2,7 +2,7 @@ const router = require('express').Router()
 const { User } = require('../db/models')
 module.exports = router
 
-router.param('/:userId', async (req, res, next, userId) => {
+router.param('userId', async (req, res, next, userId) => {
   try {
     const user = await User.findById(userId);
     req.user = user;
@@ -23,26 +23,28 @@ router.get('/', async (req, res, next) => {
   }
 })
 
-router.get('/:id', (req, res, next) => {
+router.get('/:userId', (req, res, next) => {
   res.json(req.user)
 })
 
 router.post('/create', async (req, res, next) => {
   try {
     const user = await User.create(req.body)
-    res.send(200).json(user)
+    res.json(user)
   }
   catch (err) {
     next(err)
   }
 })
 
-router.put('/:id/toggle-admin', (req, res, next) => {
-  req.user.toggleAdmin()
-  res.sendStatus(201)
+router.put('/:userId/toggle-admin', async (req, res, next) => {
+  const updatedUser = await req.user.update({
+    isAdmin: !req.user.isAdmin,
+  })
+  res.json(updatedUser)
 })
 
-router.put('/:id/update-password', async (req, res, next) => {
+router.put('/:userId/update-password', async (req, res, next) => {
   try {
     await req.user.update({ password: req.body.password })
     res.sendStatus(201)
@@ -55,7 +57,7 @@ router.put('/:id/update-password', async (req, res, next) => {
 router.delete('/:userId', async (req, res, next) => {
   const id = req.params.userId
   try {
-    const deletedUser = await User.destroy({where: {id}})
+    const deletedUser = await req.user.destroy()
     if (!deletedUser) {
       const err = new Error('Not Found')
       err.status = 404

@@ -1,12 +1,13 @@
 import axios from 'axios'
 import history from '../history'
-import {getCartOrderIdThunkerator} from './index'
+import { getCartOrderIdThunkerator, updateUserFromServer, removeUserFromServer } from './index'
 
 /**
  * ACTION TYPES
  */
 const GET_USER = 'GET_USER'
 const REMOVE_USER = 'REMOVE_USER'
+// const ADD_UNAUTH_USER = 'ADD_UNAUTH_USER'
 
 /**
  * INITIAL STATE
@@ -18,6 +19,7 @@ const defaultUser = {}
  */
 const getUser = user => ({type: GET_USER, user})
 const removeUser = () => ({type: REMOVE_USER})
+// const addUnauthUser = (user) => ({type: ADD_UNAUTH_USER, user})
 
 /**
  * THUNK CREATORS
@@ -31,9 +33,9 @@ export const me = () =>
       })
       .catch(err => console.log(err))
 
-export const auth = (email, password, method) =>
+export const auth = (user, method) =>
   dispatch =>
-    axios.post(`/auth/${method}`, { email, password })
+    axios.post(`/auth/${method}`, user)
       .then(res => {
         dispatch(getUser(res.data))
         dispatch(getCartOrderIdThunkerator(res.data.id))
@@ -52,14 +54,40 @@ export const logout = () =>
       })
       .catch(err => console.log(err))
 
-// export const getAllUsersThunkCreator = () =>
-// dispatch =>
-//   axios.get('api/users')
-//     .then(res => {
-//       dispatch(getAllUsers(res.data))
-//       // history.push('/login')
-//     })
-//     .catch(err => console.log(err))
+
+export const toggleAdminThunkerator = (id) => {
+  return async (dispatch) => {
+    const updatedUser = await axios.put(`/api/users/${id}/toggle-admin`)
+    dispatch(updateUserFromServer(updatedUser.data))
+  }
+}
+
+export const deleteUserThunkerator = (id) => {
+  return async (dispatch) => {
+    try {
+      await axios.delete(`/api/users/${id}`)
+      dispatch(removeUserFromServer(id))
+    }
+    catch (err) {
+      console.log(err)
+    }
+  }
+}
+
+export const createTempUserThunkerator = (tempUserInfo) => {
+  return async (dispatch) => {
+    try {
+      const tUser = await axios.post('api/users/create', tempUserInfo)
+      await dispatch(getCartOrderIdThunkerator(tUser.data.id))
+    }
+    catch (err) {
+      console.log(err)
+    }
+  }
+
+    // .then(tempUser = {
+    // })
+}
 
 /**
  * REDUCER
