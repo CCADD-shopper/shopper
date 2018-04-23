@@ -12,14 +12,17 @@ class CartItem extends Component{
   //   removeProductfromCart()
   // }
 
-  handleRemove = (id) => {
+  handleRemove = (productId) => {
     if (this.props.isLoggedIn){
-      const targetItem = {productId: id, orderId: this.props.orderId}
+      const targetItem = {productId, orderId: this.props.orderId}
       this.props.removeLineItemThunkerator(targetItem)
 
     }
     else {
-      this.props.removeProductfromCart(id)
+      const oldCart = JSON.parse(localStorage.getItem('cart'))
+      const newCart = JSON.stringify(oldCart.filter(cartItem => cartItem.productId !== productId))
+      localStorage.setItem('cart', newCart)
+      this.props.removeProductfromCart(productId)
     }
   }
 

@@ -27,8 +27,11 @@ class Cart extends Component{
   }
 
   clearCartHandler = (id) => {
-    if (this.props.isLoggedIn) this.props.clearCartItemsThunkerator(id)
-    else this.props.clearCart()
+    if (this.props.isLoggedIn) {this.props.clearCartItemsThunkerator(id)}
+    else {
+      this.props.clearCart()
+      localStorage.removeItem('cart')
+    }
   }
 
   render(){
