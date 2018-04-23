@@ -57,7 +57,7 @@ router.put('/:userId/update-password', async (req, res, next) => {
 router.delete('/:userId', async (req, res, next) => {
   const id = req.params.userId
   try {
-    const deletedUser = await User.destroy({where: {id}})
+    const deletedUser = await req.user.destroy()
     if (!deletedUser) {
       const err = new Error('Not Found')
       err.status = 404

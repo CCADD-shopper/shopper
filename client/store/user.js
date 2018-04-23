@@ -1,6 +1,6 @@
 import axios from 'axios'
 import history from '../history'
-import { getCartOrderIdThunkerator, updateUser } from './index'
+import { getCartOrderIdThunkerator, updateUserFromServer, removeUserFromServer } from './index'
 
 /**
  * ACTION TYPES
@@ -58,7 +58,19 @@ export const logout = () =>
 export const toggleAdminThunkerator = (id) => {
   return async (dispatch) => {
     const updatedUser = await axios.put(`/api/users/${id}/toggle-admin`)
-    dispatch(updateUser(updatedUser.data))
+    dispatch(updateUserFromServer(updatedUser.data))
+  }
+}
+
+export const deleteUserThunkerator = (id) => {
+  return async (dispatch) => {
+    try {
+      await axios.delete(`/api/users/${id}`)
+      dispatch(removeUserFromServer(id))
+    }
+    catch (err) {
+      console.log(err)
+    }
   }
 }
 
