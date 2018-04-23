@@ -23,7 +23,7 @@ class Cart extends Component{
   }
 
   checkoutHandler = (event) => {
-    event.preventDefault();
+    // event.preventDefault();
 
 
   }

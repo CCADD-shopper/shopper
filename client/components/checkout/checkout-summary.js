@@ -7,7 +7,15 @@ const CartSummary = (props) => {
 
     return (
         <div className="checkout summary">
-            <p>what's up</p>
+            <p>Success!!! Your order has been placed!</p>
+            <ul>
+                <li>Total</li>
+                <li>Status</li>
+                <li>Order #</li>
+                <li>Line Items #1</li>
+                <li>Line Items #2</li>
+                {/* <li></li> */}
+            </ul>
         </div>
     )
 }

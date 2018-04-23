@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import {CartItem} from '../cart';
+import { getCartOrderIdThunkerator, addLineItemThunkerator, createTempUserThunkerator } from '../../store'
 
 class CheckoutConfirm extends Component{
     constructor(props){
@@ -47,20 +48,22 @@ class CheckoutConfirm extends Component{
         return targetProduct;
       }
 
-      checkoutHandler = (event) => {
-        event.preventDefault();
-        //need to do the following
-            //create a user?
-            //create an order
-            //add line items one by one to the order
-        console.log('hello there')
+    checkoutHandler = async(event) => {
+        // event.preventDefault();
+        if (!this.props.isLoggedIn) {
+            const userToBe = {firstName: this.state.firstName, lastName: this.state.lastName, email: this.state.email}
+            const cartToBe = this.props.cartItems.slice();
+            await this.props.createTempUserThunkerator(userToBe)
+            // console.log(this.props);
+            cartToBe.map(item => {
+                item.orderId = this.props.orderId;
+                // console.log(item);
+                this.props.addLineItemThunkerator(item);
+            })
+    }
     }
     render() {
-        console.log(this.state)
         const {cartItems} = this.props
-        // const shipTo = this.state.addressShipping;
-        // const billTo = this.state.addressBilling;
-        // const payFrom = this.state.paymentMethod;
     return (
         <div className="checkout-summary">
             <div>
@@ -145,13 +148,15 @@ class CheckoutConfirm extends Component{
 
 const mapStateToProps = (state) => {
     return {
+      isLoggedIn: !!state.user.id,
       productList: state.productList,
       cartItems: state.cart,
+      orderId: state.userCartOrderId
     }
   }
 
 
-const mapDispatchToProps = null
+const mapDispatchToProps = { createTempUserThunkerator, addLineItemThunkerator, getCartOrderIdThunkerator }
 
 
 export default connect(mapStateToProps, mapDispatchToProps)(CheckoutConfirm);
