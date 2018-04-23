@@ -1,16 +1,19 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { ReviewItemStars } from '../review'
-import { getUsersFromServerThunkerator } from '../../store'
 
 
 const ReviewItem = (props) => {
+// console.log('RI user>>>>', props.user);
 
+  // if (!props.user){
+  //   return (<div>loading</div>)
+  // }
   return (
         <div className="ui items">
           {
             props.review.map(review => (
-                <div className="item">
+                <div key={review.id} className="item">
                   <div className="reviewList">
                     <div className="ui blue circular segment">
                     <h2 className="header">{review.user.firstName} {review.user.lastName}</h2>
@@ -27,7 +30,7 @@ const ReviewItem = (props) => {
   );
 }
 
-const mapStateToProps = null;
+const mapStateToProps = ({ user }) => ({ user })
 
 const mapDispatchToProps = null;
 
