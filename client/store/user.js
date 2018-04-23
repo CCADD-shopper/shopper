@@ -58,7 +58,6 @@ export const createTempUserThunkerator = (tempUserInfo) => {
   return async (dispatch) => {
     try {
       const tUser = await axios.post('api/users/create', tempUserInfo)
-      console.log(tUser, 'with a message')
       await dispatch(getCartOrderIdThunkerator(tUser.data.id))
     }
     catch (err) {
