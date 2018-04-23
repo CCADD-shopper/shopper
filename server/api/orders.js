@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const { Order, LineItem, User } = require('../db/models')
+const {Order, LineItem, OrderDetails, User} = require('../db/models')
 
 module.exports = router
 
@@ -79,7 +79,18 @@ router.put('/:orderId/', (req, res, next) => {
 })
 
 //add one line item
+router.post('/add-item/:orderId', (req, res, next) => {
+  req.body.orderId = req.params.orderId
+  console.log(req.body.orderId)
+  LineItem.create(req.body)
+  .then(newItem => res.json(newItem))
+  .catch(next)
+  // next()
+})
+
+//add one line item
 router.post('/add-item', (req, res, next) => {
+  console.log('hit me!')
   LineItem.create(req.body)
     .then(newItem => res.json(newItem))
     .catch(next)
@@ -98,6 +109,12 @@ router.get('/:orderId/all-items', async (req, res, next) => {
     next(err)
   }
 
+})
+
+router.post('/fillOrderDetails', (req, res, next) => {
+  OrderDetails.create(req.body)
+  .then(newDetails => res.json(newDetails))
+  .catch(next)
 })
 
 //edit one item
@@ -152,3 +169,4 @@ router.delete('/:orderId', async (req, res, next) => {
     next(err)
   }
 })
+
