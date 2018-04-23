@@ -4,3 +4,4 @@
  * having to figure out which file they belong to!
  */
 export {default as OrderList} from './order-list'
+export {default as OrderDetail} from './order-detail'
