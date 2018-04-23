@@ -90,13 +90,6 @@ export const deleteUserThunkerator = (id) => {
   }
 }
 
-    }
-    catch (err) {
-      console.log(err)
-    }
-  }
-}
-
 /**
  * REDUCER
  */
