@@ -4,7 +4,7 @@ import CartItem from '../cart';
 // import { clearCart } from '../../store/cart'
 
 const CartSummary = (props) => {
-
+    console.log(props.processedOrder)
     return (
         <div className="checkout summary">
             <p>Success!!! Your order has been placed!</p>
@@ -20,7 +20,10 @@ const CartSummary = (props) => {
     )
 }
 
-const mapStateToProps = null;
+const mapStateToProps = (state) => {
+    return {
+        processedOrder: state.userCartOrderId }
+    };
 
 const mapDispatchToProps = null
 
