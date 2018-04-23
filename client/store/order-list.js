@@ -8,11 +8,11 @@ export const getOrdersFromServer = (orders) => ({
 })
 
 //thunks
-export const getOrdersFromServerThunkerator = () => {
+export const getOrdersFromServerThunkerator = (userId) => {
   return async (dispatch) => {
     try {
-      const allOrders = await axios.get('/api/orders');
-      dispatch(getOrdersFromServer(allOrders.data));
+      const orders = await axios.get(`/api/orders/user/${userId}`);
+      dispatch(getOrdersFromServer(orders.data));
     }
     catch (err) {
       console.log(err);
