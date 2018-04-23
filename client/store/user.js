@@ -33,9 +33,9 @@ export const me = () =>
       })
       .catch(err => console.log(err))
 
-export const auth = (email, password, method) =>
+export const auth = (user, method) =>
   dispatch =>
-    axios.post(`/auth/${method}`, { email, password })
+    axios.post(`/auth/${method}`, user)
       .then(res => {
         dispatch(getUser(res.data))
         dispatch(getCartOrderIdThunkerator(res.data.id))
