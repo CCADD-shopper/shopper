@@ -70,8 +70,7 @@ class CheckoutConfirm extends Component{
 
         }
 
-    this.setState({formErrors: fieldValidationErrors, emailValid: emailValid}, this.validateForm)
-        console.log(this.state.emailValid);
+        this.setState({formErrors: fieldValidationErrors, emailValid: emailValid}, this.validateForm)
     }
 
     async validateForm() {
