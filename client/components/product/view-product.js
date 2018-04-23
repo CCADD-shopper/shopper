@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { StarsReadOnly, ReviewEntry, ProductReviewItems } from '../review'
 import store, { getProductFromServerThunkerator, clearProduct, addProductToCart, getReviewsFromServerThunkerator, addLineItemThunkerator, editLineItemThunkerator } from '../../store'
-import { StarsReadOnly, ReviewEntry, ReviewItem } from '../review'
-import {handleClick} from './product-item'
+import { handleClick } from './product-item'
 
 class ViewProduct extends React.Component {
   constructor() {
@@ -33,6 +33,7 @@ class ViewProduct extends React.Component {
     const matchingReviews = this.props.reviews.filter(review => this.props.selectedProduct.id === review.productId);
     let quantity = 1
     let orderId = this.props.userCartOrderId
+
     return (
       <div>
       <div className="productItem">
@@ -57,7 +58,7 @@ class ViewProduct extends React.Component {
         </div>
       </div>
       <div className="reviewList">
-        <ReviewItem review={matchingReviews} />
+        <ProductReviewItems />
       </div>
 
     </div>
@@ -66,6 +67,7 @@ class ViewProduct extends React.Component {
 }
 
 const mapStateToProps = ({ selectedProduct, cart, user, reviews, userCartOrderId }) => ({ selectedProduct, cart, user, reviews, userCartOrderId, isLoggedIn: !!user.id })
+
 
 const mapDispatchToProps = { getProductFromServerThunkerator, clearProduct, addProductToCart, getReviewsFromServerThunkerator, addLineItemThunkerator, editLineItemThunkerator };
 
