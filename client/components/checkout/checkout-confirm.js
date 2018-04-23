@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import {CartItem} from '../cart';
 import { getCartOrderIdThunkerator, addLineItemThunkerator, createTempUserThunkerator } from '../../store'
 import { FormErrors } from './form-errors'
+import axios from 'axios'
 
 class CheckoutConfirm extends Component{
     constructor(props){
@@ -71,7 +72,29 @@ class CheckoutConfirm extends Component{
         }
 
     this.setState({formErrors: fieldValidationErrors, emailValid: emailValid}, this.validateForm)
-        console.log(this.state.emailValid);
+    }
+
+    updateOrderDetails() {
+        const details = {
+            orderId: this.props.orderId,
+            shipAddress1: this.state.shipAddress1,
+            shipAddress2: this.state.shipAddress2,
+            shipCity: this.state.shipCity,
+            shipState: this.state.shipState,
+            shipZip: this.state.shipZip,
+            billAddress1: this.state.billAddress1,
+            billAddress2: this.state.billAddress2,
+            billCity: this.state.billCity,
+            billState: this.state.billState,
+            billZip: this.state.billZip,
+            payCreditCard: this.state.payCreditCard,
+            payCcNumber: this.state.payCcNumber,
+            payCvcCode: this.state.payCvcCode,
+            payExpiry: this.state.payExpiry,
+            payZip: this.state.payZip,
+        }
+        console.log('update order')
+        axios.post('/api/orders/fillOrderDetails', details)
     }
 
     async validateForm() {
@@ -113,12 +136,16 @@ class CheckoutConfirm extends Component{
             const userToBe = {firstName: this.state.firstName, lastName: this.state.lastName, email: this.state.email}
             const cartToBe = this.props.cartItems.slice();
             await this.props.createTempUserThunkerator(userToBe)
-            cartToBe.map(item => {
+            await cartToBe.map(item => {
                 item.orderId = this.props.orderId;
-                this.props.addLineItemThunkerator(item);
+                console.log(item, 'item');
+                console.log(this.props, 'props')
+                // this.props.addLineItemThunkerator(item);
             })
+            this.updateOrderDetails()
     }
     }
+
     render() {
         const {cartItems} = this.props
 
