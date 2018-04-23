@@ -18,7 +18,7 @@ const OrderDetails = require('./order-details')
 
  Order.belongsTo(User)
 
-OrderDetails.hasOne(Order);
+ OrderDetails.belongsTo(Order);
 
  Review.belongsTo(User)
  Review.belongsTo(Product)
@@ -39,4 +39,5 @@ module.exports = {
   Review,
   Order,
   LineItem,
+  OrderDetails,
 }

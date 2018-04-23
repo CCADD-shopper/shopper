@@ -170,7 +170,7 @@ class CheckoutConfirm extends Component{
                             <option>VISA</option>
                             <option>Mastercard</option>
                             <option>American Express</option>
-                            <option>Big Joe's Credit Hut</option>
+                            <option>Big Joes Credit Hut</option>
                         </select>
                         <label>Credit Card Number*</label>
                         <input type="text" name="payCcNumber" id="" value={this.state.payCcNumber} size="35" onChange={this.handleChange} />

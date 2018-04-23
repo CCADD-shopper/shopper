@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const {Order, LineItem} = require('../db/models')
+const {Order, LineItem, OrderDetails} = require('../db/models')
 // const {User} = require('../db/models/user')
 module.exports = router
 
@@ -80,6 +80,12 @@ router.get('/:orderId/all-items', async (req, res, next) => {
 
 })
 
+router.post('/fillOrderDetails', (req, res, next) => {
+  OrderDetails.create(req.body)
+  .then(newDetails => res.json(newDetails))
+  .catch(next)
+})
+
 //edit one item
 router.put('/item/edit', async (req, res, next) => {
   const orderId = req.body.orderId
@@ -126,3 +132,4 @@ router.delete('/:orderId', async (req, res, next) => {
     next(err)
   }
 })
+

@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize')
 const db = require('../db')
 
-const OrderDetails = db.define('order-details', {
+const OrderDetails = db.define('orderDetails', {
     shipAddress1: {
         type: Sequelize.STRING,
         allowNull: false,
@@ -22,7 +22,6 @@ const OrderDetails = db.define('order-details', {
         type: Sequelize.STRING,
         allowNull: false,
     },
-
     billAddress1: {
         type: Sequelize.STRING,
         allowNull: false,
@@ -43,14 +42,14 @@ const OrderDetails = db.define('order-details', {
         type: Sequelize.STRING,
         allowNull: false,
     },
-
     payCcType: {
         type: Sequelize.ENUM,
-        values: ['VISA', 'American Express', 'Mastercard', `Big Joe's Credit Hut`]
+        values: ['VISA', 'American Express', 'Mastercard', 'Big Joes Credit Hut']
     },
     payCcNumber: {
         type: Sequelize.STRING,
-        isCreditCard: true,
+        allowNull: false,
+        // isCreditCard: true,
     },
     payCvcNumber: {
         type: Sequelize.STRING,
@@ -64,7 +63,6 @@ const OrderDetails = db.define('order-details', {
         type: Sequelize.STRING,
         allowNull: false,
     },
-
 })
 
 module.exports = OrderDetails;
