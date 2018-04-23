@@ -245,7 +245,7 @@ const mapStateToProps = (state) => {
   }
 
 
-const mapDispatchToProps = { createTempUserThunkerator, createTempUserThunkerator2, addLineItemThunkerator, getCartOrderIdThunkerator, getAllItemsThunkerator }
+const mapDispatchToProps = { createTempUserThunkerator, addLineItemThunkerator, getCartOrderIdThunkerator, getAllItemsThunkerator }
 
 
 export default connect(mapStateToProps, mapDispatchToProps)(CheckoutConfirm);
