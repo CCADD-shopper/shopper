@@ -62,7 +62,6 @@ class Routes extends Component {
   handleLocalStorage = () => {
     if (localStorage.getItem('cart')) {
       const cart = JSON.parse(localStorage.getItem('cart'))
-      console.log('yo')
       cart.map(item => {
         store.dispatch(addProductToCart(item))
       })
