@@ -7,7 +7,7 @@ const UserView = (props) => {
   let { email, firstName, googleId, isAdmin, lastName } = props.user;
   let externalInternal, adminType
   const usersReviews = props.reviews.filter(review => props.user.id === review.userId);
-console.log(props.user.id, usersReviews);
+
   if (isAdmin) {
     adminType = 'Admin User'
   } else {

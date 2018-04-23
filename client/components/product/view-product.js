@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import store, { getProductFromServerThunkerator, clearProduct, addProductToCart, getReviewsFromServerThunkerator } from '../../store'
-import { StarsReadOnly, ReviewEntry, ReviewItem } from '../review'
+import { StarsReadOnly, ReviewEntry, ProductReviewItems } from '../review'
 
 class ViewProduct extends React.Component {
   constructor() {
@@ -29,7 +29,6 @@ class ViewProduct extends React.Component {
   render() {
     const { id, name, price, description, qtyAvailable, imgUrl } = this.props.selectedProduct;
     const isLoggedIn = !!this.props.user.id
-    const matchingReviews = this.props.reviews.filter(review => this.props.selectedProduct.id === review.productId);
 
     return (
       <div>
@@ -55,7 +54,7 @@ class ViewProduct extends React.Component {
         </div>
       </div>
       <div className="reviewList">
-        <ReviewItem review={matchingReviews} />
+        <ProductReviewItems />
       </div>
 
     </div>
@@ -63,7 +62,7 @@ class ViewProduct extends React.Component {
   }
 }
 
-const mapStateToProps = ({ selectedProduct, cart, user, reviews }) => ({ selectedProduct, cart, user, reviews })
+const mapStateToProps = ({ selectedProduct, cart, user }) => ({ selectedProduct, cart, user })
 
 const mapDispatchToProps = { getProductFromServerThunkerator, clearProduct, addProductToCart, getReviewsFromServerThunkerator };
 

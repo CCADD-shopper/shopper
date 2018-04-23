@@ -30,6 +30,7 @@ class ReviewEntry extends React.Component {
       user,
     }
     store.dispatch(addReviewToServerThunkerator(review));
+    event.target.review.value = '';
   }
 
   render () {
