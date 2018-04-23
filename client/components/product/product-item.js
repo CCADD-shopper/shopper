@@ -23,7 +23,7 @@ const ProductItem = (props) => {
   </div>);
 }
 
-const handleClick = (props, newItem) => {
+export const handleClick = (props, newItem) => {
   if (props.isLoggedIn){
     const foundItem = props.cart.filter(item => item.productId === newItem.productId)
     if (foundItem.length){
@@ -36,8 +36,28 @@ const handleClick = (props, newItem) => {
   }
   else {
     props.addProductToCart(newItem)
+    let oldCart;
+    let newCart;
+    if (!JSON.parse(localStorage.getItem('cart'))) {newCart = JSON.stringify([newItem])}
+    else {
+      oldCart = JSON.parse(localStorage.getItem('cart'))
+      let found = oldCart.filter(cartThing => cartThing.productId === newItem.productId)
+      if (found.length) {
+        found[0].quantity = found[0].quantity + newItem.quantity;
+        let existing = oldCart.filter(cartThing => cartThing.productId !== newItem.productId)
+        if (existing.length){
+          newCart = JSON.stringify([...existing, found[0]])
+        }
+        else {
+          newCart = JSON.stringify([found[0]])
+        }
+      }
+      else {
+        newCart = JSON.stringify([...oldCart, newItem])
+      }
+    }
+    localStorage.setItem('cart', newCart)
   }
-
 }
 
 //------CONTAINER-------

@@ -7,11 +7,22 @@ import {auth} from '../store'
  * COMPONENT
  */
 const AuthForm = (props) => {
-  const {name, displayName, handleSubmit, error} = props
+  const {name, displayName, handleSubmit, error, signup} = props
 
   return (
     <div className="ui center aligned basic segment">
       <form onSubmit={handleSubmit} name={name}>
+        {signup &&
+          <div>
+            <div>
+              <label htmlFor="first"><medium>First Name</medium></label>
+              <input name="first" type="text" />
+            </div>
+            <div>
+              <label htmlFor="last"><medium>Last Name</medium></label>
+              <input name="last" type="text" />
+            </div>
+          </div>}
         <div>
           <label htmlFor="email"><medium>Email</medium></label>
           <input name="email" type="text" />
@@ -58,7 +69,8 @@ const mapSignup = (state) => {
   return {
     name: 'signup',
     displayName: 'Sign Up',
-    error: state.user.error
+    error: state.user.error,
+    signup: true
   }
 }
 
@@ -66,10 +78,19 @@ const mapDispatch = (dispatch) => {
   return {
     handleSubmit (evt) {
       evt.preventDefault()
+      let user;
       const formName = evt.target.name
       const email = evt.target.email.value
       const password = evt.target.password.value
-      dispatch(auth(email, password, formName))
+      if (formName === 'signup'){
+        const firstName = evt.target.first.value
+        const lastName = evt.target.last.value
+        user = {email, password, firstName, lastName}
+      }
+      else {
+        user = {email, password}
+      }
+      dispatch(auth(user, formName))
     }
   }
 }

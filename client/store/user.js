@@ -33,9 +33,9 @@ export const me = () =>
       })
       .catch(err => console.log(err))
 
-export const auth = (email, password, method) =>
+export const auth = (user, method) =>
   dispatch =>
-    axios.post(`/auth/${method}`, { email, password })
+    axios.post(`/auth/${method}`, user)
       .then(res => {
         dispatch(getUser(res.data))
         dispatch(getCartOrderIdThunkerator(res.data.id))
@@ -64,6 +64,19 @@ export const createTempUserThunkerator = (tempUserInfo, cart) => {
         await axios.post(`/api/orders/add-item/${CartOrderId.data.id}`, cartItem)
       })
       dispatch(clearCart())
+
+export const toggleAdminThunkerator = (id) => {
+  return async (dispatch) => {
+    const updatedUser = await axios.put(`/api/users/${id}/toggle-admin`)
+    dispatch(updateUserFromServer(updatedUser.data))
+  }
+}
+
+export const deleteUserThunkerator = (id) => {
+  return async (dispatch) => {
+    try {
+      await axios.delete(`/api/users/${id}`)
+      dispatch(removeUserFromServer(id))
     }
     catch (err) {
       console.log(err)
@@ -71,14 +84,12 @@ export const createTempUserThunkerator = (tempUserInfo, cart) => {
   }
 }
 
-// export const getAllUsersThunkCreator = () =>
-// dispatch =>
-//   axios.get('api/users')
-//     .then(res => {
-//       dispatch(getAllUsers(res.data))
-//       // history.push('/login')
-//     })
-//     .catch(err => console.log(err))
+    }
+    catch (err) {
+      console.log(err)
+    }
+  }
+}
 
 /**
  * REDUCER
