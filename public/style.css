@@ -19,14 +19,39 @@ label {
   padding: 7px;
   border: 3px solid teal;
 }
+.reviewList {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
 
 .authForm {
   display:  run-in;
 }
 
 .navLinks {
+  margin-left: auto;
+}
+
+.searchBar {
+  flex-grow: auto;
+}
+
+.navBar {
+  background-color: #696969;
   display: flex;
-  justify-content: flex-end;
+  flex-direction: row;
+  align-items: center;
+  color: white;
+}
+.allProds {
+  color: white;
+}
+
+nav a {
+  display: inline-block;
+  margin: 1em;
+  color: white;
 }
 
 .logo img {
@@ -72,18 +97,6 @@ h3 {
 p {
   font-size: 1em;
   margin: 10px;
-}
-
-.navBar {
-  background-color: #696969;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-}
-
-nav a {
-  display: inline-block;
-  margin: 1em;
 }
 
 form div {
@@ -168,7 +181,7 @@ form div {
   flex: 7;
 }
 
-.checkout-form { 
+.checkout-form {
   display: flex;
   flex-direction: row;
   border: 2px solid teal;
@@ -176,7 +189,7 @@ form div {
   justify-content: center;
 }
 
-.checkout-info { 
+.checkout-info {
   width: 95%;
   padding-left: 16px;
   padding-right: 16px;

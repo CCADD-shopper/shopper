@@ -29,8 +29,10 @@ class ViewProduct extends React.Component {
   render() {
     const { id, name, price, description, qtyAvailable, imgUrl } = this.props.selectedProduct;
     const isLoggedIn = !!this.props.user.id
+    const matchingReviews = this.props.reviews.filter(review => this.props.selectedProduct.id === review.productId);
 
     return (
+      <div>
       <div className="productItem">
         <img src={imgUrl} />
         <h5>{name}</h5>
@@ -51,8 +53,12 @@ class ViewProduct extends React.Component {
           }
           {!this.state.isHidden && <ReviewEntry product={this.props.selectedProduct} />}
         </div>
-        <ReviewItem review={this.props.selectedProduct}/>
       </div>
+      <div className="reviewList">
+        <ReviewItem review={matchingReviews} />
+      </div>
+
+    </div>
     );
   }
 }

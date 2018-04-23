@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import { connect } from 'react-redux'
-import { removeProductfromCart } from '../../store/cart'
+import { removeProductfromCart, removeLineItemThunkerator } from '../../store/cart'
 
 class CartItem extends Component{
   constructor(props){
@@ -12,6 +12,17 @@ class CartItem extends Component{
   //   removeProductfromCart()
   // }
 
+  handleRemove = (id) => {
+    if (this.props.isLoggedIn){
+      const targetItem = {productId: id, orderId: this.props.orderId}
+      this.props.removeLineItemThunkerator(targetItem)
+
+    }
+    else {
+      this.props.removeProductfromCart(id)
+    }
+  }
+
   render(){
     const { id, name, price, imgUrl } = this.props.product;
     return (
@@ -20,14 +31,19 @@ class CartItem extends Component{
             <h5>{name}</h5>
             <p className="price">${price}</p>
             <p className="quantity">Quantity: {this.props.quantity}</p>
-            <button className="ui red button" onClick={() => this.props.removeProductfromCart(id)}>Remove Item</button>
+            <button className="ui red button" onClick={() => this.handleRemove(id)}>Remove Item</button>
       </div>
     )
   }
 }
 
-const mapState = null
+const mapState = (state) => {
+  return {
+    isLoggedIn: !!state.user.id,
+    orderId: state.userCartOrderId,
+  }
+}
 
-const mapDispatch = { removeProductfromCart }
+const mapDispatch = { removeProductfromCart, removeLineItemThunkerator }
 
 export default connect(mapState, mapDispatch)(CartItem)

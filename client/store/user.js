@@ -82,7 +82,7 @@ export const createTempUserThunkerator = (tempUserInfo) => {
 /**
  * REDUCER
  */
-export default function (state = defaultUser, action) {
+export default function (state = {}, action) {
   switch (action.type) {
     case GET_USER:
       return action.user
