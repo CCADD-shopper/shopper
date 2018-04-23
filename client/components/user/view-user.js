@@ -1,4 +1,5 @@
 import React from 'react';
+import {  } from '../'
 
 const UserView = (props) => {
   let { email, firstName, googleId, isAdmin, lastName } = props.user;
@@ -24,9 +25,6 @@ const UserView = (props) => {
         <p>{lastName}</p>
         <p>{externalInternal}</p>
         <p>{adminType}</p>
-        <button>TOGGLE ADMIN</button>
-        <button> EDIT USER </button>
-        <button> DELETE USER </button>
     </div>
   );
 }
