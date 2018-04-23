@@ -30,9 +30,10 @@ export const removeProductfromCart = (id) => ({
     id,
 })
 
-export const alterCartQuantity = (qty) => ({
+export const alterCartQuantity = (id, upDown) => ({
     type: ALTER_CART_ITEM_QUANTITY,
-    qty,
+    id,
+    upDown,
 })
 
 export const persistCart = (cart) => ({
@@ -163,6 +164,20 @@ const addProduct = (state, action) => {
   }
 }
 
+const alterProduct = (state, action) => {
+  if (state.filter(cartItem => cartItem.productId === action.id).length) {
+    let foundItem = state.filter(cartItem => cartItem.productId === action.id);
+      if (action.upDown === 'inc')  {foundItem[0].quantity = foundItem[0].quantity++}
+      else {foundItem[0].quantity = foundItem[0].quantity--}
+    let existing = state.filter(cartThing => cartThing.productId !== action.cartItem.productId)
+    if (existing.length){
+      return [...existing, foundItem[0]]}
+          else {
+              return foundItem
+          }
+  }
+}
+
 export default (state = initialState, action) => {
     switch (action.type) {
 
@@ -184,8 +199,8 @@ export default (state = initialState, action) => {
       return state.map(item => (
         action.cartItem.productId === item.productId ? action.cartItem : item
       ))
-    // case ALTER_CART_ITEM_QUANTITY:
-    //     return state.map(cartItem => action.)
+    case ALTER_CART_ITEM_QUANTITY:
+        return alterProduct(state, action)
 
     case CLEAR_CART:
         return initialState;
