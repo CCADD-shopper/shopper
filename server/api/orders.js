@@ -1,38 +1,55 @@
 const router = require('express').Router()
-const {Order, LineItem, User} = require('../db/models')
-// const {User} = require('../db/models/user')
+const { Order, LineItem, User } = require('../db/models')
+
 module.exports = router
 
+router.param('userId', async (req, res, next, userId) => {
+  const user = await User.findById(userId)
+  req.user = user
+  next()
+})
+
 router.get('/', (req, res, next) => {
-    Order.findAll({
-      include: [{model: User}]
-    })
+  Order.findAll({
+    include: [{ model: User }]
+  })
     .then(allOrders => res.json(allOrders))
     .catch(next)
 })
 
 router.get('/:orderId', (req, res, next) => {
-    const orderId = req.params.orderId;
-    Order.findById(orderId)
+  const orderId = req.params.orderId;
+  Order.findById(orderId)
     .then(order => res.json(order))
     .catch(next)
 })
 
-router.get('/user/:userId', (req, res, next) => {
-    const userId = req.params.userId;
-    Order.findAll({
-        //////  THIS IS PENDING THE MODEL ASSOCIATION DEFINITION   ///////
-        where: {userId}
-    })
-    .then(userOrders => res.json(userOrders))
-    .catch(next)
+router.get('/user/:userId', async (req, res, next) => {
+  try {
+    let orders
+    if (req.user.isAdmin) {
+      orders = await Order.findAll()
+    }
+    else {
+      orders = await Order.findAll({
+        where: {
+          userId: req.user.id,
+        }
+      })
+    }
+    res.json(orders);
+  }
+  catch (err) {
+    next(err)
+  }
+
 })
 
 router.get('/find/:userId', async (req, res, next) => {
   try {
     const foundCart = await Order.findOrCreate({
-      where: {status: 'pending', userId: req.params.userId},
-      defaults: {status: 'pending', userId: req.params.userId}
+      where: { status: 'pending', userId: req.params.userId },
+      defaults: { status: 'pending', userId: req.params.userId }
     })
     res.json(foundCart[0])
   }
@@ -42,29 +59,30 @@ router.get('/find/:userId', async (req, res, next) => {
 })
 
 router.post('/new-order', (req, res, next) => {
-    Order.create(req.body)
-      .then(newOrder => res.json(newOrder))
-      .catch(next)
-  })
+  Order.create(req.body)
+    .then(newOrder => res.json(newOrder))
+    .catch(next)
+})
 
 //edit order
 router.put('/:orderId/', (req, res, next) => {
   const orderId = req.params.orderId;
   Order.update(req.body, {
-      where: {
-          id: orderId
-      }, returning: true})
-      .then(order => {
-        res.json(order[1][0])
-      })
-      .catch(next)
+    where: {
+      id: orderId
+    }, returning: true
+  })
+    .then(order => {
+      res.json(order[1][0])
+    })
+    .catch(next)
 })
 
 //add one line item
 router.post('/add-item', (req, res, next) => {
   LineItem.create(req.body)
-  .then(newItem => res.json(newItem))
-  .catch(next)
+    .then(newItem => res.json(newItem))
+    .catch(next)
 })
 
 //Get all line items from orderId
@@ -72,7 +90,7 @@ router.get('/:orderId/all-items', async (req, res, next) => {
   const orderId = req.params.orderId
   try {
     const allItems = await LineItem.findAll({
-      where: {orderId},
+      where: { orderId },
     })
     res.json(allItems)
   }
@@ -87,11 +105,13 @@ router.put('/item/edit', async (req, res, next) => {
   const orderId = req.body.orderId
   const productId = req.body.productId
   try {
-    const updateLineItem = await LineItem.update({quantity: req.body.quantity},
-      {where: {
-        orderId,
-        productId,
-      }, returning: true})
+    const updateLineItem = await LineItem.update({ quantity: req.body.quantity },
+      {
+        where: {
+          orderId,
+          productId,
+        }, returning: true
+      })
     res.json(updateLineItem[1][0])
   }
   catch (err) {
@@ -104,10 +124,12 @@ router.delete('/item/remove', async (req, res, next) => {
   const orderId = req.body.orderId
   const productId = req.body.productId
   try {
-    const deletedRow = await LineItem.destroy({where: {
-      orderId,
-      productId
-    }})
+    const deletedRow = await LineItem.destroy({
+      where: {
+        orderId,
+        productId
+      }
+    })
     res.json(deletedRow)
   }
   catch (err) {
@@ -119,9 +141,11 @@ router.delete('/item/remove', async (req, res, next) => {
 router.delete('/:orderId', async (req, res, next) => {
   const orderId = req.params.orderId
   try {
-    const deletedRow = await LineItem.destroy({where: {
-      orderId
-    }})
+    const deletedRow = await LineItem.destroy({
+      where: {
+        orderId
+      }
+    })
     res.json(deletedRow)
   }
   catch (err) {

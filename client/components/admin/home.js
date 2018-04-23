@@ -1,6 +1,9 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { NavLink, Switch, Route, Redirect } from 'react-router-dom'
+import store, {
+  getOrdersFromServerThunkerator,
+} from '../../store'
 import {
   OrderList,
   OrderItem,
@@ -14,6 +17,10 @@ import {
 class AdminHome extends React.Component {
   constructor() {
     super()
+  }
+
+  componentDidMount () {
+    store.dispatch(getOrdersFromServerThunkerator(this.props.user.id))
   }
 
   render() {
@@ -39,7 +46,7 @@ class AdminHome extends React.Component {
   }
 }
 
-const mapStateToProps = null
+const mapStateToProps = ({user}) => ({user})
 
 const mapDispatchToProps = null
 
