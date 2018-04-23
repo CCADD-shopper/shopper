@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { StarsReadOnly, ReviewEntry, ProductReviewItems } from '../review'
 import store, { getProductFromServerThunkerator, clearProduct, addProductToCart, getReviewsFromServerThunkerator, addLineItemThunkerator, editLineItemThunkerator } from '../../store'
+import { handleClick } from './product-item'
 
 class ViewProduct extends React.Component {
   constructor() {
