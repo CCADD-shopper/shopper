@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux'
-import store, { toggleAdminThunkerator } from '../../store'
+import store, { toggleAdminThunkerator, deleteUserThunkerator } from '../../store'
 
 const UserItem = (props) => {
   let { email, firstName, googleId, isAdmin, lastName } = props.user;
@@ -28,7 +28,7 @@ const UserItem = (props) => {
         <p>{adminType}</p>
         <button onClick={props.handleAdminToggle} >TOGGLE ADMIN</button>
         <button> EDIT USER </button>
-        <button> DELETE USER </button>
+        <button onClick={props.handleDeleteUser} > DELETE USER </button>
     </div>
   );
 }
@@ -41,6 +41,12 @@ const mapDispatchToProps = (dispatch, ownProps) => {
       event.preventDefault()
       if (ownProps.loggedInUser.isAdmin) {
         store.dispatch(toggleAdminThunkerator(ownProps.user.id));
+      }
+    },
+    handleDeleteUser: (event) => {
+      event.preventDefault()
+      if (ownProps.loggedInUser.isAdmin) {
+        store.dispatch(deleteUserThunkerator(ownProps.user.id))
       }
     }
   }
