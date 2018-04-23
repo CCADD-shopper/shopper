@@ -79,22 +79,39 @@ router.put('/:orderId/', (req, res, next) => {
 })
 
 //add one line item
+router.put('/item/add', async (req, res, next) => {
+  const orderId = req.body.orderId
+  const productId = req.body.productId
+  const purchasePrice = req.body.purchasePrice
+  const quantityNew = req.body.quantity
+  try {
+    const lineItem = await LineItem.findOrCreate({
+      where: {orderId, productId},
+      defaults: {orderId, productId, purchasePrice, quantity: quantityNew}
+    })
+    if (lineItem[1] === false) {
+      let newQuantity = parseInt(lineItem[0].quantity, 10) + parseInt(quantityNew, 10)
+      const updateItem = await lineItem[0].update({quantity: newQuantity}, {returning: true})
+      res.json(updateItem)
+    }
+    else {
+      res.json(lineItem[0])
+    }
+  }
+  catch (err) {
+    next(err)
+  }
+})
+
+
 router.post('/add-item/:orderId', (req, res, next) => {
   req.body.orderId = req.params.orderId
   console.log(req.body.orderId)
   LineItem.create(req.body)
   .then(newItem => res.json(newItem))
   .catch(next)
-  // next()
 })
 
-//add one line item
-router.post('/add-item', (req, res, next) => {
-  console.log('hit me!')
-  LineItem.create(req.body)
-    .then(newItem => res.json(newItem))
-    .catch(next)
-})
 
 //Get all line items from orderId
 router.get('/:orderId/all-items', async (req, res, next) => {
