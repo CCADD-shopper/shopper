@@ -8,7 +8,19 @@ import store, {
   getOrdersFromServerThunkerator,
   getReviewsFromServerThunkerator,
 } from './store'
-import { Login, Signup, UserHome, ProductList, ViewProduct, OrderList, UserView, Cart, CheckoutSummary, CheckoutConfirm } from './components'
+import {
+  Login,
+  Signup,
+  UserHome,
+  ProductList,
+  ViewProduct,
+  OrderList,
+  UserView,
+  Cart,
+  CheckoutSummary,
+  CheckoutConfirm,
+  AdminHome,
+} from './components'
 
 /**
  * COMPONENT
@@ -46,6 +58,7 @@ class Routes extends Component {
               {/* Routes placed here are only available after logging in */}
               <Route path="/home" component={UserHome} />
               <Route path="/users/my-profile" render={MyUserPage} />
+              <Route path="/admin" component={AdminHome} />
               <Route exact path="/orders" component={OrderList} />
             </Switch>
           }
