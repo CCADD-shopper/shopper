@@ -3,19 +3,17 @@ import { connect } from 'react-redux';
 import { ReviewItemStars } from '../review'
 
 
-const ReviewItem = (props) => {
-
-const reviewedProducts = props.productList.filter(product => props.review.productId === product.id);
+const ProductReviewItems = (props) => {
+const matchingReviews = props.reviews.filter(review => props.selectedProduct.id === review.productId);
 
   return (
         <div className="ui items">
           {
-            props.review.map(review => (
+            matchingReviews.map(review => (
                 <div key={review.id} className="item">
                   <div className="reviewList">
                     <div className="ui blue circular segment">
                     <h2 className="header">{review.user.firstName} {review.user.lastName}</h2>
-                    <h3>{reviewedProducts.name}</h3>
                     <ReviewItemStars rating={review.rating} />
                     <div className="meta">
                       <span>{review.description}</span>
@@ -29,8 +27,8 @@ const reviewedProducts = props.productList.filter(product => props.review.produc
   );
 }
 
-const mapStateToProps = ({productList}) => ({productList});
+const mapStateToProps = ({ user, reviews, selectedProduct }) => ({ user, reviews, selectedProduct })
 
 const mapDispatchToProps = null;
 
-export default connect(mapStateToProps, mapDispatchToProps)(ReviewItem);
+export default connect(mapStateToProps, mapDispatchToProps)(ProductReviewItems);

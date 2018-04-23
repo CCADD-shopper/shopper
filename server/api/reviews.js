@@ -34,6 +34,8 @@ router.get('/', async (req, res, next) => {
 router.post('/', async (req, res, next) => {
   try {
     const review = await Review.create(req.body);
+    const user = await User.findById(review.userId);
+    review.dataValues.user = user
     res.json(review)
   }
   catch (err) {
