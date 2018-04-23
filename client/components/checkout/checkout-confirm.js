@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import {CartItem} from '../cart';
-import { getCartOrderIdThunkerator, addLineItemThunkerator, createTempUserThunkerator } from '../../store'
+import { getCartOrderIdThunkerator, addLineItemThunkerator, createTempUserThunkerator, getAllItemsThunkerator } from '../../store'
 import { FormErrors } from './form-errors'
 import axios from 'axios'
 
@@ -89,7 +89,7 @@ class CheckoutConfirm extends Component{
             billZip: this.state.billZip,
             payCreditCard: this.state.payCreditCard,
             payCcNumber: this.state.payCcNumber,
-            payCvcCode: this.state.payCvcCode,
+            payCvcNumber: this.state.payCvcCode,
             payExpiry: this.state.payExpiry,
             payZip: this.state.payZip,
         }
@@ -135,13 +135,7 @@ class CheckoutConfirm extends Component{
         if (!this.props.isLoggedIn) {
             const userToBe = {firstName: this.state.firstName, lastName: this.state.lastName, email: this.state.email}
             const cartToBe = this.props.cartItems.slice();
-            await this.props.createTempUserThunkerator(userToBe)
-            await cartToBe.map(item => {
-                item.orderId = this.props.orderId;
-                console.log(item, 'item');
-                console.log(this.props, 'props')
-                // this.props.addLineItemThunkerator(item);
-            })
+            await this.props.createTempUserThunkerator(userToBe, cartToBe);
             this.updateOrderDetails()
     }
     }
@@ -251,7 +245,7 @@ const mapStateToProps = (state) => {
   }
 
 
-const mapDispatchToProps = { createTempUserThunkerator, addLineItemThunkerator, getCartOrderIdThunkerator }
+const mapDispatchToProps = { createTempUserThunkerator, createTempUserThunkerator2, addLineItemThunkerator, getCartOrderIdThunkerator, getAllItemsThunkerator }
 
 
 export default connect(mapStateToProps, mapDispatchToProps)(CheckoutConfirm);

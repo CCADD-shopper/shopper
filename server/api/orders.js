@@ -59,7 +59,18 @@ router.put('/:orderId/', (req, res, next) => {
 })
 
 //add one line item
+router.post('/add-item/:orderId', (req, res, next) => {
+  req.body.orderId = req.params.orderId
+  console.log(req.body.orderId)
+  LineItem.create(req.body)
+  .then(newItem => res.json(newItem))
+  .catch(next)
+  // next()
+})
+
+//add one line item
 router.post('/add-item', (req, res, next) => {
+  console.log('hit me!')
   LineItem.create(req.body)
   .then(newItem => res.json(newItem))
   .catch(next)

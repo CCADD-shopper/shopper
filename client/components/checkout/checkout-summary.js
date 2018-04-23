@@ -4,7 +4,7 @@ import CartItem from '../cart';
 // import { clearCart } from '../../store/cart'
 
 const CartSummary = (props) => {
-    console.log(props.processedOrder)
+    console.log('orderId', props.processedOrder)
     return (
         <div className="checkout summary">
             <p>Success!!! Your order has been placed!</p>
