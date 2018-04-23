@@ -59,11 +59,8 @@ const mapState = (state) => {
     productList: state.productList,
     isLoggedIn: !!state.user.id,
     cartItems: state.cart,
-<<<<<<< HEAD
     user: state.user,
-=======
     orderId: state.userCartOrderId
->>>>>>> master
   }
 }
 
