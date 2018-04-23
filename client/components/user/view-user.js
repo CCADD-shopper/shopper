@@ -1,11 +1,7 @@
 import React from 'react';
-<<<<<<< HEAD
-import {  } from '../'
-=======
 import { connect } from 'react-redux';
 import { ReviewItem } from '../review'
 
->>>>>>> master
 
 const UserView = (props) => {
   let { email, firstName, googleId, isAdmin, lastName } = props.user;
