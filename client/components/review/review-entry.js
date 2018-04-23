@@ -42,7 +42,7 @@ class ReviewEntry extends React.Component {
             placeholder="add your review"
             className="form-like" style={{ height: 69, width: 200 }} />
           <EditReviewStars rating={this.state.stars} handleStarChange={this.handleStarChange} />
-          <button className="positive small ui olive button">gone on, be opinionated, ya jerk</button>
+          <button className="positive small ui olive button">go on, be opinionated, ya jerk</button>
         </form>
       </div>
     );

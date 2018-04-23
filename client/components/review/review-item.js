@@ -1,30 +1,33 @@
 import React from 'react';
-import {connect} from 'react-redux';
-import {Link} from 'react-router-dom';
-import { StarsReadOnly } from '../review'
+import { connect } from 'react-redux';
+import { ReviewItemStars } from '../review'
+import { getUsersFromServerThunkerator } from '../../store'
 
 
 const ReviewItem = (props) => {
-  const matchingReviews = props.reviews.filter(review => props.selectedProduct.id !== review.id)
 
   return (
-    <div className="reviewItem">
-        <div>
-          { matchingReviews &&
-            matchingReviews.map(review => (
-              <h5>
-                  <span>{review.description}</span>
-              </h5>
+        <div className="ui items">
+          {
+            props.review.map(review => (
+                <div className="item">
+                  <div className="reviewList">
+                    <div className="ui blue circular segment">
+                    <h2 className="header">{review.user.firstName} {review.user.lastName}</h2>
+                    <ReviewItemStars rating={review.rating} />
+                    <div className="meta">
+                      <span>{review.description}</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
             ))
           }
-        </div>
-      <StarsReadOnly product={props.selectedProduct} />
     </div>
-
   );
 }
 
-const mapStateToProps = ({ selectedProduct, reviews }) => ({ selectedProduct, reviews })
+const mapStateToProps = null;
 
 const mapDispatchToProps = null;
 
