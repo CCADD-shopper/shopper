@@ -34,7 +34,7 @@ class ReviewEntry extends React.Component {
   }
 
   render () {
-    // console.log("user>>", this.props.user);
+
     return (
       <div className="reviewentry">
         <form onSubmit={this.handleSubmit} >

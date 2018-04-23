@@ -4,13 +4,8 @@ import { ReviewItemStars } from '../review'
 
 
 const ProductReviewItems = (props) => {
-// console.log('RI user>>>>', props.user);
-
 const matchingReviews = props.reviews.filter(review => props.selectedProduct.id === review.productId);
 
-  // if (!props.user){
-  //   return (<div>loading</div>)
-  // }
   return (
         <div className="ui items">
           {

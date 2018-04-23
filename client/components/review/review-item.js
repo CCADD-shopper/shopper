@@ -4,9 +4,8 @@ import { ReviewItemStars } from '../review'
 
 
 const ReviewItem = (props) => {
-  console.log("uprod", props.productList[0], 'review', props.review);
-  const reviewedProducts = props.productList.filter(product => props.review.productId === product.id);
 
+const reviewedProducts = props.productList.filter(product => props.review.productId === product.id);
 
   return (
         <div className="ui items">
