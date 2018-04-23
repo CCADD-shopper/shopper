@@ -60,10 +60,6 @@ User.prototype.correctPassword = function (candidatePwd) {
   return User.encryptPassword(candidatePwd, this.salt()) === this.password()
 }
 
-User.prototype.toggleAdmin = function () {
-  this.setDataValue('isAdmin', !this.getDataValue('isAdmin'))
-}
-
 /**
  * classMethods
  */

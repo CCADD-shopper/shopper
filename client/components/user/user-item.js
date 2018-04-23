@@ -1,6 +1,8 @@
 import React from 'react';
+import { connect } from 'react-redux'
+import store, { toggleAdminThunkerator } from '../../store'
 
-const UserList = (props) => {
+const UserItem = (props) => {
   let { email, firstName, googleId, isAdmin, lastName } = props.user;
   let externalInternal, adminType
   if (isAdmin) {
@@ -15,7 +17,6 @@ const UserList = (props) => {
     externalInternal = 'Local User'
   }
 
-console.log(props)
   return (
     //need to update this once necessary
     <div className="userItem">
@@ -25,11 +26,24 @@ console.log(props)
         <p>{lastName}</p>
         <p>{externalInternal}</p>
         <p>{adminType}</p>
-        <button>TOGGLE ADMIN</button>
+        <button onClick={props.handleAdminToggle} >TOGGLE ADMIN</button>
         <button> EDIT USER </button>
         <button> DELETE USER </button>
     </div>
   );
 }
 
-export default UserList;
+const mapStateToProps = null
+
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    handleAdminToggle: (event) => {
+      event.preventDefault()
+      if (ownProps.loggedInUser.isAdmin) {
+        store.dispatch(toggleAdminThunkerator(ownProps.user.id));
+      }
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(UserItem)

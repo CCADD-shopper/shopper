@@ -15,11 +15,10 @@ export class UserList extends Component {
     }
 
     render() {
-        const users = this.props.allUsers;
-        // console.log(users);
+        const { userList, user: loggedInUser } = this.props;
         return (
             <div className="userList">
-                {users.map(user => <UserItem key={user.id} user={user} />)}
+                {userList.map(user => <UserItem loggedInUser={loggedInUser} key={user.id} user={user} />)}
             </div>
         )
     }
@@ -29,8 +28,9 @@ export class UserList extends Component {
 
 /*-----------CONTAINER-----------*/
 
-const mapStateToProps = (state) => ({
-    allUsers: state.userList
+const mapStateToProps = ({userList, user}) => ({
+    userList,
+    user,
     ///need to be able to get all of the users using a fetch
 }
 )
