@@ -64,6 +64,12 @@ export const createTempUserThunkerator = (tempUserInfo, cart) => {
         await axios.post(`/api/orders/add-item/${CartOrderId.data.id}`, cartItem)
       })
       dispatch(clearCart())
+    }
+    catch (err) {
+      console.log(err)
+    }
+  }
+}
 
 export const toggleAdminThunkerator = (id) => {
   return async (dispatch) => {
