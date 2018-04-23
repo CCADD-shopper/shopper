@@ -30,7 +30,7 @@ router.get('/:userId', (req, res, next) => {
 router.post('/create', async (req, res, next) => {
   try {
     const user = await User.create(req.body)
-    res.send(200).json(user)
+    res.json(user)
   }
   catch (err) {
     next(err)

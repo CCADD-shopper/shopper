@@ -7,6 +7,7 @@ import { getCartOrderIdThunkerator, updateUser } from './index'
  */
 const GET_USER = 'GET_USER'
 const REMOVE_USER = 'REMOVE_USER'
+// const ADD_UNAUTH_USER = 'ADD_UNAUTH_USER'
 
 /**
  * INITIAL STATE
@@ -18,6 +19,7 @@ const defaultUser = {}
  */
 const getUser = user => ({type: GET_USER, user})
 const removeUser = () => ({type: REMOVE_USER})
+// const addUnauthUser = (user) => ({type: ADD_UNAUTH_USER, user})
 
 /**
  * THUNK CREATORS
@@ -53,12 +55,26 @@ export const logout = () =>
       .catch(err => console.log(err))
 
 
-
 export const toggleAdminThunkerator = (id) => {
   return async (dispatch) => {
     const updatedUser = await axios.put(`/api/users/${id}/toggle-admin`)
     dispatch(updateUser(updatedUser.data))
   }
+}
+
+export const createTempUserThunkerator = (tempUserInfo) => {
+  return async (dispatch) => {
+    try {
+      const tUser = await axios.post('api/users/create', tempUserInfo)
+      await dispatch(getCartOrderIdThunkerator(tUser.data.id))
+    }
+    catch (err) {
+      console.log(err)
+    }
+  }
+
+    // .then(tempUser = {
+    // })
 }
 
 /**
