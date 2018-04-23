@@ -17,6 +17,7 @@ class ReviewEntry extends React.Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
+    const user = this.props.user
     const userId = this.props.user.id
     const description = event.target.review.value
     const productId = this.props.selectedProduct.id
@@ -25,12 +26,15 @@ class ReviewEntry extends React.Component {
       description,
       userId,
       productId,
-      rating
+      rating,
+      user,
     }
     store.dispatch(addReviewToServerThunkerator(review));
+    event.target.review.value = '';
   }
 
   render () {
+
     return (
       <div className="reviewentry">
         <form onSubmit={this.handleSubmit} >
