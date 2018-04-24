@@ -6,9 +6,9 @@ const nodemailer = require('nodemailer');
 
 let orderedMessage = {
     // recipients
-    to: 'Andrew <bz61bi+8599paxujhy4w@sharklasers.com>',
+    to: '<bz9m59+1qmsaxsx6r2n4@sharklasers.com>',
 
-    subject: 'Your Order was Recieved!',
+    subject: 'Your Order was Friggin Recieved!',
 
     text: 'Thanks for your order with TopShop!',
 
@@ -16,9 +16,9 @@ let orderedMessage = {
 
 let shippedMessage = {
     // recipients
-    to: 'Andrew <bz61bi+8599paxujhy4w@sharklasers.com>',
+    to: '<bz9m59+1qmsaxsx6r2n4@sharklasers.com>',
 
-    subject: 'Your Order was shipped!',
+    subject: 'Your Order was Friggin Shipped!',
 
     text: 'Thanks for shopping with TopShop!',
 
@@ -46,7 +46,11 @@ var transporter = nodemailer.createTransport({
 }
 );
 
-const orderedEmail = transporter.sendMail(orderedMessage, (error, info) => {
+const orderedEmail = (type, target) => {
+  const newMessage = type === 'processing' ? orderedMessage : shippedMessage
+  newMessage.to = target;
+
+  transporter.sendMail(newMessage, (error, info) => {
     if (error) {
         console.log('Error occurred');
         console.log(error.message);
@@ -57,5 +61,6 @@ const orderedEmail = transporter.sendMail(orderedMessage, (error, info) => {
     console.log(nodemailer.getTestMessageUrl(info))
     transporter.close();
 })
+}
 
 module.exports = orderedEmail;
