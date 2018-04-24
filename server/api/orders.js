@@ -11,7 +11,7 @@ router.param('userId', async (req, res, next, userId) => {
 
 router.get('/', (req, res, next) => {
   Order.findAll({
-    include: [{ model: User }]
+    include: [{ model: User }, {model: LineItem}]
   })
     .then(allOrders => res.json(allOrders))
     .catch(next)
