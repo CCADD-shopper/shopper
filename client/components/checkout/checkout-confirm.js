@@ -135,6 +135,7 @@ class CheckoutConfirm extends Component{
         else {
             await this.props.updateOrderStatusThunkerator(this.props.orderId, 'processing')
             await this.props.createOrderDetailThunkerator(this.props.orderId, details)
+            await this.props.getCartOrderIdThunkerator(this.props.userId);
         }
     }
 
@@ -235,6 +236,7 @@ class CheckoutConfirm extends Component{
 
 const mapStateToProps = (state) => {
     return {
+      userId: state.user.id,
       isLoggedIn: !!state.user.id,
       productList: state.productList,
       cartItems: state.cart,
