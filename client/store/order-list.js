@@ -41,7 +41,6 @@ export const updateOrderStatusThunkerator = (orderId, statusToBe) => {
 export const createOrderDetailThunkerator = (orderId, details) => {
   return () => {
       try {
-          console.log('working?')
           details.orderId = orderId;
           axios.post('/api/orders/fillOrderDetails', details)
       }
