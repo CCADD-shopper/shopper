@@ -1,7 +1,6 @@
 import React from 'react'
 
 const OrderDetail = (props) => {
-  console.log('orderProduct', props.products)
   return (
     <div>
     <span onClick={props.handleClick}>Collapse Details</span>
