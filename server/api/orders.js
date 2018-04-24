@@ -47,8 +47,8 @@ router.get('/user/:userId', async (req, res, next) => {
       orders = await Order.findAll({
         where: {
           userId: req.user.id,
-          include: [{ all: true }],
-        }
+        },
+        include: [{ all: true }],
       })
     }
     res.json(orders);

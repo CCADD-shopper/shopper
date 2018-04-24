@@ -117,7 +117,7 @@ class CheckoutConfirm extends Component{
         this.setState({formValid: this.state.emailValid && this.state.fieldsFilled})
     }
 
-    handleChange(event) {
+    handleChange = (event) => {
         const name = event.target.name;
         const value = event.target.value;
         this.setState({
