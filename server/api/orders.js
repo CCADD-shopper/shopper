@@ -186,4 +186,3 @@ router.delete('/:orderId', async (req, res, next) => {
     next(err)
   }
 })
-
