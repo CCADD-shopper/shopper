@@ -24,10 +24,15 @@ router.get('/', (req, res, next) => {
     .catch(next)
 })
 
-router.post('/', (req, res, next) => {
-  Product.create(req.body)
-    .then(newProduct => res.json(newProduct))
-    .catch(next)
+router.post('/', async (req, res, next) => {
+  try {
+    const newProduct = await Product.create(req.body)
+    await newProduct.addCategory(req.body.categoryId)
+    res.json(newProduct)
+  }
+  catch (err) {
+    next(err)
+  }
 })
 
 router.put('/:productId', (req, res, next) => {
