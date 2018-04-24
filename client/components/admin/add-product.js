@@ -36,7 +36,6 @@ class AddProduct extends React.Component {
     this.setState({ dirty: true })
     const name = event.target.name;
     const value = event.target.value;
-    console.log(name, '---', value)
     this.setState({
       [name]: value
     })
