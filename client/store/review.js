@@ -22,7 +22,6 @@ export default function reducer (reviews = [], action) {
     case GET_REVIEWS_FROM_SERVER:
       return action.reviews;
 
-
     case REMOVE_REVIEW:
       return reviews.filter(review => review.id !== action.id);
 
