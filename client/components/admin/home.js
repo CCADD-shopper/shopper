@@ -37,7 +37,7 @@ class AdminHome extends React.Component {
 
           <h1>I am the admin page</h1>
           <Switch>
-            <Route exact path="/admin/add-product" component={AddProduct} />
+            <Route exact path="/admin/add-product" render={() => <AddProduct categories={this.props.selectedCategories} />} />
             <Route exact path="/admin/product-list" component={ProductList} />
             <Route exact path="/admin/user-list" component={UserList} />
             <Route exact path="/admin/order-list" component={OrderList} />
@@ -49,7 +49,7 @@ class AdminHome extends React.Component {
   }
 }
 
-const mapStateToProps = ({user}) => ({user})
+const mapStateToProps = ({ user, selectedCategories }) => ({ user, selectedCategories })
 
 const mapDispatchToProps = null
 
