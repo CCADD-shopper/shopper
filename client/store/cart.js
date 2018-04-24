@@ -178,6 +178,7 @@ const alterProduct = (state, action) => {
           }
         }
       }
+
 const lineItemAdder = (state, action) => {
   if (state.filter(cartItem => cartItem.productId === action.lineItem.productId).length){
     return state.map(item => {
