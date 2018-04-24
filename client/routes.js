@@ -5,7 +5,6 @@ import PropTypes from 'prop-types'
 import store, {
   me,
   getProductsFromServerThunkerator,
-  getOrdersFromServerThunkerator,
   getReviewsFromServerThunkerator,
   addProductToCart,
 } from './store'
@@ -30,7 +29,6 @@ class Routes extends Component {
   componentDidMount() {
     this.props.loadInitialData()
     store.dispatch(getProductsFromServerThunkerator())
-    store.dispatch(getOrdersFromServerThunkerator())
     store.dispatch(getReviewsFromServerThunkerator())
     this.handleLocalStorage()
   }

@@ -30,9 +30,10 @@ export const removeProductfromCart = (id) => ({
     id,
 })
 
-export const alterCartQuantity = (qty) => ({
+export const alterCartQuantity = (id, upDown) => ({
     type: ALTER_CART_ITEM_QUANTITY,
-    qty,
+    id,
+    upDown,
 })
 
 export const persistCart = (cart) => ({
@@ -100,7 +101,8 @@ export const getAllItemsThunkerator = (id) => {
 export const addLineItemThunkerator = (item) => {
   return async (dispatch) => {
     try {
-      const newItem = await axios.post(`/api/orders/add-item`, item)
+      console.log('it', item)
+      const newItem = await axios.put(`/api/orders/item/add`, item)
       dispatch(addLineItem(newItem.data))
     }
     catch (err){
@@ -121,11 +123,11 @@ export const removeLineItemThunkerator = (targetItem) => {
   }
 }
 
-export const editLineItemThunkerator = (item) => {
+export const clearCartItemsThunkerator = (id) => {
   return async (dispatch) => {
     try {
-      const updatedItem = await axios.put(`/api/orders/item/edit`, item)
-      dispatch(editLineItem(updatedItem.data))
+      await axios.delete(`/api/orders/${id}`)
+      dispatch(clearCart())
     }
     catch (err) {
       console.log(err)
@@ -133,11 +135,11 @@ export const editLineItemThunkerator = (item) => {
   }
 }
 
-export const clearCartItemsThunkerator = (id) => {
+export const editLineItemThunkerator = (item) => {
   return async (dispatch) => {
     try {
-      await axios.delete(`/api/orders/${id}`)
-      dispatch(clearCart())
+      const updatedItem = await axios.put(`/api/orders/item/edit`, item)
+      dispatch(editLineItem(updatedItem.data))
     }
     catch (err) {
       console.log(err)
@@ -163,6 +165,30 @@ const addProduct = (state, action) => {
   }
 }
 
+const alterProduct = (state, action) => {
+  if (state.filter(cartItem => cartItem.productId === action.id).length) {
+    let foundItem = state.filter(cartItem => cartItem.productId === action.id);
+      if (action.upDown === 'inc')  {foundItem[0].quantity = foundItem[0].quantity + 1}
+      else {foundItem[0].quantity = foundItem[0].quantity = foundItem[0].quantity === 1 ? foundItem[0].quantity : foundItem[0].quantity - 1}
+    let existing = state.filter(cartThing => cartThing.productId !== action.id)
+    if (existing.length){
+      return [...existing, foundItem[0]]}
+          else {
+              return foundItem
+          }
+        }
+      }
+const lineItemAdder = (state, action) => {
+  if (state.filter(cartItem => cartItem.productId === action.lineItem.productId).length){
+    return state.map(item => {
+      return action.lineItem.productId === item.productId ? action.lineItem : item
+    })
+  }
+  else {
+    return [...state, action.lineItem]
+  }
+}
+
 export default (state = initialState, action) => {
     switch (action.type) {
 
@@ -179,13 +205,13 @@ export default (state = initialState, action) => {
         return action.allItems
 
     case ADD_LINE_ITEM:
-        return [...state, action.lineItem]
+      return lineItemAdder(state, action)
     case EDIT_LINE_ITEM:
       return state.map(item => (
         action.cartItem.productId === item.productId ? action.cartItem : item
       ))
-    // case ALTER_CART_ITEM_QUANTITY:
-    //     return state.map(cartItem => action.)
+    case ALTER_CART_ITEM_QUANTITY:
+        return alterProduct(state, action)
 
     case CLEAR_CART:
         return initialState;

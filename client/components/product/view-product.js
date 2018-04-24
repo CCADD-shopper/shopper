@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { StarsReadOnly, ReviewEntry, ProductReviewItems } from '../review'
-import store, { getProductFromServerThunkerator, clearProduct, addProductToCart, getReviewsFromServerThunkerator, addLineItemThunkerator, editLineItemThunkerator } from '../../store'
+import { StarsReadOnly, ReviewEntry, ReviewItem } from '../review'
 import { handleClick } from './product-item'
+import store, { getReviewsForProductThunkerator, getProductFromServerThunkerator, clearProduct, addProductToCart, getReviewsFromServerThunkerator, addLineItemThunkerator } from '../../store'
 
 class ViewProduct extends React.Component {
   constructor() {
@@ -20,6 +20,8 @@ class ViewProduct extends React.Component {
   componentDidMount() {
     const productId = this.props.match.params.productId;
     this.props.getProductFromServerThunkerator(productId);
+    this.props.getReviewsForProductThunkerator(productId);
+
   }
 
   componentWillUnmount() {
@@ -30,7 +32,6 @@ class ViewProduct extends React.Component {
   render() {
     const { id, name, price, description, qtyAvailable, imgUrl } = this.props.selectedProduct;
     const isLoggedIn = !!this.props.user.id
-    const matchingReviews = this.props.reviews.filter(review => this.props.selectedProduct.id === review.productId);
     let quantity = 1
     let orderId = this.props.userCartOrderId
 
@@ -58,7 +59,7 @@ class ViewProduct extends React.Component {
         </div>
       </div>
       <div className="reviewList">
-        <ProductReviewItems />
+        <ReviewItem />
       </div>
 
     </div>
@@ -68,7 +69,6 @@ class ViewProduct extends React.Component {
 
 const mapStateToProps = ({ selectedProduct, cart, user, reviews, userCartOrderId }) => ({ selectedProduct, cart, user, reviews, userCartOrderId, isLoggedIn: !!user.id })
 
-
-const mapDispatchToProps = { getProductFromServerThunkerator, clearProduct, addProductToCart, getReviewsFromServerThunkerator, addLineItemThunkerator, editLineItemThunkerator };
+const mapDispatchToProps = { getReviewsForProductThunkerator, getProductFromServerThunkerator, clearProduct, addProductToCart, getReviewsFromServerThunkerator, addLineItemThunkerator };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ViewProduct);
