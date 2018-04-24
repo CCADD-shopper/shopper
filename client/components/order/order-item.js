@@ -31,15 +31,20 @@ class OrderItem extends React.Component {
     const orderStatusOptions = ['pending', 'processing', 'cancelled', 'completed']
     const { id, status, userId, products } = this.props.order;
     const selectValue = this.state.selectValue || status
+    const {account} = this.props
     return (
       <div className="orderItem">
         <h5>Order #{id}</h5>
-        <label>Status: </label>
-        <select onChange={this.handleOrderStatusChange} value={selectValue}>
+        {account ? <p>Status: {status}</p>
+
+        : <div>
+            <label>Status: </label>
+            <select onChange={this.handleOrderStatusChange} value={selectValue}>
           {
             orderStatusOptions.map(option => <option key={option} value={option}>{option}</option>)
           }
-        </select>
+            </select>
+          </div>}
         <p>User: {userId}</p>
         {
           this.state.submitButtonVisible
