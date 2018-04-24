@@ -4,7 +4,7 @@
  * having to figure out which file they belong to!
  */
 export {default as Navbar} from './navbar'
-export { UserList, UserItem, UserAdmin, UserView } from './user'
+export { UserList, UserItem, UserAdmin, UserView, ChangePassword } from './user'
 export {OrderList, OrderItem, OrderDetail} from './order'
 export {ProductList, ProductItem, ViewProduct} from './product'
 export {default as UserHome} from './user-home'

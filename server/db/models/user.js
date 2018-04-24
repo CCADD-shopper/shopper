@@ -48,6 +48,10 @@ const User = db.define('user', {
   },
   googleId: {
     type: Sequelize.STRING
+  },
+  changePasswordFlag: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: false,
   }
 })
 
