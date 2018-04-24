@@ -16,6 +16,9 @@ const OrderDetails = require('./order-details')
  Order.belongsToMany(Product, { through: LineItem })
  Product.belongsToMany(Order, { through: LineItem })
 
+ LineItem.belongsTo(Order)
+ Order.hasMany(LineItem)
+
  Order.belongsTo(User)
 
  OrderDetails.belongsTo(Order);
