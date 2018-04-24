@@ -1,6 +1,6 @@
 import axios from 'axios'
 import history from '../history'
-import { getCartOrderIdThunkerator, getCartOrderId, addLineItemThunkerator, getAllItemsThunkerator, clearCart } from './index'
+import { getCartOrderIdThunkerator, getCartOrderId, addLineItemThunkerator, getAllItemsThunkerator, clearCart, updateUserFromServer, removeUserFromServer } from './index'
 
 /**
  * ACTION TYPES
@@ -92,9 +92,10 @@ export const deleteUserThunkerator = (id) => {
 }
 
 export const editPasswordThunkerator = (id, obj) => {
-  return async (dispatch) => {
+  return async () => {
     try {
-      await axios.get(`/users/${id}/check`, obj)
+      const answer = await axios.put(`/api/users/${id}/update-password`, obj)
+      return answer.data
     }
     catch (err) {
       console.log(err)

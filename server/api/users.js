@@ -53,12 +53,20 @@ router.put('/:userId/toggle-change-password', async (req, res, next) => {
 
 router.put('/:userId/update-password', async (req, res, next) => {
   try {
-    if (req.user.correctPassword(req.body.oldPassword)) {
-      await req.user.update({ password: req.body.newPassword })
-      res.send(201)
+    if (req.user.correctPassword(req.body.currentPassword)) {
+      if (req.body.newPassword){
+        const update = await req.user.update({
+          password: req.body.newPassword,
+          changePasswordFlag: false,
+        })
+        res.send(update)
+      }
+      else {
+        res.json({correct: true})
+      }
     }
     else {
-      res.send('Password is incorrect')
+      res.json({correct: false})
     }
   }
   catch (err) {
