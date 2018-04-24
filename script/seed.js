@@ -1,18 +1,20 @@
-/* eslint max-statements:0 */
+/* eslint max-statements:0 complexity:0 */
 const db = require('../server/db')
 const {
   User,
   Product,
   Category,
   Review,
+  Order,
+  LineItem,
 } = require('../server/db/models')
 
 async function seed() {
   await db.sync({ force: true })
   console.log('db synced!')
 
-  const numOfUsers = 30;
-  const numOfProducts = 100;
+  const numOfUsers = 30
+  const numOfProducts = 100
   const typesOfHats = [
     {
       name: 'Fedora',
@@ -57,9 +59,10 @@ async function seed() {
   ]
   const numOfCategories = typesOfHats.length;
 
-  let users = [];
-  let products = [];
-  let categories = [];
+  let users = []
+  let products = []
+  let categories = []
+  let orders = []
 
   for (let i = 0; i < numOfUsers; i++) {
     let isAdmin = false;
@@ -144,6 +147,40 @@ async function seed() {
   })
 
   await Promise.all(reviewPromises);
+
+  for (let i = 0; i < numOfUsers; i++) {
+    const orderEnum = ['pending', 'processing', 'cancelled', 'completed']
+
+    orders.push(
+      Order.create({
+        id: i + 1,
+        status: orderEnum[i % orderEnum.length],
+        userId: i + 1,
+      })
+    )
+  }
+
+  const ordersPromises = await Promise.all(orders)
+
+  console.log(ordersPromises)
+
+  const lineItems = []
+
+  for (let j = 0; j < numOfUsers; j++) {
+    for (let i = 0; i < 10; i++) {
+      if (Math.random() * 10 < 0.4) break
+      lineItems.push(
+        LineItem.create({
+          quantity: 1,
+          purchasePrice: 4.59,
+          orderId: j + 1,
+          productId: Math.floor(Math.random() * numOfProducts),
+        })
+      )
+    }
+  }
+
+  await Promise.all(lineItems)
 
 
   console.log(`seeded ${usersPromise.length} users`)
