@@ -1,16 +1,18 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { CategorySelector } from '../../components'
 import { addProductFromServerThunkerator } from '../../store';
 
 class AddProduct extends React.Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
     this.state = {
       productName: '',
       price: '0.00',
       qtyAvailable: 0,
       description: '',
       imgUrl: '',
+      categories: props.selectedCategories,
     }
   }
   render() {
@@ -21,11 +23,7 @@ class AddProduct extends React.Component {
         <label>Initial Qty Available: </label><input name="qtyAvailable" placeholder="Enter qty available" />
         <label>Image Url: </label><input name="imgUrl" placeholder="Enter image url" />
         <label>Category: </label>
-        <select name="category">
-        {
-          this.props.allCategories.map(category => <option key={category.id} value={category.id}>{category.name}</option>)
-        }
-        </select>
+        <CategorySelector />
         <label>Description: </label>
         <textarea
             name="description"
@@ -40,9 +38,9 @@ class AddProduct extends React.Component {
   }
 }
 
-const mapStateToProps = ({allCategories}) => ({allCategories})
+const mapStateToProps = ({ allCategories, selectedCategories }) => ({ allCategories, selectedCategories })
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     handleSubmit: (event) => {
       event.preventDefault()
@@ -52,7 +50,7 @@ const mapDispatchToProps = (dispatch) => {
         qtyAvailable: event.target.qtyAvailable.value,
         description: event.target.description.value,
         imgUrl: event.target.imgUrl.value,
-        categoryId: event.target.category.value,
+        categories: ownProps.categories,
       }
       dispatch(addProductFromServerThunkerator(product))
     }
