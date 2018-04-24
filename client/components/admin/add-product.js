@@ -100,12 +100,12 @@ const mapDispatchToProps = (dispatch, ownProps) => {
       if (ownProps.match.params.productId) {
         console.log('updated', ownProps)
         await dispatch(updateProductFromServerThunkerator(ownProps.match.params.productId, product))
-        ownProps.history.push('/admin/product-list')
+        ownProps.history.push('/admin')
       }
       else {
         console.log('added', ownProps)
         await dispatch(addProductFromServerThunkerator(product))
-        ownProps.history.push('/admin/product-list')
+        ownProps.history.push('/admin')
       }
     }
   }

@@ -37,7 +37,7 @@ router.post('/', async (req, res, next) => {
 
 router.put('/:productId', async (req, res, next) => {
   try {
-    const updatedProduct = await Product.update(req.body)
+    const updatedProduct = await req.product.update(req.body)
     await updatedProduct.setCategories(req.body.categories)
     res.json(updatedProduct)
   }
