@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { StarsReadOnly, ReviewEntry, ReviewItem } from '../review'
-import { getProductFromServerThunkerator, clearProduct, addProductToCart, getReviewsForProductThunkerator, addLineItemThunkerator, editLineItemThunkerator } from '../../store'
 import { handleClick } from './product-item'
+import store, { getProductFromServerThunkerator, clearProduct, addProductToCart, getReviewsFromServerThunkerator, addLineItemThunkerator } from '../../store'
 
 class ViewProduct extends React.Component {
   constructor() {
@@ -69,7 +69,6 @@ class ViewProduct extends React.Component {
 
 const mapStateToProps = ({ selectedProduct, cart, user, reviews, userCartOrderId }) => ({ selectedProduct, cart, user, reviews, userCartOrderId, isLoggedIn: !!user.id })
 
-
-const mapDispatchToProps = { getProductFromServerThunkerator, clearProduct, addProductToCart, getReviewsForProductThunkerator, addLineItemThunkerator, editLineItemThunkerator };
+const mapDispatchToProps = { getProductFromServerThunkerator, clearProduct, addProductToCart, getReviewsFromServerThunkerator, addLineItemThunkerator };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ViewProduct);

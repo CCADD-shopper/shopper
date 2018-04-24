@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { getAllItemsThunkerator, editLineItemThunkerator, addLineItemThunkerator } from './';
+import { getAllItemsThunkerator, addLineItemThunkerator } from './';
 
 //Action types
 const GET_CART_ORDER_ID = 'GET_CART_ORDER_ID'
@@ -19,8 +19,7 @@ export const getCartOrderIdThunkerator = (userId) => {
       const CartOrderId = await axios.get(`/api/orders/find/${userId}`)
       const orderId = CartOrderId.data.id
       dispatch(getCartOrderId(orderId))
-      const oldCart = await axios.get(`/api/orders/${orderId}/all-items`)
-      await handleLocal(dispatch, orderId, oldCart.data)
+      await handleLocal(dispatch, orderId)
       dispatch(getAllItemsThunkerator(orderId))
     }
     catch (err) {
@@ -43,19 +42,12 @@ export default (state = initialState, action) => {
 
 //Helper Function
 
-const handleLocal = (dispatch, CartOrderId, oldCart) => {
+const handleLocal = (dispatch, CartOrderId) => {
   if (!localStorage.getItem('cart')) return
   const cart = JSON.parse(localStorage.getItem('cart'))
   cart.map(async (newItem) => {
     newItem.orderId = CartOrderId
-    const foundItem = oldCart.filter(item => item.productId === newItem.productId)
-    if (foundItem.length){
-      newItem.quantity = newItem.quantity + foundItem[0].quantity
-      await dispatch(editLineItemThunkerator(newItem))
-    }
-    else {
-      await dispatch(addLineItemThunkerator(newItem))
-    }
+    await dispatch(addLineItemThunkerator(newItem))
   })
   localStorage.removeItem('cart')
 }

@@ -2,8 +2,9 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import {CartItem} from '../cart';
-import { getCartOrderIdThunkerator, addLineItemThunkerator, createTempUserThunkerator } from '../../store'
+import { getCartOrderIdThunkerator, addLineItemThunkerator, createTempUserThunkerator, getAllItemsThunkerator } from '../../store'
 import { FormErrors } from './form-errors'
+import axios from 'axios'
 
 class CheckoutConfirm extends Component{
     constructor(props){
@@ -70,7 +71,30 @@ class CheckoutConfirm extends Component{
 
         }
 
-        this.setState({formErrors: fieldValidationErrors, emailValid: emailValid}, this.validateForm)
+    this.setState({formErrors: fieldValidationErrors, emailValid: emailValid}, this.validateForm)
+    }
+
+    updateOrderDetails() {
+        const details = {
+            orderId: this.props.orderId,
+            shipAddress1: this.state.shipAddress1,
+            shipAddress2: this.state.shipAddress2,
+            shipCity: this.state.shipCity,
+            shipState: this.state.shipState,
+            shipZip: this.state.shipZip,
+            billAddress1: this.state.billAddress1,
+            billAddress2: this.state.billAddress2,
+            billCity: this.state.billCity,
+            billState: this.state.billState,
+            billZip: this.state.billZip,
+            payCreditCard: this.state.payCreditCard,
+            payCcNumber: this.state.payCcNumber,
+            payCvcNumber: this.state.payCvcCode,
+            payExpiry: this.state.payExpiry,
+            payZip: this.state.payZip,
+        }
+        console.log('update order')
+        axios.post('/api/orders/fillOrderDetails', details)
     }
 
     async validateForm() {
@@ -111,13 +135,11 @@ class CheckoutConfirm extends Component{
         if (!this.props.isLoggedIn) {
             const userToBe = {firstName: this.state.firstName, lastName: this.state.lastName, email: this.state.email}
             const cartToBe = this.props.cartItems.slice();
-            await this.props.createTempUserThunkerator(userToBe)
-            cartToBe.map(item => {
-                item.orderId = this.props.orderId;
-                this.props.addLineItemThunkerator(item);
-            })
+            await this.props.createTempUserThunkerator(userToBe, cartToBe);
+            this.updateOrderDetails()
     }
     }
+
     render() {
         const {cartItems} = this.props
 
@@ -169,7 +191,7 @@ class CheckoutConfirm extends Component{
                             <option>VISA</option>
                             <option>Mastercard</option>
                             <option>American Express</option>
-                            <option>Big Joe's Credit Hut</option>
+                            <option>Big Joes Credit Hut</option>
                         </select>
                         <label>Credit Card Number*</label>
                         <input type="text" name="payCcNumber" id="" value={this.state.payCcNumber} size="35" onChange={this.handleChange} />
@@ -223,7 +245,7 @@ const mapStateToProps = (state) => {
   }
 
 
-const mapDispatchToProps = { createTempUserThunkerator, addLineItemThunkerator, getCartOrderIdThunkerator }
+const mapDispatchToProps = { createTempUserThunkerator, addLineItemThunkerator, getCartOrderIdThunkerator, getAllItemsThunkerator }
 
 
 export default connect(mapStateToProps, mapDispatchToProps)(CheckoutConfirm);
