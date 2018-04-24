@@ -25,7 +25,6 @@ router.get('/product-categories/:productId', async (req, res, next) => {
 
 router.post('/new-category', async (req, res, next) => {
   try {
-    console.log(req.body)
     const newCategory = await Category.create(req.body)
     res.json(newCategory)
   }
