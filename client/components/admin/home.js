@@ -11,6 +11,7 @@ import {
   AddProduct,
   ProductList,
   UserList,
+  Categories,
 } from '../../components'
 
 
@@ -32,6 +33,7 @@ class AdminHome extends React.Component {
           <NavLink to="/admin/product-list">Product List</NavLink>
           <NavLink to="/admin/user-list">User List</NavLink>
           <NavLink to="/admin/order-list">Order List</NavLink>
+          <NavLink to="/admin/categories">Categories</NavLink>
 
           <h1>I am the admin page</h1>
           <Switch>
@@ -39,6 +41,7 @@ class AdminHome extends React.Component {
             <Route exact path="/admin/product-list" component={ProductList} />
             <Route exact path="/admin/user-list" component={UserList} />
             <Route exact path="/admin/order-list" component={OrderList} />
+            <Route exact path="/admin/categories" component={Categories} />
           </Switch>
         </div>
       </div>
