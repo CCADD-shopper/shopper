@@ -7,10 +7,16 @@ router.get('/', (req, res, next) => {
     .catch(next);
 })
 
-router.post('/new-category', (req, res, next) => {
-    Category.create(req.body)
-    .then(newCat => res.json(newCat))
-    .catch(next);
+router.post('/new-category', async (req, res, next) => {
+  try {
+    console.log(req.body)
+    const newCategory = await Category.create(req.body)
+    res.json(newCategory)
+  }
+  catch (err) {
+    next(err)
+  }
+  
 })
 
 router.put('/:categoryId', async (req, res, next) => {
