@@ -3,11 +3,11 @@ import { connect } from 'react-redux'
 import { NavLink, Switch, Route, Redirect } from 'react-router-dom'
 import store, {
   getOrdersFromServerThunkerator,
+  activateAdmin,
+  deactivateAdmin,
 } from '../../store'
 import {
   OrderList,
-  OrderItem,
-  ViewProduct,
   AddProduct,
   ProductList,
   UserList,
@@ -22,6 +22,11 @@ class AdminHome extends React.Component {
 
   componentDidMount () {
     store.dispatch(getOrdersFromServerThunkerator(this.props.user.id))
+    store.dispatch(activateAdmin())
+  }
+
+  componentWillUnmount () {
+    store.dispatch(deactivateAdmin())
   }
 
   render() {
@@ -37,6 +42,7 @@ class AdminHome extends React.Component {
 
           <h1>I am the admin page</h1>
           <Switch>
+            <Route exact path="/admin/edit-product/:productId" render={() => <AddProduct categories={this.props.selectedCategories} />} />
             <Route exact path="/admin/add-product" render={() => <AddProduct categories={this.props.selectedCategories} />} />
             <Route exact path="/admin/product-list" component={ProductList} />
             <Route exact path="/admin/user-list" component={UserList} />

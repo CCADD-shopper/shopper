@@ -54,8 +54,7 @@ export const getReviewsFromServerThunkerator = () => {
 export const getReviewsForProductThunkerator = id => {
   return async (dispatch) => {
     try {
-      const selectedReviews = await axios.get(`/api/reviews/byProduct/${id}/`);
-        console.log(selectedReviews);
+      const selectedReviews = await axios.get(`/api/reviews/byProduct/${id}`);
       dispatch(getReviewsFromServer(selectedReviews.data));
     }
     catch (err) {

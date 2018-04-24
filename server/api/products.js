@@ -35,10 +35,14 @@ router.post('/', async (req, res, next) => {
   }
 })
 
-router.put('/:productId', (req, res, next) => {
-  const productId = req.params.productId
-  Product.update(req.body, {where: {id: productId}, returning: true})
-    .then(updatedProduct => res.json(updatedProduct[1][0]))
-    .catch(next);
+router.put('/:productId', async (req, res, next) => {
+  try {
+    const updatedProduct = await req.product.update(req.body)
+    await updatedProduct.setCategories(req.body.categories)
+    res.json(updatedProduct)
+  }
+  catch (err) {
+    next(err)
+  }
 })
 
