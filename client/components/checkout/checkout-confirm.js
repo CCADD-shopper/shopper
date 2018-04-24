@@ -5,6 +5,7 @@ import {CartItem} from '../cart';
 import { getCartOrderIdThunkerator, addLineItemThunkerator, createTempUserThunkerator, getAllItemsThunkerator, updateOrderStatusThunkerator, createOrderDetailThunkerator } from '../../store'
 import { FormErrors } from './form-errors'
 import axios from 'axios'
+import CartSummary from '../cart/cart-summary';
 
 class CheckoutConfirm extends Component{
     constructor(props){
@@ -156,6 +157,7 @@ class CheckoutConfirm extends Component{
                     </div>)
                 })) : <h3>No items</h3>}
             </div>
+            <CartSummary cart={cartItems} />
             <form>
                 <div className="checkout-form">
                     <div className="checkout-info">
