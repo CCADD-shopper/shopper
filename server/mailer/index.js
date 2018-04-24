@@ -34,7 +34,7 @@ nodemailer.createTestAccount((err, account) => {
             // default message fields
 
             // sender info
-            from: 'Pangalink <TopShopPloppers@gmail.com>',
+            from: 'Pangalink <TopShopPlopper@gmail.com>',
             headers: {
                 'X-Laziness-level': 1000 // just an example header, no need to use this
             }
@@ -47,10 +47,10 @@ nodemailer.createTestAccount((err, account) => {
         to: 'Andrew <goullet86@gmail.com>',
 
         // Subject of the message
-        subject: 'Nodemailer is unicode friendly ✔',
+        subject: 'Your Order was Recieved!',
 
         // plaintext body
-        text: 'Hello to myself!',
+        text: 'Thanks for your order with TopShop!',
 
         // HTML body
         html:
@@ -62,7 +62,7 @@ nodemailer.createTestAccount((err, account) => {
             // String attachment
             {
                 filename: 'notes.txt',
-                content: 'Some notes about this e-mail',
+                content: 'receipt',
                 contentType: 'text/plain' // optional, would be detected from the filename
             },
 
