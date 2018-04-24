@@ -51,6 +51,18 @@ export const getReviewsFromServerThunkerator = () => {
     }
   }
 }
+export const getReviewsForProductThunkerator = id => {
+  return async (dispatch) => {
+    try {
+      const selectedReviews = await axios.get(`/api/reviews/byProduct/${id}/`);
+        console.log(selectedReviews);
+      dispatch(getReviewsFromServer(selectedReviews.data));
+    }
+    catch (err) {
+      console.log('Fetching Reviews for product unsuccessful', err);
+    }
+  }
+}
 
 export const removeReviewToServerThunkerator = id => {
   return async (dispatch) => {

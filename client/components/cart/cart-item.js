@@ -1,16 +1,12 @@
 import React, {Component} from 'react'
 import { connect } from 'react-redux'
-import { removeProductfromCart, removeLineItemThunkerator } from '../../store/cart'
+import { removeProductfromCart, removeLineItemThunkerator, editLineItemThunkerator, alterCartQuantity } from '../../store/cart'
 
 class CartItem extends Component{
   constructor(props){
     super(props)
     this.state = null
   }
-
-  // handleDelete = () => {
-  //   removeProductfromCart()
-  // }
 
   handleRemove = (productId) => {
     if (this.props.isLoggedIn){
@@ -26,14 +22,47 @@ class CartItem extends Component{
     }
   }
 
+  handleDecrement = (newItem) => {
+      if (this.props.isLoggedIn){
+        const foundItem = this.props.cart.filter(item => item.productId === newItem.productId)
+        if (foundItem.length){
+          newItem.quantity = foundItem[0].quantity === 1 ? foundItem[0].quantity : foundItem[0].quantity - newItem.quantity
+          this.props.editLineItemThunkerator(newItem)
+        }
+      }
+      else {
+        this.props.alterCartQuantity(newItem.productId, 'dec')
+      }
+    }
+
+  handleIncrement = (newItem) => {
+    if (this.props.isLoggedIn){
+      const foundItem = this.props.cart.filter(item => item.productId === newItem.productId)
+      if (foundItem.length){
+        newItem.quantity = newItem.quantity + foundItem[0].quantity
+        this.props.editLineItemThunkerator(newItem)
+      }
+    }
+    else {
+      this.props.alterCartQuantity(newItem.productId, 'inc')
+    }
+  }
+
   render(){
     const { id, name, price, imgUrl } = this.props.product;
+    const quantity = 1;
+    const input  = {quantity, purchasePrice: price, orderId: this.props.orderId, productId: id}
+
     return (
       <div className="cartItem">
             <img src={imgUrl} />
             <h5>{name}</h5>
             <p className="price">${price}</p>
-            <p className="quantity">Quantity: {this.props.quantity}</p>
+            <div className="button-box">
+              <button className="ui button left attached blue" onClick={() => this.handleDecrement(input)}> - </button>
+              <p className="quantity">Quantity: {this.props.quantity}</p>
+              <button className="ui right attached button blue" onClick={() => this.handleIncrement(input)}> + </button>
+            </div>
             <button className="ui red button" onClick={() => this.handleRemove(id)}>Remove Item</button>
       </div>
     )
@@ -43,10 +72,11 @@ class CartItem extends Component{
 const mapState = (state) => {
   return {
     isLoggedIn: !!state.user.id,
+    cart: state.cart,
     orderId: state.userCartOrderId,
   }
 }
 
-const mapDispatch = { removeProductfromCart, removeLineItemThunkerator }
+const mapDispatch = { removeProductfromCart, removeLineItemThunkerator, editLineItemThunkerator, alterCartQuantity }
 
 export default connect(mapState, mapDispatch)(CartItem)

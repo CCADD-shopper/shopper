@@ -5,3 +5,4 @@
  */
 export {default as AdminHome} from './home'
 export {default as AddProduct} from './add-product'
+export {default as Categories} from './categories'

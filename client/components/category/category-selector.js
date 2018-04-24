@@ -23,13 +23,11 @@ class CategorySelector extends React.Component {
     // }
 
     return (
-      <div className="leftBar categorySelector">
-        <CheckboxGroup checkboxDepth={2} name="categories" onChange={this.props.handleCategoryChange}>
+        <CheckboxGroup checkboxDepth={2} name="categories" onChange={this.props.handleCategoryChange} >
           {
             allCategories.map(category => <label key={category.id}><Checkbox value={category.id} />{category.name}</label>)
           }
         </CheckboxGroup>
-      </div>
     );
   }
 }
