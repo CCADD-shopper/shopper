@@ -167,9 +167,9 @@ const addProduct = (state, action) => {
 const alterProduct = (state, action) => {
   if (state.filter(cartItem => cartItem.productId === action.id).length) {
     let foundItem = state.filter(cartItem => cartItem.productId === action.id);
-      if (action.upDown === 'inc')  {foundItem[0].quantity = foundItem[0].quantity++}
-      else {foundItem[0].quantity = foundItem[0].quantity--}
-    let existing = state.filter(cartThing => cartThing.productId !== action.cartItem.productId)
+      if (action.upDown === 'inc')  {foundItem[0].quantity = foundItem[0].quantity + 1}
+      else {foundItem[0].quantity = foundItem[0].quantity = foundItem[0].quantity === 1 ? foundItem[0].quantity : foundItem[0].quantity - 1}
+    let existing = state.filter(cartThing => cartThing.productId !== action.id)
     if (existing.length){
       return [...existing, foundItem[0]]}
           else {
