@@ -208,3 +208,13 @@ form div {
 .checkout-summary {
   padding: 16px;
 }
+
+.button-box {
+  display:flex;
+  flex-direction: row;
+  border: 1px;
+  border-style: dotted;
+  border-color: #4083c4;
+  border-radius: 1em;
+}
+

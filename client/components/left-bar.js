@@ -3,7 +3,9 @@ import { CategorySelector } from '../components'
 
 const LeftBar = (props) => (
   <div className="sidebar">
-  <CategorySelector />
+    <div className="leftBar categorySelector">
+      <CategorySelector />
+    </div>
   </div>
 )
 

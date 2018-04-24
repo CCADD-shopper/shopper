@@ -5,17 +5,14 @@ import { ReviewItemStars } from '../review'
 
 const ReviewItem = (props) => {
 
-const reviewedProducts = props.productList.filter(product => props.review.productId === product.id);
-
   return (
         <div className="ui items">
           {
-            props.review.map(review => (
+            props.reviews.map(review => (
                 <div key={review.id} className="item">
                   <div className="reviewList">
                     <div className="ui blue circular segment">
                     <h2 className="header">{review.user.firstName} {review.user.lastName}</h2>
-                    <h3>{reviewedProducts.name}</h3>
                     <ReviewItemStars rating={review.rating} />
                     <div className="meta">
                       <span>{review.description}</span>
@@ -29,7 +26,7 @@ const reviewedProducts = props.productList.filter(product => props.review.produc
   );
 }
 
-const mapStateToProps = ({productList}) => ({productList});
+const mapStateToProps = ({ reviews }) => ({ reviews })
 
 const mapDispatchToProps = null;
 
