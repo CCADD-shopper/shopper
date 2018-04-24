@@ -176,6 +176,8 @@ const alterProduct = (state, action) => {
           else {
               return foundItem
           }
+        }
+      }
 const lineItemAdder = (state, action) => {
   if (state.filter(cartItem => cartItem.productId === action.lineItem.productId).length){
     return state.map(item => {
