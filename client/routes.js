@@ -20,6 +20,7 @@ import {
   CheckoutSummary,
   CheckoutConfirm,
   AdminHome,
+  ChangePassword,
 } from './components'
 
 /**
@@ -61,6 +62,7 @@ class Routes extends Component {
               <Route path="/users/my-profile" render={MyUserPage} />
               <Route path="/admin" component={AdminHome} />
               <Route exact path="/orders" component={OrderList} />
+              <Route path="/change-password" component={ChangePassword} />
             </Switch>
           }
           {/* Displays our Login component as a fallback */}

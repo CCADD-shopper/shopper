@@ -44,10 +44,30 @@ router.put('/:userId/toggle-admin', async (req, res, next) => {
   res.json(updatedUser)
 })
 
+router.put('/:userId/toggle-change-password', async (req, res, next) => {
+  const updatedUser = await req.user.update({
+    changePasswordFlag: !req.user.changePasswordFlag,
+  })
+  res.json(updatedUser)
+})
+
 router.put('/:userId/update-password', async (req, res, next) => {
   try {
-    await req.user.update({ password: req.body.password })
-    res.sendStatus(201)
+    if (req.user.correctPassword(req.body.currentPassword)) {
+      if (req.body.newPassword){
+        const update = await req.user.update({
+          password: req.body.newPassword,
+          changePasswordFlag: false,
+        })
+        res.send(update)
+      }
+      else {
+        res.json({correct: true})
+      }
+    }
+    else {
+      res.json({correct: false})
+    }
   }
   catch (err) {
     next(err)

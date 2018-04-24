@@ -1,6 +1,6 @@
 import axios from 'axios'
 import history from '../history'
-import { getCartOrderIdThunkerator, getCartOrderId, addLineItemThunkerator, getAllItemsThunkerator, clearCart } from './index'
+import { getCartOrderIdThunkerator, getCartOrderId, addLineItemThunkerator, getAllItemsThunkerator, clearCart, createOrderDetailThunkerator, updateOrderStatusThunkerator, updateUserFromServer, removeUserFromServer } from './index'
 
 /**
  * ACTION TYPES
@@ -39,7 +39,8 @@ export const auth = (user, method) =>
       .then(res => {
         dispatch(getUser(res.data))
         dispatch(getCartOrderIdThunkerator(res.data.id))
-        history.push('/home')
+        if (res.data.changePasswordFlag) history.push('/change-password')
+        else history.push('/home')
       }, authError => { // rare example: a good use case for parallel (non-catch) error handler
         dispatch(getUser({error: authError}))
       })
@@ -54,7 +55,7 @@ export const logout = () =>
       })
       .catch(err => console.log(err))
 
-export const createTempUserThunkerator = (tempUserInfo, cart) => {
+export const createTempUserThunkerator = (tempUserInfo, cart, details) => {
   return async (dispatch) => {
     try {
       const tUser = await axios.post('api/users/create', tempUserInfo)
@@ -63,6 +64,9 @@ export const createTempUserThunkerator = (tempUserInfo, cart) => {
       cart.forEach(async cartItem => {
         await axios.post(`/api/orders/add-item/${CartOrderId.data.id}`, cartItem)
       })
+      details.orderId = CartOrderId.data.id
+      await axios.put(`/api/orders/${CartOrderId.data.id}`, {status: 'processing'})
+      await createOrderDetailThunkerator(CartOrderId.data.id, details)
       dispatch(clearCart())
     }
     catch (err) {
@@ -83,6 +87,18 @@ export const deleteUserThunkerator = (id) => {
     try {
       await axios.delete(`/api/users/${id}`)
       dispatch(removeUserFromServer(id))
+    }
+    catch (err) {
+      console.log(err)
+    }
+  }
+}
+
+export const editPasswordThunkerator = (id, obj) => {
+  return async () => {
+    try {
+      const answer = await axios.put(`/api/users/${id}/update-password`, obj)
+      return answer.data
     }
     catch (err) {
       console.log(err)

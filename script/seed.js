@@ -153,7 +153,6 @@ async function seed() {
 
     orders.push(
       Order.create({
-        id: i + 1,
         status: orderEnum[i % orderEnum.length],
         userId: i + 1,
       })
@@ -162,19 +161,18 @@ async function seed() {
 
   const ordersPromises = await Promise.all(orders)
 
-  console.log(ordersPromises)
-
   const lineItems = []
 
-  for (let j = 0; j < numOfUsers; j++) {
-    for (let i = 0; i < 10; i++) {
-      if (Math.random() * 10 < 0.4) break
+  const allOrders = await Order.findAll()
+
+  for (let i = 0; i < allOrders.length; i++){
+    for (let j = 0; j < 10; j++){
       lineItems.push(
         LineItem.create({
-          quantity: 1,
-          purchasePrice: 4.59,
-          orderId: j + 1,
-          productId: Math.floor(Math.random() * numOfProducts),
+          quantity: j + 1,
+          purchasePrice: 1.01,
+          orderId: allOrders[i].id,
+          productId: j + 1
         })
       )
     }
