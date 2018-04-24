@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import {Link} from 'react-router-dom';
 import { connect } from 'react-redux'
 import CartItem from './cart-item';
+import CartSummary from './cart-summary';
 import { clearCart, clearCartItemsThunkerator } from '../../store/cart'
 
 class Cart extends Component{
@@ -50,15 +51,17 @@ class Cart extends Component{
               <div key={cartItem.productId}>
                 <CartItem product={product} quantity={cartItem.quantity} />
               </div>)
-            }))
-            : <h3>No items</h3>
+            })
+          )
+            : <h3>Your cart is empty!  Go to <a href="/products">All Products</a> to find your new style</h3>
           }
+        <CartSummary cart={cartItems} />
         <Link to="/checkout">
         <button className="ui green button" onClick={this.checkoutHandler}>Checkout</button>
         </Link>
         <button className="ui red button" onClick={() => this.clearCartHandler(this.props.orderId)}>Clear Cart</button>
         </div> :
-        <div></div>
+        <div />
         }
       </div>
     )

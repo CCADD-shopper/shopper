@@ -218,3 +218,22 @@ form div {
   border-radius: 1em;
 }
 
+.sub-total-parent {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  min-height: 75px;
+  max-height: 55px;
+  margin: 15px 5px;
+  padding: 7px;
+  border: 3px solid teal;
+}
+
+.sub-total-count {
+  font-size: 2em;
+  padding: 16px;
+}
+.sub-total-cost {
+  font-size: 2em;
+  padding: 16px;
+}
