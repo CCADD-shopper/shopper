@@ -81,7 +81,6 @@ router.post('/new-order', (req, res, next) => {
 //edit order
 router.put('/:orderId', async (req, res, next) => {
   try {
-    console.log('im here')
     const updatedOrder = await req.order.update(req.body)
     res.json(updatedOrder)
   }
