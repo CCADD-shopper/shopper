@@ -1,6 +1,6 @@
 import axios from 'axios'
 import history from '../history'
-import { getCartOrderIdThunkerator, updateUserFromServer, removeUserFromServer } from './index'
+import { getCartOrderIdThunkerator, getCartOrderId, addLineItemThunkerator, getAllItemsThunkerator, clearCart } from './index'
 
 /**
  * ACTION TYPES
@@ -54,6 +54,22 @@ export const logout = () =>
       })
       .catch(err => console.log(err))
 
+export const createTempUserThunkerator = (tempUserInfo, cart) => {
+  return async (dispatch) => {
+    try {
+      const tUser = await axios.post('api/users/create', tempUserInfo)
+      const CartOrderId = await axios.get(`/api/orders/find/${tUser.data.id}`)
+      await dispatch(getCartOrderId(CartOrderId.data.id))
+      cart.forEach(async cartItem => {
+        await axios.post(`/api/orders/add-item/${CartOrderId.data.id}`, cartItem)
+      })
+      dispatch(clearCart())
+    }
+    catch (err) {
+      console.log(err)
+    }
+  }
+}
 
 export const toggleAdminThunkerator = (id) => {
   return async (dispatch) => {
@@ -72,21 +88,6 @@ export const deleteUserThunkerator = (id) => {
       console.log(err)
     }
   }
-}
-
-export const createTempUserThunkerator = (tempUserInfo) => {
-  return async (dispatch) => {
-    try {
-      const tUser = await axios.post('api/users/create', tempUserInfo)
-      await dispatch(getCartOrderIdThunkerator(tUser.data.id))
-    }
-    catch (err) {
-      console.log(err)
-    }
-  }
-
-    // .then(tempUser = {
-    // })
 }
 
 /**

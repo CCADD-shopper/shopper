@@ -40,18 +40,26 @@ class Cart extends Component{
     const {cartItems} = this.props
     return (
       <div>
-        <h2>Shopping Cart</h2>
-        {cartItems.length ? (cartItems.map(cartItem => {
-          const product = this.findProductById(cartItem.productId)
-          return (
-          <div key={cartItem.productId}>
-            <CartItem product={product} quantity={cartItem.quantity} />
-          </div>)
-        })) : <h3>No items</h3>}
-      <Link to="/checkout">
-      <button className="ui green button" onClick={this.checkoutHandler}>Checkout</button>
-      </Link>
-      <button className="ui red button" onClick={() => this.clearCartHandler(this.props.orderId)}>Clear Cart</button>
+        {this.props.productList.length ?
+        <div>
+          <h2>Shopping Cart</h2>
+          {cartItems.length
+            ? (cartItems.map(cartItem => {
+            const product = this.findProductById(cartItem.productId)
+            return (
+              <div key={cartItem.productId}>
+                <CartItem product={product} quantity={cartItem.quantity} />
+              </div>)
+            }))
+            : <h3>No items</h3>
+          }
+        <Link to="/checkout">
+        <button className="ui green button" onClick={this.checkoutHandler}>Checkout</button>
+        </Link>
+        <button className="ui red button" onClick={() => this.clearCartHandler(this.props.orderId)}>Clear Cart</button>
+        </div> :
+        <div></div>
+        }
       </div>
     )
   }
