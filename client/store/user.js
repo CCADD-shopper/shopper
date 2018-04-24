@@ -39,7 +39,8 @@ export const auth = (user, method) =>
       .then(res => {
         dispatch(getUser(res.data))
         dispatch(getCartOrderIdThunkerator(res.data.id))
-        history.push('/home')
+        if (res.data.changePasswordFlag) history.push('/change-password')
+        else history.push('/home')
       }, authError => { // rare example: a good use case for parallel (non-catch) error handler
         dispatch(getUser({error: authError}))
       })
@@ -83,6 +84,17 @@ export const deleteUserThunkerator = (id) => {
     try {
       await axios.delete(`/api/users/${id}`)
       dispatch(removeUserFromServer(id))
+    }
+    catch (err) {
+      console.log(err)
+    }
+  }
+}
+
+export const editPasswordThunkerator = (id, obj) => {
+  return async (dispatch) => {
+    try {
+      await axios.get(`/users/${id}/check`, obj)
     }
     catch (err) {
       console.log(err)
