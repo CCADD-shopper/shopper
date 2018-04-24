@@ -9,9 +9,20 @@ router.param('userId', async (req, res, next, userId) => {
   next()
 })
 
+router.param('orderId', async (req, res, next, orderId) => {
+  try {
+    const order = await Order.findById(orderId)
+    req.order = order
+    next()
+  }
+  catch (err) {
+    next(err)
+  }
+})
+
 router.get('/', (req, res, next) => {
   Order.findAll({
-    include: [{ model: User }]
+    include: [{ model: User }, {model: LineItem}]
   })
     .then(allOrders => res.json(allOrders))
     .catch(next)
@@ -28,12 +39,15 @@ router.get('/user/:userId', async (req, res, next) => {
   try {
     let orders
     if (req.user.isAdmin) {
-      orders = await Order.findAll()
+      orders = await Order.findAll({
+        include: [{ all: true }]
+      })
     }
     else {
       orders = await Order.findAll({
         where: {
           userId: req.user.id,
+          include: [{ all: true }],
         }
       })
     }
@@ -65,17 +79,14 @@ router.post('/new-order', (req, res, next) => {
 })
 
 //edit order
-router.put('/:orderId/', (req, res, next) => {
-  const orderId = req.params.orderId;
-  Order.update(req.body, {
-    where: {
-      id: orderId
-    }, returning: true
-  })
-    .then(order => {
-      res.json(order[1][0])
-    })
-    .catch(next)
+router.put('/:orderId', async (req, res, next) => {
+  try {
+    const updatedOrder = await req.order.update(req.body)
+    res.json(updatedOrder)
+  }
+  catch (err) {
+    next(err)
+  }
 })
 
 //add one line item
