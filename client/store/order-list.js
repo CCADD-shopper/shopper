@@ -38,6 +38,18 @@ export const updateOrderStatusThunkerator = (orderId, statusToBe) => {
   }
 }
 
+export const createOrderDetailThunkerator = (orderId, details) => {
+  return () => {
+      try {
+          details.orderId = orderId;
+          axios.post('/api/orders/fillOrderDetails', details)
+      }
+      catch (err) {
+          console.log(err)
+      }
+  }
+}
+
 export default (prevState = [], action) => {
   switch (action.type) {
 
