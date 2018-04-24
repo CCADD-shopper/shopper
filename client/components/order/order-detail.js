@@ -1,9 +1,13 @@
 import React from 'react'
 
 const OrderDetail = (props) => {
+  console.log('orderProduct', props.products)
   return (
-    <div onClick={props.handleClick} >
-      <h5>This is the order detail</h5>
+    <div>
+    <span onClick={props.handleClick}>Collapse Details</span>
+      {
+        props.products.map(product => <p key={product.id} >{product.id}</p>)
+      }
     </div>
   )
 }
