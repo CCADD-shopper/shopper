@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { StarsReadOnly, ReviewEntry, ReviewItem } from '../review'
 import { handleClick } from './product-item'
-import store, { getReviewsForProductThunkerator, getProductFromServerThunkerator, clearProduct, addProductToCart, getReviewsFromServerThunkerator, addLineItemThunkerator } from '../../store'
+import { clearReviews, getReviewsForProductThunkerator, getProductFromServerThunkerator, clearProduct, addProductToCart, getReviewsFromServerThunkerator, addLineItemThunkerator } from '../../store'
 
 class ViewProduct extends React.Component {
   constructor() {
@@ -26,11 +26,13 @@ class ViewProduct extends React.Component {
 
   componentWillUnmount() {
     this.props.clearProduct()
+    this.props.clearReviews()
   }
 
 
   render() {
     const { id, name, price, description, qtyAvailable, imgUrl } = this.props.selectedProduct;
+
     const isLoggedIn = !!this.props.user.id
     let quantity = 1
     let orderId = this.props.userCartOrderId
@@ -40,9 +42,13 @@ class ViewProduct extends React.Component {
       <div className="productItem">
         <img src={imgUrl} />
         <h5>{name}</h5>
-        <p>${price} - {qtyAvailable} on hand</p>
+        <p>${price} - {qtyAvailable ? `${qtyAvailable} on hand` : 'This product is not currently available'}</p>
         <p>{description}</p>
-        <button className="positive small right floated ui button" onClick={() => handleClick(this.props, { productId: id, quantity, purchasePrice: price, orderId })}>Add to cart</button>
+        {
+          qtyAvailable
+            ? <button className="positive small right floated ui button" onClick={() => handleClick(this.props, { productId: id, quantity, purchasePrice: price, orderId })}>Add to cart</button>
+            : ''
+        }
         <StarsReadOnly product={this.props.selectedProduct} />
         <div>
           {
@@ -69,6 +75,6 @@ class ViewProduct extends React.Component {
 
 const mapStateToProps = ({ selectedProduct, cart, user, reviews, userCartOrderId }) => ({ selectedProduct, cart, user, reviews, userCartOrderId, isLoggedIn: !!user.id })
 
-const mapDispatchToProps = { getReviewsForProductThunkerator, getProductFromServerThunkerator, clearProduct, addProductToCart, getReviewsFromServerThunkerator, addLineItemThunkerator };
+const mapDispatchToProps = { clearReviews, getReviewsForProductThunkerator, getProductFromServerThunkerator, clearProduct, addProductToCart, getReviewsFromServerThunkerator, addLineItemThunkerator };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ViewProduct);

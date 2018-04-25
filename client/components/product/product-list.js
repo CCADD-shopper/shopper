@@ -12,6 +12,8 @@ const ProductList = (props) => {
       return false;
     }
   }).filter(product => {
+    return (product.qtyAvailable)
+  }).filter(product => {
     return (product.name.toLowerCase().indexOf(props.searchParam.toLowerCase()) > -1)
   })
 
