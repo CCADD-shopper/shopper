@@ -5,9 +5,10 @@ const CartSummary = (props) => {
   const { cart } = props
   const totalItems = cart.length
   const totalCost = cart.reduce((acc, curr) => {
-    return acc + curr.purchasePrice
+    return acc + (curr.purchasePrice * curr.quantity)
   }, 0)
   const floatCost = parseFloat(Math.round(totalCost * 100) / 100).toFixed(2);
+
   return (
         <div className="sub-total-parent">
           <div className="sub-total-count"> Total Items: {totalItems}</div>

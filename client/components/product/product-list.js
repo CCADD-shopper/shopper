@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import ProductItem from './product-item';
+import { LeftBar } from '../../components/'
 
 const ProductList = (props) => {
   const { productList, selectedCategories } = props;
@@ -16,9 +17,12 @@ const ProductList = (props) => {
 
 
   return (
-    <div>
+    <div className="contentWrapper">
+      <LeftBar />
+      <div className="mainContent">
       <div className="productList">
         {filteredProducts.map(product => <ProductItem key={product.id} product={product} />)}
+      </div>
       </div>
     </div>
   );
