@@ -45,9 +45,10 @@ class OrderItem extends React.Component {
     return (
       <div className="orderItem">
         <h3>Order #{id}</h3>
-        {account ? <h3>Status: {status}</h3>
-        <h5>Order #{id} - {updatedAt.slice(0, 10)}</h5>
-        {account ? <p>Status: {status}</p>
+        {
+          account
+        ? <div><h3>Status: {status}</h3>
+        <h5>Order #{id} - {updatedAt.slice(0, 10)}</h5></div>
 
         : <div>
             <label>Status: </label>
