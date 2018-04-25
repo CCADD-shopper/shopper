@@ -40,6 +40,7 @@ label {
   display: flex;
   flex-direction: row;
   flex-grow: 1;
+  justify-content: space-around;
 }
 
 .topShopSearchBar {
@@ -261,6 +262,12 @@ form div {
 
 .contentWrapper {
   display: flex;
+}
+
+.subadmin {
+  display: flex;
+  flex-direction: column;
+  /* align-items:  */
 }
 
 .mainContent {
