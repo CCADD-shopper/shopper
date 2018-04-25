@@ -5,7 +5,7 @@ import {Link} from 'react-router-dom'
 import {logout, clearCart} from '../store'
 import SearchBar from './searchbar';
 
-const Navbar = ({ handleClick, isLoggedIn, cartCount }) => (
+const Navbar = ({ handleClick, isLoggedIn, cartCount, user }) => (
   <div className="navBar">
       <Link to="/home">
         <div className="logo">
@@ -22,6 +22,11 @@ const Navbar = ({ handleClick, isLoggedIn, cartCount }) => (
       {isLoggedIn ? (
         <div>
           {/* The navbar will show these links after you log in */}
+            {
+              user.isAdmin
+                ? <Link to="/admin">Admin Panel</Link>
+                : ''
+            }
               <Link to="/users/my-profile">Account</Link>
               <a href="#" onClick={handleClick}>Logout</a>
               <Link to="/cart">Cart ({cartCount})</Link>
@@ -45,6 +50,7 @@ const mapState = state => {
   return {
     isLoggedIn: !!state.user.id,
     cartCount: state.cart.length,
+    user: state.user,
   }
 }
 
