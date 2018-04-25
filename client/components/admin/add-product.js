@@ -96,8 +96,8 @@ class AddProduct extends React.Component {
           value={description} />
         {
           this.state.editing
-            ? <button >Edit Product</button>
-            : <button >Add Product</button>
+            ? <button className="ui button yellow" >Edit Product</button>
+            : <button className="ui button green" >Add Product</button>
         }
         {
           this.state.errors.map(error => <p key={100 + Math.random() * 100} >** {error} **</p>)
