@@ -101,7 +101,6 @@ export const getAllItemsThunkerator = (id) => {
 export const addLineItemThunkerator = (item) => {
   return async (dispatch) => {
     try {
-      console.log('it', item)
       const newItem = await axios.put(`/api/orders/item/add`, item)
       dispatch(addLineItem(newItem.data))
     }
@@ -166,18 +165,16 @@ const addProduct = (state, action) => {
 }
 
 const alterProduct = (state, action) => {
-  if (state.filter(cartItem => cartItem.productId === action.id).length) {
-    let foundItem = state.filter(cartItem => cartItem.productId === action.id);
-      if (action.upDown === 'inc')  {foundItem[0].quantity = foundItem[0].quantity + 1}
-      else {foundItem[0].quantity = foundItem[0].quantity = foundItem[0].quantity === 1 ? foundItem[0].quantity : foundItem[0].quantity - 1}
-    let existing = state.filter(cartThing => cartThing.productId !== action.id)
-    if (existing.length){
-      return [...existing, foundItem[0]]}
-          else {
-              return foundItem
-          }
-        }
+  return state.map(cartItem => {
+    if (cartItem.productId === action.id) {
+      if (action.upDown === 'inc') {
+        cartItem.quantity = cartItem.quantity + 1
       }
+      else {cartItem.quantity = cartItem.quantity === 1 ? cartItem.quantity : cartItem.quantity - 1}
+      }
+      return cartItem
+  })
+}
 
 const lineItemAdder = (state, action) => {
   if (state.filter(cartItem => cartItem.productId === action.lineItem.productId).length){

@@ -55,7 +55,7 @@ class CartItem extends Component{
 
     return (
       <div className="cartItem">
-            <img src={imgUrl} />
+            <img className ="img-cart" src={imgUrl} />
             <h5>{name}</h5>
             <p className="price">${price}</p>
             <div className="button-box">

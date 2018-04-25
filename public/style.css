@@ -23,13 +23,15 @@ label {
 
 .cartItem {
   display: flex;
+  align-items: center;
   justify-content: space-around;
-  min-height: 75px;
+  min-height: 120px;
   max-height: 55px;
   margin: 15px 5px;
   padding: 7px;
   border: 3px solid teal;
 }
+
 .reviewList {
   display: flex;
   flex-direction: row;
@@ -42,10 +44,24 @@ label {
 
 .navLinks {
   margin-left: auto;
+  display: flex;
+  flex-direction: row;
+  flex-grow: 1;
 }
 
-.searchBar {
-  flex-grow: auto;
+.topShopSearchBar {
+  flex-grow: 1;
+  display: flex;
+  margin: 0;
+}
+
+.tsSearchWrapper {
+  flex-grow: 1;
+  display: flex;
+}
+
+.ui.segment {
+  margin: 0;
 }
 
 .navBar {
@@ -124,16 +140,25 @@ form div {
 .productItem {
   flex: 1;
   min-width: 300px;
-  max-width: 420px;
+  /* max-width: 420px; */
   margin: 15px 5px;
   padding: 7px;
-  border: 3px solid #4083c4;
+  border: 3px solid teal;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.cartItem {
+.productItem:hover {
+  background-color: #ccdfff;
+  -webkit-transition: background-color 500ms linear;
+  -ms-transition: background-color 500ms linear;
+  transition: background-color 500ms linear;
+}
+/* .cartItem {
   margin: 10px 0;
   border: 1px solid black;
-}
+} */
 
 .orderItem {
   margin: 10px 0;
@@ -146,6 +171,7 @@ form div {
 
 .cartItem img {
   width: 100px;
+  height: auto;
 }
 
 .userItem {
@@ -164,13 +190,30 @@ form div {
 
 /* //need to make generic list and item styles with user and product compliments!!! */
 
-.userview {
-  border: 4px solid #4083c4;
-}
-
 .prevorders {
   font-size: larger:
+
+.userView {
+  margin: 15px 5px;
+  padding: 7px;
+  border: 4px solid #4083c4;
+  width: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex-direction: column;
 }
+
+/* .cartItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  min-height: 120px;
+  max-height: 55px;
+  margin: 15px 5px;
+  padding: 7px;
+  border: 3px solid teal;
+} */
 
 .orderList {
 
@@ -178,10 +221,51 @@ form div {
 
 /* //need to make generic list and item styles with uesr and product compliments!!! */
 
+.toFix {
+  position: fixed;
+}
+
 .leftBar {
-  width: 130px;
+  /* border: 2px solid teal; */
+  width: 200px;
   height: 100%;
   flex: 1;
+  padding: 10px;
+}
+
+.single-category {
+  font-size: 1.2em; 
+  background-color: lightcyan;
+  display: flex;
+  justify-content: row;
+  padding-left: 8px;
+  height:32px;
+  width: 155%;
+  border-bottom: 2px solid lightslategray;
+  border-right: 2px solid lightslategray;
+  padding-top: 6px;
+}
+
+.single-category:hover {
+  background-color: teal;
+  color: white;
+  -webkit-transition: background-color 500ms linear;
+  -ms-transition: background-color 500ms linear;
+  transition: background-color 500ms linear;
+}
+
+.check-label {
+  margin-left: 16px;
+}
+
+.homeGreet {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.homeItem {
+  padding-bottom: 26px; 
 }
 
 .contentWrapper {
@@ -189,13 +273,14 @@ form div {
 }
 
 .mainContent {
+  padding: 6px;
   flex: 7;
 }
 
 .checkout-form {
   display: flex;
   flex-direction: row;
-  border: 2px solid teal;
+  border: 3px solid teal;
   background-color: azure;
   justify-content: center;
 }
@@ -228,7 +313,7 @@ form div {
 .sub-total-parent {
   display: flex;
   flex-direction: row;
-  justify-content: flex-start;
+  justify-content: space-between;
   min-height: 75px;
   max-height: 55px;
   margin: 15px 5px;
@@ -243,4 +328,11 @@ form div {
 .sub-total-cost {
   font-size: 2em;
   padding: 16px;
+}
+
+.starRating {
+  display: flex;
+  align-content: center;
+  flex-direction: column;
+  padding-bottom: 10px;
 }

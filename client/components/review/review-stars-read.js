@@ -6,13 +6,15 @@ const StarsReadOnly = (props) => {
     return (
         <div className="starRating">
             <p>Average User Rating based on ({numOfReviews}) Reviews</p>
-            <ReactStars
-            count={5}
-            // onChange={}
-            size={24}
-            edit={false}
-            value={averageRating}
-            />
+            <div>
+                <ReactStars
+                count={5}
+                // onChange={}
+                size={24}
+                edit={false}
+                value={averageRating}
+                />
+            </div>
         </div>
     )
 }

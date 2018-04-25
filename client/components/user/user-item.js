@@ -1,9 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux'
-import store, { toggleAdminThunkerator, deleteUserThunkerator } from '../../store'
+import store, { toggleAdminThunkerator, deleteUserThunkerator, triggerPasswordResetThunkerator } from '../../store'
 
 const UserItem = (props) => {
-  let { email, firstName, googleId, isAdmin, lastName } = props.user;
+  let { id, changePasswordFlag, email, firstName, googleId, isAdmin, lastName } = props.user;
   let externalInternal, adminType
   if (isAdmin) {
     adminType = 'Admin User'
@@ -19,7 +19,7 @@ const UserItem = (props) => {
 
   return (
     //need to update this once necessary
-    <div className="ui card">
+    <div className="cartItem">
       <img src="https://www.fillmurray.com/250/250" />
         <p>{email}</p>
         <p>{firstName}</p>
@@ -28,7 +28,8 @@ const UserItem = (props) => {
         <p>{adminType}</p>
         <button className="ui blue button" onClick={props.handleAdminToggle} >TOGGLE ADMIN</button>
         <button className="ui green button"> EDIT USER </button>
-        <button className="ui red button" onClick={props.handleDeleteUser} > DELETE USER </button>
+        <button onClick={props.handleDeleteUser} > DELETE USER </button>
+        <button className="ui red button" value={id} disabled={changePasswordFlag} onClick={props.triggerPassReset} > TRIGGER PASSWORD RESET </button>
     </div>
   );
 }
@@ -48,7 +49,11 @@ const mapDispatchToProps = (dispatch, ownProps) => {
       if (ownProps.loggedInUser.isAdmin) {
         store.dispatch(deleteUserThunkerator(ownProps.user.id))
       }
-    }
+    },
+    triggerPassReset: (event) => {
+      event.preventDefault();
+      store.dispatch(triggerPasswordResetThunkerator(+event.target.value))
+    },
   }
 }
 
