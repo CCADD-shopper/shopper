@@ -10,7 +10,7 @@ const App = () => {
     <div>
       <Navbar />
       <div className="contentWrapper">
-        <LeftBar />
+        {/* <LeftBar /> */}
         <Routes />
       </div>
       {/* <UserList /> */}

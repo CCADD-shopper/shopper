@@ -16,13 +16,15 @@ label {
 
 .cartItem {
   display: flex;
+  align-items: center;
   justify-content: space-around;
-  min-height: 75px;
+  min-height: 120px;
   max-height: 55px;
   margin: 15px 5px;
   padding: 7px;
   border: 3px solid teal;
 }
+
 .reviewList {
   display: flex;
   flex-direction: row;
@@ -117,16 +119,19 @@ form div {
 .productItem {
   flex: 1;
   min-width: 300px;
-  max-width: 420px;
+  /* max-width: 420px; */
   margin: 15px 5px;
   padding: 7px;
   border: 3px solid teal;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.cartItem {
+/* .cartItem {
   margin: 10px 0;
   border: 1px solid black;
-}
+} */
 
 .orderItem {
   margin: 10px 0;
@@ -139,6 +144,7 @@ form div {
 
 .cartItem img {
   width: 100px;
+  height: auto;
 }
 
 .userItem {
@@ -170,13 +176,16 @@ form div {
 
 /* //need to make generic list and item styles with uesr and product compliments!!! */
 
+.toFix {
+  position: fixed;
+}
+
 .leftBar {
-  border: 2px solid teal;
-  width: 150px;
+  /* border: 2px solid teal; */
+  width: 200px;
   height: 100%;
   flex: 1;
   padding: 10px;
-  /* display: flex; */
 }
 .single-category {
   font-size: 1.2em; 
@@ -185,7 +194,7 @@ form div {
   justify-content: row;
   padding-left: 8px;
   height:32px;
-  width: 100%;
+  width: 155%;
   border-bottom: 2px solid lightslategray;
   border-right: 2px solid lightslategray;
   padding-top: 6px;
@@ -200,13 +209,14 @@ form div {
 }
 
 .mainContent {
+  padding: 6px;
   flex: 7;
 }
 
 .checkout-form {
   display: flex;
   flex-direction: row;
-  border: 2px solid teal;
+  border: 3px solid teal;
   background-color: azure;
   justify-content: center;
 }
@@ -254,4 +264,11 @@ form div {
 .sub-total-cost {
   font-size: 2em;
   padding: 16px;
+}
+
+.starRating {
+  display: flex;
+  align-content: center;
+  flex-direction: column;
+  padding-bottom: 10px;
 }
