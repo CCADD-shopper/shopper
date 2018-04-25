@@ -105,7 +105,6 @@ async function seed() {
   for (let i = 0; i < numOfCategories; i++) {
     categories.push(
       Category.create({
-        id: i + 1,
         name: `${typesOfHats[i % numOfCategories].name}`,
       })
     )
