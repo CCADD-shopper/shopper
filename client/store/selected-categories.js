@@ -11,6 +11,13 @@ export const clearCategories = () => ({
   type: CLEAR_CATEGORIES
 })
 
+export const getCategoriesOfAProductThunkerator = (productId) => {
+  return async (dispatch) => {
+    const categories = await axios.get(`/api/categories/product-categories/${productId}`)
+    dispatch(getCategories(categories.data))
+  }
+}
+
 export default (prevState = [], action) => {
   switch (action.type) {
 

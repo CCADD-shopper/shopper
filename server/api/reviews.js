@@ -53,7 +53,7 @@ router.put('/:reviewId', async (req, res, next) => {
   }
 })
 
-router.get('/byProduct/:productId/', async (req, res, next) => {
+router.get('/byProduct/:productId', async (req, res, next) => {
   try {
     const productReviews = await Review.findAll({
       where: {
@@ -68,7 +68,7 @@ router.get('/byProduct/:productId/', async (req, res, next) => {
   }
 })
 
-router.get('/byUser/:userId/', async (req, res, next) => {
+router.get('/byUser/:userId', async (req, res, next) => {
   try {
     const userReviews = await Review.findAll({
       where: {

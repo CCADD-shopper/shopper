@@ -18,7 +18,11 @@ const ProductItem = (props) => {
       </Link>
       <p> ${price} - {qtyAvailable} on hand</p>
       <p>{description}</p>
-      <button className="positive small right floated ui button" onClick={ () => handleClick(props, {quantity, purchasePrice: price, orderId, productId: id})}>Add to cart</button>
+      {
+        props.adminActive
+          ? <Link to={`/admin/edit-product/${id}`}>Edit this product</Link>
+          : <button className="positive small right floated ui button" onClick={ () => handleClick(props, {quantity, purchasePrice: price, orderId, productId: id})}>Add to cart</button>
+      }
       <StarsReadOnly product={props.product} />
   </div>);
 }
@@ -57,6 +61,7 @@ export const handleClick = (props, newItem) => {
 
 const mapStateToProps = (state) => {
   return {
+    adminActive: state.adminActive,
     isLoggedIn: !!state.user.id,
     cart: state.cart,
     orderId: state.userCartOrderId

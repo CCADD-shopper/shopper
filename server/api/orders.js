@@ -1,5 +1,6 @@
 const router = require('express').Router()
 const {Order, LineItem, OrderDetails, User} = require('../db/models')
+const orderedEmail = require('../mailer')
 
 module.exports = router
 
@@ -19,6 +20,7 @@ router.param('orderId', async (req, res, next, orderId) => {
     next(err)
   }
 })
+
 
 router.get('/', (req, res, next) => {
   Order.findAll({
@@ -47,8 +49,8 @@ router.get('/user/:userId', async (req, res, next) => {
       orders = await Order.findAll({
         where: {
           userId: req.user.id,
-          include: [{ all: true }],
-        }
+        },
+        include: [{ all: true }],
       })
     }
     res.json(orders);
@@ -82,6 +84,8 @@ router.post('/new-order', (req, res, next) => {
 router.put('/:orderId', async (req, res, next) => {
   try {
     const updatedOrder = await req.order.update(req.body)
+    const targetUser = await User.findById(updatedOrder.userId)
+    orderedEmail(updatedOrder.status, targetUser.email);
     res.json(updatedOrder)
   }
   catch (err) {
@@ -197,4 +201,3 @@ router.delete('/:orderId', async (req, res, next) => {
     next(err)
   }
 })
-

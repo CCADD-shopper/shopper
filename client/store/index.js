@@ -13,6 +13,7 @@ import cart from './cart'
 import searchParam from './search-param'
 import reviews from './review'
 import userCartOrderId from './user-cart-order-id'
+import adminActive from './admin-active'
 
 const reducer = combineReducers({
   user,
@@ -25,7 +26,8 @@ const reducer = combineReducers({
   selectedCategories,
   searchParam,
   reviews,
-  userCartOrderId
+  userCartOrderId,
+  adminActive,
 })
 const middleware = composeWithDevTools(applyMiddleware(
   thunkMiddleware,
@@ -45,3 +47,4 @@ export * from './selected-categories'
 export * from './search-param'
 export * from './review'
 export * from './user-cart-order-id'
+export * from './admin-active'

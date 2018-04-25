@@ -2,6 +2,7 @@ import axios from 'axios';
 
 const GET_PRODUCTS_FROM_SERVER = 'GET_PRODUCTS_FROM_SERVER';
 const ADD_PRODUCT_FROM_SERVER = 'ADD_PRODUCT_FROM_SERVER';
+const UPDATE_PRODUCT_FROM_SERVER = 'UPDATE_PRODUCT_FROM_SERVER';
 
 export const getProductsFromServer = (products) => ({
   type: GET_PRODUCTS_FROM_SERVER,
@@ -9,6 +10,11 @@ export const getProductsFromServer = (products) => ({
 })
 
 export const addProductFromServer = (product) => ({
+  type: ADD_PRODUCT_FROM_SERVER,
+  product,
+})
+
+export const updateProductFromServer = (product) => ({
   type: ADD_PRODUCT_FROM_SERVER,
   product,
 })
@@ -38,6 +44,18 @@ export const addProductFromServerThunkerator = (product) => {
   }
 }
 
+export const updateProductFromServerThunkerator = (id, product) => {
+  return async (dispatch) => {
+    try {
+      const updatedProduct = await axios.put(`/api/products/${id}`, product);
+      dispatch(addProductFromServer(updatedProduct.data));
+    }
+    catch (err) {
+      console.log(err);
+    }
+  }
+}
+
 export default (prevState = [], action) => {
   switch (action.type) {
 
@@ -46,6 +64,12 @@ export default (prevState = [], action) => {
 
     case ADD_PRODUCT_FROM_SERVER:
       return [...prevState, action.product]
+
+    case UPDATE_PRODUCT_FROM_SERVER:
+      return prevState.map(product => {
+        if (product.id === action.product.id) return action.product
+        else return product
+      })
 
     default: return prevState;
   }
