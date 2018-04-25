@@ -19,7 +19,7 @@ const UserItem = (props) => {
 
   return (
     //need to update this once necessary
-    <div className="userItem">
+    <div className="cartItem">
       <img src="https://www.fillmurray.com/250/250" />
         <p>{email}</p>
         <p>{firstName}</p>

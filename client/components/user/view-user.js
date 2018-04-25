@@ -37,16 +37,16 @@ class UserView extends Component{
     <div>
       <div className="userView">
         <img src="https://www.fillmurray.com/300/300" />
-          <p>{email}</p>
-          <p>{firstName}</p>
-          <p>{lastName}</p>
-          <p>{externalInternal}</p>
-          <p>{adminType}</p>
+          <h2>{email}</h2>
+          <h3>{firstName}</h3>
+          <h3>{lastName}</h3>
+          <h3>{externalInternal}</h3>
+          <h3>{adminType}</h3>
           {this.props.isAdmin &&
           <div>
-            <button>TOGGLE ADMIN</button>
-            <button> EDIT USER </button>
-            <button> DELETE USER </button>
+            <button className="ui button blue">TOGGLE ADMIN</button>
+            <button className="ui button blue"> EDIT USER </button>
+            <button className="ui button red"> DELETE USER </button>
           </div>
           }
       </div>

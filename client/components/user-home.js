@@ -10,8 +10,11 @@ export const UserHome = (props) => {
 
   return (
     <div className="mainContent">
-      <h1>Welcome to TopShop {user.firstName}</h1>
-      <a href="/users/my-profile"><p>View my profile</p></a>
+      <div className="homeGreet">
+        <h1 className="homeItem ">Welcome to TopShop {user.firstName}</h1>
+        <a  className="homeItem" href="/products"><p>View Our Products</p></a>
+        <a  className="homeItem" href="/users/my-profile"><p>View My profile</p></a>
+      </div>
     </div>
   )
 }

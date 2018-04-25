@@ -128,6 +128,12 @@ form div {
   align-items: center;
 }
 
+.productItem:hover {
+  background-color: #ccdfff;
+  -webkit-transition: background-color 500ms linear;
+  -ms-transition: background-color 500ms linear;
+  transition: background-color 500ms linear;
+}
 /* .cartItem {
   margin: 10px 0;
   border: 1px solid black;
@@ -164,10 +170,26 @@ form div {
 /* //need to make generic list and item styles with user and product compliments!!! */
 
 .userView {
-  margin: 10px 0;
-  border: 1px solid black;
+  margin: 15px 5px;
+  padding: 7px;
+  border: 3px solid teal;
   width: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex-direction: column;
 }
+
+/* .cartItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  min-height: 120px;
+  max-height: 55px;
+  margin: 15px 5px;
+  padding: 7px;
+  border: 3px solid teal;
+} */
 
 .orderList {
   display: flex;
@@ -187,6 +209,7 @@ form div {
   flex: 1;
   padding: 10px;
 }
+
 .single-category {
   font-size: 1.2em; 
   background-color: lightcyan;
@@ -200,8 +223,26 @@ form div {
   padding-top: 6px;
 }
 
+.single-category:hover {
+  background-color: teal;
+  color: white;
+  -webkit-transition: background-color 500ms linear;
+  -ms-transition: background-color 500ms linear;
+  transition: background-color 500ms linear;
+}
+
 .check-label {
   margin-left: 16px;
+}
+
+.homeGreet {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.homeItem {
+  padding-bottom: 26px; 
 }
 
 .contentWrapper {
@@ -249,7 +290,7 @@ form div {
 .sub-total-parent {
   display: flex;
   flex-direction: row;
-  justify-content: flex-start;
+  justify-content: space-between;
   min-height: 75px;
   max-height: 55px;
   margin: 15px 5px;
