@@ -336,3 +336,8 @@ form div {
   flex-direction: column;
   padding-bottom: 10px;
 }
+  
+.orderList {
+  display: flex;
+  flex-direction: column;
+ }
