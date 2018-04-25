@@ -30,7 +30,6 @@ class Routes extends Component {
   componentDidMount() {
     this.props.loadInitialData()
     store.dispatch(getProductsFromServerThunkerator())
-    store.dispatch(getReviewsFromServerThunkerator())
     this.handleLocalStorage()
   }
 

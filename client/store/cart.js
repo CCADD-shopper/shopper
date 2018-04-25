@@ -101,7 +101,6 @@ export const getAllItemsThunkerator = (id) => {
 export const addLineItemThunkerator = (item) => {
   return async (dispatch) => {
     try {
-      console.log('it', item)
       const newItem = await axios.put(`/api/orders/item/add`, item)
       dispatch(addLineItem(newItem.data))
     }

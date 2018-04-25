@@ -21,6 +21,7 @@ class AddProduct extends React.Component {
       imgUrl: '',
       categories: props.selectedCategories,
       editing: false,
+      errors: [],
     }
   }
 
@@ -52,16 +53,37 @@ class AddProduct extends React.Component {
     })
   }
 
+  handleSubmit = async (event) => {
+    event.preventDefault()
+    if (!this.state.categories.length) return this.setState({ errors: ['A category must be chosen'] })
+    const product = {
+      name: event.target.productName.value,
+      price: event.target.price.value,
+      qtyAvailable: event.target.qtyAvailable.value,
+      description: event.target.description.value,
+      imgUrl: event.target.imgUrl.value,
+      categories: this.state.categories,
+    }
+    if (this.props.match.params.productId) {
+      await store.dispatch(updateProductFromServerThunkerator(this.props.match.params.productId, product))
+      this.props.history.push('/admin')
+    }
+    else {
+      await store.dispatch(addProductFromServerThunkerator(product))
+      this.props.history.push('/admin')
+    }
+  }
+
   render() {
     let { productName, price, qtyAvailable, description, imgUrl } = this.state
     return (
-      <form onChange={this.props.handleChange} onSubmit={this.props.handleSubmit} >
+      <form onChange={this.props.handleChange} onSubmit={this.handleSubmit} >
         <label>Product Name: </label><input onChange={this.handleChange} name="productName" placeholder="Enter product name" value={productName} />
         <label>Price: </label><input onChange={this.handleChange} name="price" placeholder="Enter product price" value={price} />
         <label>Initial Qty Available: </label><input onChange={this.handleChange} name="qtyAvailable" placeholder="Enter qty available" value={qtyAvailable} />
         <label>Image Url: </label><input onChange={this.handleChange} name="imgUrl" placeholder="Enter image url" value={imgUrl} />
         <label>Category: </label>
-        <CategorySelector />
+        <CategorySelector admin={true} />
         <label>Description: </label>
         <textarea
           name="description"
@@ -77,6 +99,9 @@ class AddProduct extends React.Component {
             ? <button >Edit Product</button>
             : <button >Add Product</button>
         }
+        {
+          this.state.errors.map(error => <p key={100 + Math.random() * 100} >** {error} **</p>)
+        }
       </form>
     )
   }
@@ -84,28 +109,6 @@ class AddProduct extends React.Component {
 
 const mapStateToProps = ({ allCategories, selectedCategories, selectedProduct }) => ({ allCategories, selectedCategories, selectedProduct })
 
-const mapDispatchToProps = (dispatch, ownProps) => {
-  return {
-    handleSubmit: async (event) => {
-      event.preventDefault()
-      const product = {
-        name: event.target.productName.value,
-        price: event.target.price.value,
-        qtyAvailable: event.target.qtyAvailable.value,
-        description: event.target.description.value,
-        imgUrl: event.target.imgUrl.value,
-        categories: ownProps.categories,
-      }
-      if (ownProps.match.params.productId) {
-        await dispatch(updateProductFromServerThunkerator(ownProps.match.params.productId, product))
-        ownProps.history.push('/admin')
-      }
-      else {
-        await dispatch(addProductFromServerThunkerator(product))
-        ownProps.history.push('/admin')
-      }
-    }
-  }
-}
+const mapDispatchToProps = (dispatch, ownProps) => null
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(AddProduct))
