@@ -98,6 +98,7 @@ export const editPasswordThunkerator = (id, obj) => {
   return async () => {
     try {
       const answer = await axios.put(`/api/users/${id}/update-password`, obj)
+
       return answer.data
     }
     catch (err) {
@@ -105,6 +106,20 @@ export const editPasswordThunkerator = (id, obj) => {
     }
   }
 }
+
+export const triggerPasswordResetThunkerator = (id) => {
+  return async (dispatch) => {
+    try {
+      const answer = await axios.put(`/api/users/${id}/toggle-change-password`)
+      dispatch(updateUserFromServer(answer.data))
+    }
+    catch (err) {
+      console.log(err)
+    }
+  }
+}
+
+
 
 /**
  * REDUCER
