@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom'
 const OrderDetail = (props) => {
   return (
     <div>
-    <button className="ui violet button"s onClick={props.handleClick}>Collapse Details</button>
+    <span onClick={props.handleClick}>Collapse Details</span>
       {
         props.products.map(product => {
           let lineItem = props.lineItems.filter(item => item.productId === product.id)
