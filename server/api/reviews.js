@@ -61,7 +61,6 @@ router.get('/byProduct/:productId', async (req, res, next) => {
       },
       include: [{ model: User }],
     })
-    console.log(productReviews)
     res.json(productReviews)
   }
   catch (err) {
