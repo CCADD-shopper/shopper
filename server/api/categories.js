@@ -46,7 +46,6 @@ router.put('/:categoryId', async (req, res, next) => {
     res.json(updatedCategory[1][0])
   }
   catch (err) {
-    console.log('hi')
     next(err)
   }
 })

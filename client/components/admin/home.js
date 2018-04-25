@@ -39,17 +39,26 @@ class AdminHome extends React.Component {
           <NavLink to="/admin/user-list">User List</NavLink>
           <NavLink to="/admin/order-list">Order List</NavLink>
           <NavLink to="/admin/categories">Categories</NavLink>
+        </div>
 
+          <div className="subadmin">
           <h1>I am the admin page</h1>
           <Switch>
-            <Route exact path="/admin/edit-product/:productId" render={() => <AddProduct categories={this.props.selectedCategories} />} />
+          {
+            this.props.user.isAdmin
+              ? <div>
+              <Route exact path="/admin/edit-product/:productId" render={() => <AddProduct categories={this.props.selectedCategories} />} />
             <Route exact path="/admin/add-product" render={() => <AddProduct categories={this.props.selectedCategories} />} />
             <Route exact path="/admin/product-list" component={ProductList} />
             <Route exact path="/admin/user-list" component={UserList} />
             <Route exact path="/admin/order-list" component={OrderList} />
             <Route exact path="/admin/categories" component={Categories} />
+            </div>
+            : <Redirect to="/products" />
+          }
+            
           </Switch>
-        </div>
+          </div>
       </div>
     )
   }
