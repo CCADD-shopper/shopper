@@ -44,6 +44,8 @@ class OrderItem extends React.Component {
     const {account} = this.props
     return (
       <div className="orderItem">
+        <h3>Order #{id}</h3>
+        {account ? <h3>Status: {status}</h3>
         <h5>Order #{id} - {updatedAt.slice(0, 10)}</h5>
         {account ? <p>Status: {status}</p>
 
@@ -58,7 +60,7 @@ class OrderItem extends React.Component {
           </div>}
         {
           this.state.submitButtonVisible
-            ? <button onClick={this.handleOrderEdit}>Update Order Status</button>
+            ? <button class="ui green button" onClick={this.handleOrderEdit}>Update Order Status</button>
             : ''
         }
         <div>Total: {this.calculateTotal()}</div>
@@ -67,7 +69,7 @@ class OrderItem extends React.Component {
             ?
             <OrderDetail handleClick={this.handleClick} products={products} lineItems={lineItems} />
             :
-            <div onClick={this.handleClick}>View Order Details</div>
+            <div className="ui violet button" onClick={this.handleClick}>View Order Details</div>
         }
       </div>
     );

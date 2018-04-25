@@ -26,10 +26,12 @@ const UserItem = (props) => {
         <p>{lastName}</p>
         <p>{externalInternal}</p>
         <p>{adminType}</p>
+
         <button className="ui button blue" onClick={props.handleAdminToggle} >TOGGLE ADMIN</button>
-        <button className="ui button blue" > EDIT USER </button>
+        <button className="ui button green" > EDIT USER </button>
         <button className="ui button red"  onClick={props.handleDeleteUser} > DELETE USER </button>
         <button className="ui button red"  value={id} disabled={changePasswordFlag} onClick={props.triggerPassReset} > TRIGGER PASSWORD RESET </button>
+    
     </div>
   );
 }

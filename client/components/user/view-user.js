@@ -35,11 +35,10 @@ class UserView extends Component{
   return (
     //need to update this once necessary
     <div>
-      <div className="userView">
+      <div className="userview">
         <img src="https://www.fillmurray.com/300/300" />
           <h2>{email}</h2>
-          <h3>{firstName}</h3>
-          <h3>{lastName}</h3>
+          <h2>{firstName} {lastName}</h2>
           <h3>{externalInternal}</h3>
           <h3>{adminType}</h3>
           {this.props.isAdmin &&
@@ -52,8 +51,8 @@ class UserView extends Component{
       </div>
       <br />
       <br />
-      <div>
-        <h3>Previous Orders</h3>
+      <div className="prevorders">
+        <h2>Previous Orders</h2>
         <OrderList account={true} />
       </div>
   </div>
