@@ -9,7 +9,6 @@ const OrderDetail = (props) => {
         props.products.map(product => {
           let lineItem = props.lineItems.filter(item => item.productId === product.id)
           lineItem = lineItem[0]
-          console.log(lineItem)
         return (
           <div key={product.id}>
             <br />
