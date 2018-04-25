@@ -6,6 +6,7 @@ const GET_REVIEWS_FROM_SERVER   = 'GET_REVIEWS_FROM_SERVER';
 const ADD_REVIEW           = 'ADD_REVIEW';
 const REMOVE_REVIEW        = 'REMOVE_REVIEW';
 const UPDATE_REVIEW        = 'UPDATE_REVIEW';
+const CLEAR_REVIEWS        = 'CLEAR_REVIEWS';
 
 /* ------------     ACTION CREATORS      ------------------ */
 
@@ -13,6 +14,7 @@ const getReviewsFromServer   = reviews => ({ type: GET_REVIEWS_FROM_SERVER, revi
 const removeReview  = id => ({ type: REMOVE_REVIEW, id });
 const addReview     = review => ({ type: ADD_REVIEW, review });
 const updateReview  = review => ({ type: UPDATE_REVIEW, review });
+export const clearReviews  = () => ({ type: CLEAR_REVIEWS });
 
 /* ------------          REDUCER        ------------------ */
 
@@ -32,6 +34,9 @@ export default function reducer (reviews = [], action) {
       return reviews.map(review => (
         action.review.id === review.id ? action.review : review
       ));
+
+    case CLEAR_REVIEWS:
+      return []
 
     default:
       return reviews;
