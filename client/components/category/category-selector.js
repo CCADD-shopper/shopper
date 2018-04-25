@@ -17,6 +17,10 @@ class CategorySelector extends React.Component {
   }
   render() {
     const { allCategories, selectedCategories } = this.props;
+    // let selectedCategoryValues;
+    // if (selectedCategories.length) {
+    //   selectedCategoryValues = selectedCategories.map(catId => allCategories[catId].name);
+    // }
 
     return (
       <div>
