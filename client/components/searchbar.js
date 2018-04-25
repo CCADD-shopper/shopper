@@ -3,12 +3,10 @@ import { connect } from 'react-redux'
 import { changeSearchParam, clearSearchParam } from '../store'
 
 const SearchBar = (props) => (
-  <div className="ui center aligned basic segment">
-    <div className="ui left icon action input">
-      <i className="search icon" />
-        <div className="searchBar">
-          <input onChange={props.handleChange} placeholder={`      Search for ${props.placeholder}`} value={props.searchParam} />
-        </div>
+  <div className="ui center aligned basic segment topShopSearchBar">
+    <div className="ui left icon action input tsSearchWrapper">
+        <i className="search icon" />
+        <input onChange={props.handleChange} placeholder={`Search for ${props.placeholder}`} value={props.searchParam} />
       <div className="ui blue submit button">Search</div>
     </div>
   </div>

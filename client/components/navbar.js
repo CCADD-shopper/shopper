@@ -15,12 +15,10 @@ const Navbar = ({ handleClick, isLoggedIn, cartCount }) => (
       <div className="allProds">
         <Link to="/products">All Products</Link>
       </div>
-      <div className="searchBar">
-        <SearchBar />
-      </div>
 
 
     <nav className="navLinks">
+    <SearchBar />
       {isLoggedIn ? (
         <div>
           {/* The navbar will show these links after you log in */}

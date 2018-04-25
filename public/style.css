@@ -37,10 +37,24 @@ label {
 
 .navLinks {
   margin-left: auto;
+  display: flex;
+  flex-direction: row;
+  flex-grow: 1;
 }
 
-.searchBar {
-  flex-grow: auto;
+.topShopSearchBar {
+  flex-grow: 1;
+  display: flex;
+  margin: 0;
+}
+
+.tsSearchWrapper {
+  flex-grow: 1;
+  display: flex;
+}
+
+.ui.segment {
+  margin: 0;
 }
 
 .navBar {
