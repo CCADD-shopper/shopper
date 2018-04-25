@@ -35,25 +35,24 @@ class UserView extends Component{
   return (
     //need to update this once necessary
     <div>
-      <div className="userView">
+      <div className="userview">
         <img src="https://www.fillmurray.com/300/300" />
-          <p>{email}</p>
-          <p>{firstName}</p>
-          <p>{lastName}</p>
+          <h1>{firstName} {lastName}</h1>
+          <h2>{email}</h2>
           <p>{externalInternal}</p>
           <p>{adminType}</p>
           {this.props.isAdmin &&
           <div>
-            <button>TOGGLE ADMIN</button>
-            <button> EDIT USER </button>
-            <button> DELETE USER </button>
+            <button className="ui blue button">TOGGLE ADMIN</button>
+            <button className="ui green button"> EDIT USER </button>
+            <button className="ui red button"> DELETE USER </button>
           </div>
           }
       </div>
       <br />
       <br />
-      <div>
-        <h3>Previous Orders</h3>
+      <div className="prevorders">
+        <h2>Previous Orders</h2>
         <OrderList account={true} />
       </div>
   </div>

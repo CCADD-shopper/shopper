@@ -3,7 +3,7 @@ import React from 'react'
 const OrderDetail = (props) => {
   return (
     <div>
-    <span onClick={props.handleClick}>Collapse Details</span>
+    <button className="ui violet button"s onClick={props.handleClick}>Collapse Details</button>
       {
         props.products.map(product => <p key={product.id} >{product.id}</p>)
       }

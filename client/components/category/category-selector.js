@@ -17,17 +17,15 @@ class CategorySelector extends React.Component {
   }
   render () {
     const { allCategories, selectedCategories } = this.props;
-    // let selectedCategoryValues;
-    // if (selectedCategories.length) {
-    //   selectedCategoryValues = selectedCategories.map(catId => allCategories[catId].name);
-    // }
 
     return (
-        <CheckboxGroup checkboxDepth={2} name="categories" onChange={this.props.handleCategoryChange} >
-          {
-            allCategories.map(category => <label key={category.id}><Checkbox value={category.id} />{category.name}</label>)
-          }
-        </CheckboxGroup>
+      <div className="innerSidebar">
+          <CheckboxGroup checkboxDepth={2} name="categories" onChange={this.props.handleCategoryChange} >
+            {
+              allCategories.map(category => <label key={category.id}><Checkbox value={category.id} />{category.name}</label>)
+            }
+          </CheckboxGroup>
+        </div>
     );
   }
 }

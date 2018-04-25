@@ -11,7 +11,14 @@ label {
 }
 
 .sidebar {
-  border-right: white;
+  border: white;
+  background-color: #696969;
+}
+
+.innerSidebar {
+  border-top: 5px solid #4083c4;
+  color: white;
+  font-size: x-large;
 }
 
 .cartItem {
@@ -59,7 +66,7 @@ nav a {
 }
 
 .logo img {
-  width: 100px;
+  width: 170px;
   margin: 15px;
 }
 
@@ -94,7 +101,7 @@ h1 {
 }
 
 h3 {
-  font-size: 1em;
+  font-size: 1.4987394872em;
   margin: 10px;
 }
 
@@ -120,7 +127,7 @@ form div {
   max-width: 420px;
   margin: 15px 5px;
   padding: 7px;
-  border: 3px solid teal;
+  border: 3px solid #4083c4;
 }
 
 .cartItem {
@@ -130,7 +137,7 @@ form div {
 
 .orderItem {
   margin: 10px 0;
-  border: 1px solid black;
+  border: 3px solid #4083c4;
 }
 
 .productItem img {
@@ -143,7 +150,7 @@ form div {
 
 .userItem {
   margin: 10px 0;
-  border: 1px solid black;
+  border: 3px solid #4083c4;
 }
 
 .userItem img {
@@ -157,22 +164,22 @@ form div {
 
 /* //need to make generic list and item styles with user and product compliments!!! */
 
-.userView {
-  margin: 10px 0;
-  border: 1px solid black;
-  width: auto;
+.userview {
+  border: 4px solid #4083c4;
+}
+
+.prevorders {
+  font-size: larger:
 }
 
 .orderList {
-  display: flex;
-  flex-direction: column;
+
 }
 
 /* //need to make generic list and item styles with uesr and product compliments!!! */
 
 .leftBar {
-  border: 2px solid teal;
-  width: 150px;
+  width: 130px;
   height: 100%;
   flex: 1;
 }

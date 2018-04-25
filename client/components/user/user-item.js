@@ -19,16 +19,16 @@ const UserItem = (props) => {
 
   return (
     //need to update this once necessary
-    <div className="userItem">
+    <div className="ui card">
       <img src="https://www.fillmurray.com/250/250" />
         <p>{email}</p>
         <p>{firstName}</p>
         <p>{lastName}</p>
         <p>{externalInternal}</p>
         <p>{adminType}</p>
-        <button onClick={props.handleAdminToggle} >TOGGLE ADMIN</button>
-        <button> EDIT USER </button>
-        <button onClick={props.handleDeleteUser} > DELETE USER </button>
+        <button className="ui blue button" onClick={props.handleAdminToggle} >TOGGLE ADMIN</button>
+        <button className="ui green button"> EDIT USER </button>
+        <button className="ui red button" onClick={props.handleDeleteUser} > DELETE USER </button>
     </div>
   );
 }

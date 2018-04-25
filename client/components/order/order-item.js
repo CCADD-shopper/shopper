@@ -34,8 +34,8 @@ class OrderItem extends React.Component {
     const {account} = this.props
     return (
       <div className="orderItem">
-        <h5>Order #{id}</h5>
-        {account ? <p>Status: {status}</p>
+        <h3>Order #{id}</h3>
+        {account ? <h3>Status: {status}</h3>
 
         : <div>
             <label>Status: </label>
@@ -45,10 +45,10 @@ class OrderItem extends React.Component {
           }
             </select>
           </div>}
-        <p>User: {userId}</p>
+
         {
           this.state.submitButtonVisible
-            ? <button onClick={this.handleOrderEdit}>Update Order Status</button>
+            ? <button class="ui green button" onClick={this.handleOrderEdit}>Update Order Status</button>
             : ''
         }
         {
@@ -56,7 +56,7 @@ class OrderItem extends React.Component {
             ?
             <OrderDetail handleClick={this.handleClick} products={products} />
             :
-            <div onClick={this.handleClick}>View Order Details</div>
+            <div className="ui violet button" onClick={this.handleClick}>View Order Details</div>
         }
       </div>
     );
