@@ -25,7 +25,8 @@ class CategorySelector extends React.Component {
     return (
         <CheckboxGroup checkboxDepth={2} name="categories" onChange={this.props.handleCategoryChange} >
           {
-            allCategories.map(category => <label key={category.id}><Checkbox value={category.id} />{category.name}</label>)
+            allCategories.map(category => <div key={category.id} className="single-category"><Checkbox  className="check" value={category.id} /><label className="check-label" >{category.name}</label></div>)
+            // allCategories.map(category => <div key={category.id} onSelect={this.props.handleCategoryChange} className="single-category"><input type="checkbox"  className="regular-checkbox" value={category.id} /><label className="check-label" >{category.name}</label></div>)
           }
         </CheckboxGroup>
     );

@@ -175,6 +175,24 @@ form div {
   width: 150px;
   height: 100%;
   flex: 1;
+  padding: 10px;
+  /* display: flex; */
+}
+.single-category {
+  font-size: 1.2em; 
+  background-color: lightcyan;
+  display: flex;
+  justify-content: row;
+  padding-left: 8px;
+  height:32px;
+  width: 100%;
+  border-bottom: 2px solid lightslategray;
+  border-right: 2px solid lightslategray;
+  padding-top: 6px;
+}
+
+.check-label {
+  margin-left: 16px;
 }
 
 .contentWrapper {
