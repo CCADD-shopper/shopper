@@ -5,7 +5,7 @@ const db = require('../index')
 const Order = db.model('order')
 const OrderDetails = db.model('orderDetails')
 
-describe.only('Order Details model', () => {
+describe('Order Details model', () => {
   beforeEach(() => {
     return db.sync({force: true})
   })
@@ -17,7 +17,6 @@ describe.only('Order Details model', () => {
           status: 'pending'
         })
           .then(result => {
-              console.log(result);
             order = result
           })
           .catch(err => {
