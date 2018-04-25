@@ -34,6 +34,7 @@ class AddProduct extends React.Component {
   }
 
   handleChange = (event) => {
+    if (this.props.selectedCategories.length) this.setState({errors: []})
     this.setState({ dirty: true })
     const name = event.target.name;
     const value = event.target.value;
@@ -55,7 +56,8 @@ class AddProduct extends React.Component {
 
   handleSubmit = async (event) => {
     event.preventDefault()
-    if (!this.state.categories.length) return this.setState({ errors: ['A category must be chosen'] })
+    if (!this.props.selectedCategories.length) return this.setState({ errors: ['A category must be chosen'] })
+    else this.setState({errors: []})
     const product = {
       name: event.target.productName.value,
       price: event.target.price.value,
