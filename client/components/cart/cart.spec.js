@@ -11,7 +11,7 @@ import store from '../../store'
 const adapter = new Adapter()
 enzyme.configure({adapter})
 
-describe.skip('Cart', () => {
+describe('Cart', () => {
   let cart
   beforeEach(() => {
     cart = render(
